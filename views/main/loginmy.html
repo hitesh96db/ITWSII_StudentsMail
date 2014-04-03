@@ -35,7 +35,7 @@
 	</div>
 
 	<script>
-		var ip = "127.0.0.1";
+		var ip = "10.3.8.158";
 		var port = "8010";
 		function checkforlogout()
 		{
@@ -80,7 +80,7 @@
 							if( x.readyState == 4 && x.status == 200 )
 							{
 								if ( x.responseText == "proceed" )
-									window.location.href = "https://127.0.0.1:8010/itproject/main/mails";
+									window.location.href = "https://"+ip+":"+port+"/itproject/main/mails";
 							}
 						}
 //						window.location.href="http://127.0.0.1:8010/itproject/main/mails?name="+info["name"]
