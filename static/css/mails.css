@@ -57,7 +57,7 @@ background-color: #CCCCCC;
  {
  	margin-left:850px;
  	margin-top:8px;
- 	width:40%;
+ 	width:36%;
  	position:absolute;
 	left: -12%;
 	
@@ -122,7 +122,28 @@ border-bottom: 15px solid rgba(0, 0, 0, 0);
     top: 17.4%;
     width: 101.5%;
 }
-
+#close
+{
+	left: 90.5%;
+    position: fixed;
+    top: 39%;
+}
+#attach
+{
+	left: 19.8%;
+    position: absolute;
+    top: 25%;
+    color:black;
+}
+#attachp
+{
+	color: #000000;
+    font-family: Ubuntu Mono;
+    font-size: 17px;
+    left: 6%;
+    position: absolute;
+    top: 23.3%;
+}
 .tags
 {
 	border-left-color: #336699;
@@ -373,7 +394,7 @@ left: 0;
     height: 60px;
     left: 87%;
     position: fixed;
-    top: 40%;
+    top: 49%;
     color:white;
     width: 60px;
     z-index: 1000;
@@ -482,7 +503,7 @@ left: 0;
 {
     left: 6%;
     position: absolute;
-    top: 31%;
+    top: 33%;
     border-color:white;
     border-style:solid;
 
@@ -497,6 +518,6 @@ left: 0;
 	color: #000000;
     left: 6%;
     position: absolute;
-    top: 24%;
+    top: 26%;
 }
 

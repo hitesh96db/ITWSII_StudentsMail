@@ -8,10 +8,10 @@
 		<div id="header">
 			<p id="title">Students Mail</p>
 			<div id="mail"><img id="mailimg" src="{{=URL('static','images/mail.png')}}" width="80px" height="80px"></img></div>
-			<span id="user"></span>
+			<span id="user">{{=session["name"]}}</span>
 			<div id="tg"></div>
 			<p id="logout" onclick="logout()"> Logout </p>
-			<p id="idofuser" style="display:none;"></p>
+			<p id="idofuser" style="display:none;">{{=session["email"]}}</p>
 		</div>
 		<ul id="tabs">
 			<li class="tags"><a class="top" href="#1">Academics</a><div id="c1"><p class="content">12</p></div></li>
@@ -53,11 +53,10 @@
 			</div>
 			<div id="allmails">
 				<div id="composer">
-					<img id="close" src="{{=URL('static','images/close.png')}}" width="50px" height="50px"></img>
+					<img id="close" src="{{=URL('static','images/close.png')}}" width="20px" height="20px"></img>
 					<div id="sender">
 						<p> Send </p>
 					</div>
-					<img id="attach" src="{{=URL('static','images/clip.png')}}" width="50px" height="50px"></img>
 					<form>	
 						<p id="recvrp" class="formhead">To</p>
 						<input id="recvr" type="name" name="recvr" ></input>
@@ -67,6 +66,8 @@
 						<input id="sub" type="name" name="sub"></input>
 						<p id="msgp" class="formhead">Message</p>
 						<textarea id="msg" name="msg" cols="106" rows="20" ></textarea>
+						<p id="attachp" >Attachments</p>
+						<input id="attach" type="file"></input>
 					</form>
 				</div>
 			</div>
@@ -83,9 +84,11 @@
         
                                 xhr.onreadystatechange = function(){
                                         if( xhr.readyState == 4 && xhr.status == 200 )
-                                        {                var l = jQuery.parseJSON(xhr.responseText);
-							 document.getElementById("user").innerHTML = l["name"];	
-							 document.getElementById("idofuser").innerHTML = l["email"];
+                                        {                
+						   //      var l = jQuery.parseJSON(xhr.responseText);
+						//	 document.getElementById("user").innerHTML = l["name"];	
+						//	 document.getElementById("idofuser").innerHTML = l["email"];
+							var k = xhr.responseText;
 					}
                                 
 				}

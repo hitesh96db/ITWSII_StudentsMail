@@ -78,26 +78,19 @@ def loginmy():
 	return dict(log=0)
 
 def passthru():
-#	db = DAL("sqlite://storage.sqlite")
-#	db.define_table("login",Field("Name","string"))
-	db.templogin.truncate()
-	db.templogin.insert(Name=request.vars["name"],Email=request.vars["email"])
+	session.secure()
+	session["name"] = request.vars["name"]
+	session["email"] = request.vars["email"]
 	return "proceed"
 
 def getuser():
 
-	import json
-#	db = DAL("sqlite://storage.sqlite")
-#	db.define_table("login",Field("Name","string"))
-	r = db( db.templogin.id == 1 ).select( db.templogin.Name , db.templogin.Email)
-	j = {}
-	name = j["name"] = r[0].Name
-	email = j["email"] = r[0].Email
+	name = session["name"]
+	email = session["email"]
 	c = db( db.student.email_id == email ).select()
 	if len(c) == 0:
 		db.student.insert(email_id = email , name = name )
-	jj = json.dumps(j)
-	return jj
+	return "Added to Database!"
 
 def mails():	
 	return dict()

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/auth016.js" type="text/javascript"></script><link media="all" href="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/widget119.css" type="text/css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="Description" content="Technology, Life and UI">
+<title>How does a web session work ? | Machines are digging</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="shortcut icon" href="http://machinesaredigging.com/blog-mad/wp-content/themes/machinesaredigging/favicon">
+<link href="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/css.css" rel="stylesheet" type="text/css">
+<link href="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/css_002.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" media="all" href="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/font-awesome.css">
+<link rel="stylesheet" type="text/css" media="all" href="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/style.css">
+<link rel="stylesheet" type="text/css" media="all" href="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/machinesaredigging.css">
+<link rel="pingback" href="http://machinesaredigging.com/blog-mad/xmlrpc.php">
+                        <style type="text/css" media="screen">
+                                .socialwrap li.icon_text a img, .socialwrap li.iconOnly a img, .followwrap li.icon_text a img, .followwrap li.iconOnly a img{border-width:0 !important;background-color:none;}#follow.right {width:40px;position:fixed; right:0; top:10px;background-color:#878787;padding:10px 0;font-family:impact,charcoal,arial, helvetica,sans-serif;-moz-border-radius-topleft: 5px;-webkit-border-top-left-radius:5px;-moz-border-radius-bottomleft:5px;-webkit-border-bottom-left-radius:5px;border:2px solid #fff;border-right-width:0}#follow.right ul {padding:0; margin:0; list-style-type:none !important;font-size:24px;color:black;}
+#follow.right ul li {padding-bottom:10px;list-style-type:none !important;padding-left:4px;padding-right:4px}
+#follow img{border:none;}#follow.right ul li.follow {margin:0 4px;}
+#follow.right ul li.follow img {border-width:0;display:block;overflow:hidden; background:transparent url(http://machinesaredigging.com/blog-mad/wp-content/plugins/share-and-follow/images/impact/follow-right.png) no-repeat -0px 0px;height:79px;width:20px;}
+#follow.right ul li a {display:block;}
+#follow.right ul li.follow span, #follow ul li a span {display:none}.share {margin:0 3px 3px 0;}
+.phat span {display:inline;}
+ul.row li {float:left;list-style-type:none;}
+li.iconOnly a span.head {display:none}
+#follow.left ul.size16 li.follow{margin:0px auto !important}
+li.icon_text a {padding-left:0;margin-right:3px}
+li.text_only a {background-image:none !important;padding-left:0;}
+li.text_only a img {display:none;}
+li.icon_text a span{background-image:none !important;padding-left:0 !important; }
+li.iconOnly a span.head {display:none}
+ul.socialwrap li {margin:0 3px 3px 0 !important;}
+ul.socialwrap li a {text-decoration:none;}ul.row li {float:left;line-height:auto !important;}
+ul.row li a img {padding:0}.size16 li a,.size24 li a,.size32 li a, .size48 li a, .size60 li a {display:block}ul.socialwrap {list-style-type:none !important;margin:0; padding:0;text-indent:0 !important;}
+ul.socialwrap li {list-style-type:none !important;background-image:none;padding:0;list-style-image:none !important;}
+ul.followwrap {list-style-type:none !important;margin:0; padding:0}
+ul.followwrap li {margin-right:3px;margin-bottom:3px;list-style-type:none !important;}
+#follow.right ul.followwrap li, #follow.left ul.followwrap li {margin-right:0px;margin-bottom:0px;}
+.shareinpost {clear:both;padding-top:0px}.shareinpost ul.socialwrap {list-style-type:none !important;margin:0 !important; padding:0 !important}
+.shareinpost ul.socialwrap li {padding-left:0 !important;background-image:none !important;margin-left:0 !important;list-style-type:none !important;text-indent:0 !important}
+.socialwrap li.icon_text a img, .socialwrap li.iconOnly a img{border-width:0}ul.followrap li {list-style-type:none;list-style-image:none !important;}
+div.clean {clear:left;}
+div.display_none {display:none;}
+#follow.right{
+background: none;
+-moz-box-shadow: -5px 0px 5px #ddd;
+-webkit-box-shadow: -5px -5px 5px #ddd;
+box-shadow: -5px -5px 5px #ddd;
+border-bottom:1px solid #ddd;
+}
+
+#follow.right ul li.follow {
+display:none;
+}
+
+#follow ul li:last-child{
+padding-bottom:0;
+}
+
+.iconOnly a:hover img{
+background:url(../default/16/sprite-16-color.png) no-repeat;
+}                        </style>
+                                                <style type="text/css" media="print">
+                                body {background: white;font-size: 12pt;color:black;}
+ * {background-image:none;}
+ #wrapper, #content {width: auto;margin: 0 5%;padding: 0;border: 0;float: none !important;color: black;background: transparent none;}
+ a { text-decoration : underline; color : #0000ff; }
+#menu, #navigation, #navi, .menu {display:none}
+                        </style>
+                        <link rel="image_src" href="http://www.gravatar.com/avatar/6ca2e2db0ebc7dc15dfa45ec3ce1ae39?default=&amp;size=110.jpg"> 
+<link rel="alternate" type="application/rss+xml" title="Machines are digging » Feed" href="http://machinesaredigging.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Machines are digging » Comments Feed" href="http://machinesaredigging.com/comments/feed/">
+
+			<script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/client.js" async="" type="text/javascript" id="LR1"></script><script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/a_003.html" async=""></script><script async="" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/cbgapi.loaded_1"></script><script async="" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/cbgapi.loaded_0"></script><script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/hn.js"></script><script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/widgets.js" async="" type="text/javascript"></script><script gapi_processed="true" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/plusone.js" async="" type="text/javascript"></script><script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/widgets_002.js" id="twitter-wjs"></script><script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">//<![CDATA[
+			// Google Analytics for WordPress by Yoast v4.2.8 | http://yoast.com/wordpress/google-analytics/
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-21073659-1']);
+							_gaq.push(['_trackPageview']);
+			(function () {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+			//]]></script>
+			<link rel="alternate" type="application/rss+xml" title="Machines are digging » How does a web session work ? Comments Feed" href="http://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/feed/">
+<link rel="stylesheet" id="wordpress-popular-posts-css" href="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/wpp.css" type="text/css" media="all">
+<script type="text/javascript" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/jquery.js"></script>
+<script type="text/javascript" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/comment-reply.js"></script>
+<script type="text/javascript" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/jwplayer.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://machinesaredigging.com/blog-mad/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://machinesaredigging.com/blog-mad/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="@deezer" href="http://machinesaredigging.com/2013/09/11/deezer/">
+<link rel="next" title="Rings, bells and victory" href="http://machinesaredigging.com/2013/10/30/rings-bells-and-victory/">
+<meta name="generator" content="WordPress 3.4.1">
+<link rel="canonical" href="http://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/">
+<link rel="shortlink" href="http://machinesaredigging.com/?p=3020">
+<script type="text/javascript" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/swfobject.js"></script>
+<script type="text/javascript">jwplayer.defaults = { "ph": 2 };</script>
+            <script type="text/javascript">
+            if (typeof(jwp6AddLoadEvent) == 'undefined') {
+                function jwp6AddLoadEvent(func) {
+                    var oldonload = window.onload;
+                    if (typeof window.onload != 'function') {
+                        window.onload = func;
+                    } else {
+                        window.onload = function() {
+                            if (oldonload) {
+                                oldonload();
+                            }
+                            func();
+                        }
+                    }
+                }
+            }
+            </script>
+
+            <script type="text/javascript">
+//<![CDATA[
+jQuery(document).ready(function() {
+    function tabAction(){
+      if (jQuery(window).width() <= 1050 ){
+          if (jQuery("div#follow").hasClass('display_none')){}
+          else {jQuery("div#follow").addClass('display_none')}
+      }
+      else {
+          if (jQuery("div#follow").hasClass('display_none')){jQuery("div#follow").removeClass('display_none')}
+      }
+    }
+    tabAction();
+    jQuery(window).resize(function() {
+      tabAction();
+    });
+});
+//]]>
+</script>
+                        <link rel="stylesheet" type="text/css" href="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/recaptcha.css"><!-- Wordpress Popular Posts v2.3.2 -->
+<script type="text/javascript">
+    /* <![CDATA[ */				
+	jQuery.post('http://machinesaredigging.com/blog-mad/wp-admin/admin-ajax.php', {action: 'wpp_update', token: '29679308c3', id: 3020}, function(data){/*alert(data);*/});
+    /* ]]> */
+</script>
+<!-- End Wordpress Popular Posts v2.3.2 -->
+            <style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://machinesaredigging.com/blog-mad/wp-content/uploads/2011/03/bg_body_left.png'); background-repeat: repeat-y; background-position: top left; background-attachment: scroll; }
+</style>
+<script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/jquery-1.js" type="text/javascript"></script>
+<script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/machinesaredigging.js" type="text/javascript"></script>
+
+<script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/embed.js" async="" type="text/javascript"></script><script charset="UTF-8" async="" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/alfie.js"></script></head>
+
+<body data-twttr-rendered="true" class="single single-post postid-3020 single-format-standard custom-background"><iframe src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/hub.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;" name="twttrHubFrameSecure" tabindex="0" allowtransparency="true" id="twttrHubFrameSecure" frameborder="0" scrolling="no"></iframe><iframe src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/hub_002.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;" name="twttrHubFrame" tabindex="0" allowtransparency="true" id="twttrHubFrame" frameborder="0" scrolling="no"></iframe>
+<div id="wrapper" class="hfeed">
+	<div id="header">
+		<div id="masthead">
+			<div id="branding" role="banner">
+								<div id="site-title">
+					<span>
+						<a href="http://machinesaredigging.com/" title="Machines are digging" rel="home"><img src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/header-orange31.png" alt="" height="131" width="991"></a>
+						<span class="mute">Machines are digging</span>
+					</span>
+				</div>
+				<div class="mute" id="site-description">User Interface Blog</div>
+
+							</div><!-- #branding -->
+
+			<div id="access" role="navigation">
+			  				<div class="skip-link screen-reader-text"><a href="#content" title="Skip to content">Skip to content</a></div>
+								<div class="menu-header"><ul id="menu-main" class="menu"><li id="menu-item-2020" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-2020"><a title="Organic + Technical" href="http://machinesaredigging.com/">Home</a></li>
+<li id="menu-item-3278" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3278"><a href="http://machinesaredigging.com/category/organic/">Organic</a></li>
+<li id="menu-item-3277" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3277"><a href="http://machinesaredigging.com/category/technical/">Technical</a></li>
+<li id="menu-item-3279" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3279"><a href="http://machinesaredigging.com/category/notes/">Notes</a></li>
+<li id="menu-item-2019" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2019"><a href="http://machinesaredigging.com/about/">About</a></li>
+</ul></div>			</div><!-- #access -->
+		</div><!-- #masthead -->
+	</div><!-- #header -->
+
+	<div id="main">
+
+		<div id="container">
+			<div id="content" role="main">
+
+
+				<div id="nav-above" class="navigation">
+					<div class="nav-previous"><a href="http://machinesaredigging.com/2013/09/11/deezer/" rel="prev"><span class="meta-nav">←</span> @deezer</a></div>
+					<div class="nav-next"><a href="http://machinesaredigging.com/2013/10/30/rings-bells-and-victory/" rel="next">Rings, bells and victory <span class="meta-nav">→</span></a></div>
+				</div><!-- #nav-above -->
+
+				<div id="post-3020" class="post-3020 post type-post status-publish format-standard hentry category-technical category-wiki tag-sessions">
+					<h1 class="entry-title">How does a web session work ?</h1>
+<h2>Finally illustrated with diagrams</h2>					<div class="entry-meta">
+						<span class="meta-prep meta-prep-author">Posted on</span> <a href="http://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/" title="11:26 pm" rel="bookmark"><span class="entry-date">October 29, 2013</span></a> <span class="meta-sep">by</span> <span class="author vcard"><a class="url fn n" href="http://machinesaredigging.com/author/admin/" title="View all posts by eloone">eloone</a></span>					<span class="social_widget_embedded"><iframe class="hn-share-iframe" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/button_002.html" frameborder="0" height="20px" scrolling="auto" width="75px"></iframe></span></div><!-- .entry-meta -->
+
+					<div class="entry-content">
+												<p>Not long ago I had to investigate on a session reset <a title="Rings, bells and victory" href="http://machinesaredigging.com/2013/10/30/rings-bells-and-victory/" target="_blank">bug</a>
+ that forced me to do some research on sessions. Since I didn’t find the
+ subject well covered, I thought I would share what helped me solve my 
+bug, so that it can also help you in time.</p>
+<p>I will describe here sessions in web applications, my area of practice.</p>
+<p><span id="more-3020"></span></p>
+<p><strong>What is a session ?</strong></p>
+<p>“session” is one of those computing terms that refers to seemingly 
+different things : a shell session, a tcp session, a login session, a 
+desktop session, a browser session, a server session etc. This makes it 
+confusing to understand what exactly a session is. Same for the “cache”,
+ another confusing term (database cache, browser cache, framework cache,
+ network cache..). But actually what defines those confusing terms is 
+the use they’re describing.</p>
+<p>So, the first thing to understand for sessions is their use.</p>
+<p><strong>Use of a session</strong></p>
+<p>Generally you should understand the session as the different states 
+of an application during the time a user is interacting with it, it is 
+specific to the user. I would even say a session is an instance of the 
+interaction of a user with an application, but I’m not sure it clarifies
+ the matter. Now more specifically for a web session, the session is a 
+data structure that an application uses to store temporary data that is 
+useful only during the time a user is interacting with the application, 
+it is also specific to the user.</p>
+<p>For example, you could save the user’s name in the session so that 
+you don’t have to query the database every time you need it or you could
+ store data in the session to save state between pages (between pages of
+ a payment process for example).<br>
+Think of it as a volatile memory quickly accessible that is allocated to
+ each user who is using the application, and when the user quits, it is 
+destroyed.</p>
+<p>This is the general concept, the storage mechanism and how it is 
+implemented is then specific to the application. This temporary storage 
+could be on the file system in text files, on a database or in the 
+internal memory of the program executing the application.</p>
+<p>The second thing to understand is the structure of a session.</p>
+<p><strong>Structure of a session</strong></p>
+<p>The session is a key-value pair data structure. Think of it as a 
+hashtable where each user gets a hashkey to put their data in. This 
+hashkey would be the “session id”. A session data structure would look 
+like this :</p>
+<div id="attachment_3087" class="wp-caption aligncenter" style="width: 650px"><img class="size-large wp-image-3087" title="session datastructure" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/session_datastructure-1024x724.jpg" alt="" height="452" width="640"><p class="wp-caption-text">Session datastructure</p></div>
+<p>And when you say, “my session” you would refer to your entry in the 
+session object. Every user is able to access only their session. The 
+session can be stored on the server, or on the client. If it’s on the 
+client, it will be stored by the browser, most likely in cookies and if 
+it is stored on the server, the session ids are created and managed by 
+the server. So if there are a million users connected to the server, 
+there will also be a million session ids for those users on the server.</p>
+<p>From now, I will focus only on server side sessions.</p>
+<p><strong>How does a session work ?</strong></p>
+<p>So how exactly do users access their session?<br>
+For a single user application, like a desktop application, there is only
+ one user, so there is also one session, it is not difficult for the 
+application to make the connection between the user and their session 
+data. However, for a web application, a server has multiple clients, how
+ does it know which session is yours? That’s where the session id comes 
+into play.</p>
+<p>The general principle is that you, as the client, give the server 
+your session id, and in return the server grants you access to your 
+session data if it finds your session id stored in its session 
+datastore.&nbsp;The session structure is like a data locker for users, 
+and the key for the locker is the session id, the server is the guy who 
+shows you which one is your locker.</p>
+<p>Let’s look more in details how it works :</p>
+<div id="attachment_3091" class="wp-caption aligncenter" style="width: 650px"><a href="http://machinesaredigging.com/blog-mad/wp-content/uploads/2013/10/how_does_a_session_work.jpg"><img class="size-large wp-image-3091" title="How does a session work" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/how_does_a_session_work-1024x724.jpg" alt="" height="452" width="640"></a><p class="wp-caption-text">How does a session work ?</p></div>
+<p>Let’s start from the moment when you land on a webpage. When you 
+receive a webpage from the server, along with the page content itself, 
+the server sent you (in general, in a cookie)&nbsp;the session id that 
+it set to identify your connection among all the requests that it gets.</p>
+<p>Make the experiment, open your console and check the cookies, you will see something that looks like :</p>
+<div id="attachment_3190" class="wp-caption aligncenter" style="width: 533px"><a href="http://machinesaredigging.com/blog-mad/wp-content/uploads/2013/10/session_id.png"><img class="size-full wp-image-3190" title="session id" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/session_id.png" alt="" height="106" width="523"></a><p class="wp-caption-text">Php session id</p></div>
+<p>JSP will send you JSESSIONID, and ASP&nbsp;ASPSESSIONID, here the back end is PHP.</p>
+<p>After you logged in, the application validated your password and 
+login and saved your user id in the session so that every time you will 
+make a request, you won’t have to log in again (this will be detailed 
+later).</p>
+<p>Now let’s review the diagram above to understand what is going on 
+when you make another request to get more data. For example, let’s say 
+you landed on Gmail inbox after you logged in, and now you want to 
+navigate to your drafts page.</p>
+<p><strong>1</strong> – You send a http request to the server asking for
+ the drafts page. Along with this http request you send your session id 
+to tell the server “hey, it’s me from before, give me my drafts page 
+now”. The session id is usually sent in cookies, but it can also be sent
+ in GET or POST parameters, whatever the technique the session id just 
+needs to be sent to the server.</p>
+<p><strong>2</strong> – The server receives your request. Before it 
+gives you your drafts page, it checks your session id, looks it up in 
+its session datastore, it finds 5, your session id, so it makes the data
+ in entry 5 available to the code engine (php, java, ruby…).</p>
+<p><strong>3</strong> -The server then executes the code corresponding to your request “give me the drafts page”.</p>
+<p><strong>4</strong> – The code starts by getting your user id from the
+ session made available by the server earlier, then it uses it to ask 
+the database “give me the drafts of the user who has this user id”.</p>
+<p><strong>5</strong> – Finally when the code got your drafts from the 
+database, it creates an html page, puts your drafts in it, and hands it 
+to the server.</p>
+<p><strong>6</strong> – The server sends you your drafts page, along with your session id.</p>
+<p><strong>Logged in state&nbsp;</strong></p>
+<p>In this exchange, you could have just sent your user id in your 
+request, and told the server you want the drafts of this user id. But 
+that would mean that anybody who knows your user id would also be able 
+to get your drafts and you don’t want that for your private data. You 
+prefer that the application sends this data only to you. So to protect 
+your data&nbsp;the application makes you log in first to make sure the 
+person asking for the data is really you. And normally for any request 
+for private data, it should ask you who you are first.</p>
+<p>If there was no session id during this exchange, when you asked your 
+drafts page, the server would not know the drafts of who you’re asking 
+and it would ask you to log in first. HTTP is a stateless protocol so it
+ doesn’t save the fact that you are already logged in. At each request, 
+HTTP doesn’t know anything about what happened before, it just carries 
+the request.&nbsp;So for any request for private data you would have to 
+log in again to make sure the application knows this is really you. This
+ would be very annoying.</p>
+<p>That’s the problem that sessions solve. To avoid logging in all the 
+time after the first time, sessions keep you logged in while you are 
+connected to the server. Basically, after you logged in the first time, 
+the server remembers in the session that this is really you and lets you
+ ask for more data without asking again who you are. That’s how sessions
+ are very useful.</p>
+<p>So if we zoom out from the preceding diagram, we can observe how user
+ connections are identified and maintained by the server thanks to 
+session ids :</p>
+<div id="attachment_3206" class="wp-caption aligncenter" style="width: 650px"><a href="http://machinesaredigging.com/blog-mad/wp-content/uploads/2013/10/session_cycle.jpg"><img class="size-large wp-image-3206 " title="Session cycle" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/session_cycle-1024x724.jpg" alt="" height="452" width="640"></a><p class="wp-caption-text">Simultaneous identified connections</p></div>
+<p>Session management is a feature of the server, you need to activate 
+it. For a static website that doesn’t serve private data for example you
+ would not need to activate session management on your server.</p>
+<p>Keeping you logged in is one main use of the session, but sessions 
+can also be used to save temporary data that are completely independent 
+of the logged in state. You could decide to put some data in session 
+just because it is quicker to access.</p>
+<p>Also as a side note, from the server’s point of view : one connection
+ = one session id. So if you connect from two different browsers, the 
+server will create two session ids. You should remember that the session
+ id only identifies your connection to the server. All the user 
+identification logic is handled by the application.</p>
+<p><strong>Debugging session problems</strong></p>
+<p>The bug I was trying to resolve was a session reset. I couldn’t 
+explain why the user was suddenly logged out. This bug drove me totally 
+crazy and I couldn’t find any useful help on the Internet because there 
+are so many different kinds of sessions and no one describes the web 
+session as we know it. So I thought I would spare you the pain of 
+searching in vain by summing up what you should look for when debugging a
+ session problem.</p>
+<p>From the preceding sections, you have seen that the logged in state 
+is maintained by the presence of the session id on the server. So if you
+ are logged out, it means the server doesn’t know who you are anymore 
+because it didn’t find your session id in its datastore. Most likely 
+your session id never got to your server, you need to find where it got 
+lost, or maybe it’s just not on your server, you need to find out why.</p>
+<p><strong>Why would a page reset a session? Reasons for session reset?</strong></p>
+<p>Here are some scenarios that will help you narrow down your problem.</p>
+<p><strong>1. Bad session replication</strong></p>
+<div id="attachment_3155" class="wp-caption aligncenter" style="width: 650px"><img class="size-large wp-image-3155 " title="Load balancing session reset" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/session_load-1024x672.png" alt="" height="420" width="640"><p class="wp-caption-text">Load balancing session reset</p></div>
+<p>To debug this, you need to know your architecture well. In big 
+architectures, there are several servers on the front arranged in 
+clusters and users are load balanced on one of them at each request. You
+ need to make sure that you share the session data correctly across 
+those servers. Here, it is possible that your session id was set by 
+server A, but when you’re load balanced to server B, for all that server
+ B knows, it has never seen you, so it doesn’t have the session id 
+you’re presenting and will reset your session.</p>
+<p><strong>2. Transmission problem</strong></p>
+<div id="attachment_3107" class="wp-caption aligncenter" style="width: 650px"><img class="size-large wp-image-3107" title="non transmission" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/non_transmission-1024x686.png" alt="" height="428" width="640"><p class="wp-caption-text">Session id is lost</p></div>
+<p>The main reason for a server to reset your session is because it 
+doesn’t recognize the session id you’re presenting and therefore creates
+ a new one to identify your connection. The session id is missing from 
+your request, you need to find where it got lost.</p>
+<p>On the way from the browser to the server, there are several places where the session id could have gotten lost :</p>
+<p>- on the browser : check how the session id is transmitted, if it’s 
+in the cookies check that the cookie transmission is ok with your 
+browser. Maybe the browser doesn’t allow cookies in its settings for 
+example. Also, be careful to not have http links on a https website with
+ secure cookies. This was my <a title="Rings, bells and victory" href="http://machinesaredigging.com/2013/10/30/rings-bells-and-victory/" target="_blank">bug</a>.
+ It seems a classic now, but it was not that easy to detect. Because the
+ cookies were secure, the browser never transmitted the cookie over the 
+http connection, because it only allowed cookie transmission over https,
+ hence session reset. I advise you to look out for : https, secure 
+cookies and redirects, those will be good pointers to the cause of your 
+bug.</p>
+<p>- on the network : check that you don’t have any CDNs or other proxy that trim your cookies on the way.</p>
+<p>- on the server : the server doesn’t read or write session ids correctly.</p>
+<p><strong>3. Session reset in code</strong></p>
+<div id="attachment_3108" class="wp-caption aligncenter" style="width: 650px"><img class="size-large wp-image-3108" title="Session reset" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/session_reset-1024x742.png" alt="" height="463" width="640"><p class="wp-caption-text">Session reset in code</p></div>
+<p>Of course you should not rule out this possibility. Maybe some code 
+is intentionally asking your server to reset the session, like when you 
+say $user-&gt;logout(). This one should not be very difficult to find in
+ the code.</p>
+<p><strong>4. Session expired</strong></p>
+<div id="attachment_3109" class="wp-caption aligncenter" style="width: 650px"><img class="size-large wp-image-3109" title="Session timeout" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/session_timeout-1024x650.png" alt="" height="406" width="640"><p class="wp-caption-text">Session expires</p></div>
+<p>Usually your session is destroyed only when you close the connection,
+ so when you close your browser. Some servers might have specific 
+directives to reset the session after a timeout before you close the 
+connection, you should check that out.</p>
+<p style="text-align: center;">***</p>
+<p>So this is what I wish I could find when I was investigating my bug, 
+here it is now. Those are the main reasons I can find for session reset,
+ I have tried most of them before finding out about the secure cookies… 
+Go ahead and smile. You can always read about the full story of my bug 
+here : <a title="Rings, bells and victory" href="http://machinesaredigging.com/2013/10/30/rings-bells-and-victory/" target="_blank">Rings, bells and victory</a>.</p>
+<p style="text-align: center;">***</p>
+<p>Links :</p>
+<p>I wrote this article with Apache in mind for the server<br>
+<a href="http://httpd.apache.org/docs/current/mod/mod_session.html">http://httpd.apache.org/docs/current/mod/mod_session.html<br>
+</a><a href="http://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/onclick=" javascript:_gaq.push(['_trackevent','outbound-article','http:="" httpd.apache.org']);"http:="" en.wikipedia.org="" wiki="" session_(computer_science)"="">http://en.wikipedia.org/wiki/Session_(computer_science)</a></p>
+<p>&nbsp;</p>
+<div></div>
+<div class="entry-utility"><div class="custom-taxonomy"><p class="taxo-list categories"><span class="label">Posted in </span><a href="http://machinesaredigging.com/category/technical/" title="View all posts in Technical" rel="category tag">Technical</a>, <a href="http://machinesaredigging.com/category/technical/wiki/" title="View all posts in Wiki" rel="category tag">Wiki</a></p><p class="taxo-list tags"><span class="label">Tagged </span><a href="http://machinesaredigging.com/tag/sessions/" rel="tag">sessions</a> </p></div><div class="custom-share-mad"><div class="tab share-tab open"><p class="label">Share this article</p><ul class="social-widgets"><li class="social-widget hacker_news"><iframe class="hn-share-iframe" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/button_002.html" frameborder="0" height="20px" scrolling="auto" width="75px"></iframe></li><li class="social-widget stumble"><iframe id="iframe-stmblpn-widget-1" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/a.html" style="overflow: hidden; margin: 0px; padding: 0px; border: 0px none;" allowtransparency="true" frameborder="0" height="18" scrolling="no" width="18"></iframe> Stumble!</li><li class="social-widget gplus"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 32px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/fastbutton.html" name="I0_1396537636739" id="I0_1396537636739" vspace="0" tabindex="0" style="position: static; top: 0px; width: 32px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div></li><li class="social-widget twitter"><iframe style="width: 55px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-none" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/tweet_button.html" allowtransparency="true" id="twitter-widget-0" frameborder="0" scrolling="no"></iframe></li><li class="social-widget share-email"><a href="mailto:?subject=How+does+a+web+session+work+%3F+%7C+Machines+are+digging&amp;body=Hi%2C+here+is+an+article+that+I+find+interesting+http%3A%2F%2Fmachinesaredigging.com%2F2013%2F10%2F29%2Fhow-does-a-web-session-work%2F" title="Email this article" rel="_self"><img class="email_icon" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/emailcrop.png" alt="Email" title="Email this article"></a></li></ul></div><div class="tab comment-tab"><a href="http://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/#comments" title="Comment on How does a web session work ?"><span class="dsq-postid" rel="3020 http://machinesaredigging.com/?p=3020">8 Digitized thoughts</span></a></div><ul class="tab utility-tab"><li class="utility rss"><a href="http://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/feed" title="Follow this post : Subscribe to the comments">Subscribe</a></li><li class="utility print"><a id="print_article" href="javascript:window.print();" title="Print this post : How does a web session work ?">Print</a></li></ul></div></div>											</div><!-- .entry-content -->
+
+
+					<div class="entry-utility">
+																	</div><!-- .entry-utility -->
+					<div class="related_posts">
+						<div class="yarpp-related yarpp-related-none">
+</div>
+					</div>
+				</div><!-- #post-## -->
+
+				<div id="nav-below" class="navigation">
+					<div class="nav-previous"><a href="http://machinesaredigging.com/2013/09/11/deezer/" rel="prev"><span class="meta-nav">←</span> @deezer</a></div>
+					<div class="nav-next"><a href="http://machinesaredigging.com/2013/10/30/rings-bells-and-victory/" rel="next">Rings, bells and victory <span class="meta-nav">→</span></a></div>
+				</div><!-- #nav-below -->
+
+				
+<div id="disqus_thread"><iframe verticalscrolling="no" horizontalscrolling="no" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/a_002.html" style="width: 100% ! important; border: medium none ! important; overflow: hidden ! important; height: 1269px ! important;" title="Disqus" tabindex="0" allowtransparency="true" data-disqus-uid="2" id="dsq-2" frameborder="0" scrolling="no" width="100%"></iframe></div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'http://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/';
+    var disqus_identifier = '3020 http://machinesaredigging.com/?p=3020';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'machinesaredigging';
+    var disqus_title = "How does a web session work ?";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = '?cf_action=sync_comments&post_id=3020';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "http:\/\/machinesaredigging.com\/2013\/10\/29\/how-does-a-web-session-work\/trackback\/"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+
+			</div><!-- #content -->
+		</div><!-- #container -->
+
+
+		<div id="primary" class="widget-area " role="complementary">
+			<ul class="xoxo">
+
+<li id="search-2" class="widget-container widget_search"><form role="search" method="get" id="searchform" action="http://machinesaredigging.com/">
+	<div><label class="screen-reader-text" for="s">Search for:</label>
+	<input name="s" id="s" type="text">
+	<input id="searchsubmit" value="Search" type="submit">
+	</div>
+	</form></li><li id="text-4" class="widget-container widget_text"><h3 class="widget-title">About this place</h3>			<div class="textwidget">The
+ user interface blog of a tech poet. I like to write about ui, 
+technology and life, observing the world changing under the spell of 
+technology. I'm interested in making technology helpful and friendly. Hi
+ =) <br><a href="http://machinesaredigging.com/about/" title="About page">More ...</a></div>
+		</li><li id="execphp-3" class="widget-container widget_execphp"><h3 class="widget-title">Featured posts</h3>			
+			<div class="execphpwidget"><p><!-- WordPress Plugin PostLists by Rene Ade - http://www.rene-ade.de/inhalte/wordpress-plugin-postlists.html -->
+</p><ul class="textwidget">
+<li><a href="http://machinesaredigging.com/2012/06/09/a-relic-from-the-past/">A relic from the past that makes you gasp and marvel at the present</a></li>
+<li><a href="http://machinesaredigging.com/2012/05/26/the-internet-voting-or-the-anti-democratic-catastrophe/">The Internet voting or the anti-democratic catastrophe</a></li>
+<li><a href="http://machinesaredigging.com/2011/09/26/please-format-me/">Please format me</a></li>
+<li><a href="http://machinesaredigging.com/2011/05/24/show-me-the-numbers/">Show me the numbers !!!!</a></li>
+<li><a href="http://machinesaredigging.com/2010/09/08/digital-narcissism-we-are-digital-mammals/">Digital narcissism: We are digital mammals</a></li>
+</ul>
+</div>
+		</li><li id="text-6" class="widget-container widget_text"><h3 class="widget-title">Author</h3>			<div class="textwidget">Elodie. UI engineer. Tech poet. Writing from Paris, France. Technology saves me. <br><br>
+contact: machinesaredigging at gmail dot com<br><br><a href="http://machinesaredigging.com/about/">More...</a></div>
+		</li><li id="categories-2" class="widget-container widget_categories"><h3 class="widget-title">Explore</h3>		<ul>
+	<li class="cat-item cat-item-21"><a href="http://machinesaredigging.com/category/favourites/" title="Posts that I particularly recommend ">Favourites</a> (7)
+</li>
+	<li class="cat-item cat-item-159"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/technical/" title="My techniques.">Technical</a> (3)
+<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-160"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/technical/programming/" title="View all posts filed under Programming">Programming</a> (1)
+	<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-162"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/technical/programming/conception/" title="Articles that present how to design something.">Conception</a> (1)
+		<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-163"><a href="http://machinesaredigging.com/category/technical/programming/conception/algorithms/" title="View all posts filed under Algorithms">Algorithms</a> (1)
+</li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-164"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/technical/projects/" title="Articles where I present my projects.">Projects</a> (1)
+	<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-180"><a href="http://machinesaredigging.com/category/technical/projects/github/" title="View all posts filed under Github">Github</a> (1)
+</li>
+	<li class="cat-item cat-item-182"><a href="http://machinesaredigging.com/category/technical/projects/ui-components/" title="View all posts filed under UI-Components">UI-Components</a> (1)
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-166"><a href="http://machinesaredigging.com/category/technical/tools-systems/" title="View all posts filed under Tools &amp; System">Tools &amp; System</a> (1)
+</li>
+	<li class="cat-item cat-item-194"><a href="http://machinesaredigging.com/category/technical/wiki/" title="Technical concepts described and explained.">Wiki</a> (1)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-167"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/organic/" title="Articles related to technology that are not technical.">Organic</a> (73)
+<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-168"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/organic/life/" title="View all posts filed under Life">Life</a> (38)
+	<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-6"><a href="http://machinesaredigging.com/category/organic/life/stories/" title="Experiences I live that inspire me">Stories</a> (26)
+</li>
+	<li class="cat-item cat-item-169"><a href="http://machinesaredigging.com/category/organic/life/travels-life/" title="View all posts filed under Travels">Travels</a> (3)
+</li>
+	<li class="cat-item cat-item-28"><a href="http://machinesaredigging.com/category/organic/life/books/" title="View all posts filed under Books">Books</a> (2)
+</li>
+	<li class="cat-item cat-item-44"><a href="http://machinesaredigging.com/category/organic/life/movies/" title="View all posts filed under Movies">Movies</a> (8)
+</li>
+	<li class="cat-item cat-item-13"><a href="http://machinesaredigging.com/category/organic/life/music/" title="View all posts filed under Music">Music</a> (2)
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-45"><a href="http://machinesaredigging.com/category/organic/thinking/" title="Essays about subjects related to technology">Thinking</a> (6)
+</li>
+	<li class="cat-item cat-item-170"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/organic/watch/" title="Articles part of my technology watch.">Watch</a> (36)
+	<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-63"><a href="http://machinesaredigging.com/category/organic/watch/inspiration/" title="Things that inspire me for further reflection">Inspiration</a> (12)
+</li>
+	<li class="cat-item cat-item-50"><a href="http://machinesaredigging.com/category/organic/watch/study/" title="Designs, services, things I like to study">Study</a> (2)
+</li>
+	<li class="cat-item cat-item-8"><a href="http://machinesaredigging.com/category/organic/watch/observations/" title="View all posts filed under Observations">Observations</a> (24)
+</li>
+	<li class="cat-item cat-item-47"><a href="http://machinesaredigging.com/category/organic/watch/discoveries/" title="Happy discoveries I stumbled upon">Discoveries</a> (7)
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-123"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/organic/tech/" title="View all posts filed under Tech">Tech</a> (31)
+	<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-126"><a href="http://machinesaredigging.com/category/organic/tech/devsworld/" title="View all posts filed under Devsworld">Devsworld</a> (12)
+</li>
+	<li class="cat-item cat-item-11"><a href="http://machinesaredigging.com/category/organic/tech/news/" title="Articles about what is buzzing in tech">News</a> (4)
+</li>
+	<li class="cat-item cat-item-31"><a href="http://machinesaredigging.com/category/organic/tech/machines-are-digging/" title="Examples of how machines are digging today both in our lives and in our culture">Machines are digging</a> (10)
+</li>
+	<li class="cat-item cat-item-32"><a href="http://machinesaredigging.com/category/organic/tech/technology-saves-me/" title="Examples of technology that gives me hope for the future. Helpful technology.">Technology saves me</a> (5)
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-175"><a href="http://machinesaredigging.com/category/organic/orga-misc/" title="View all posts filed under Misc">Misc</a> (3)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-195"><a href="http://machinesaredigging.com/category/notes/" title="Microblogging area.">Notes</a> (12)
+</li>
+	<li class="cat-item cat-item-36"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/types/" title="Browse posts by type">Types</a> (21)
+<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-46"><a href="http://machinesaredigging.com/category/types/tutorials/" title="View all posts filed under Tutorials">Tutorials</a> (1)
+</li>
+	<li class="cat-item cat-item-116"><a href="http://machinesaredigging.com/category/types/thoughts/" title="View all posts filed under Thoughts">Thoughts</a> (1)
+</li>
+	<li class="cat-item cat-item-27"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/types/communication/" title="View all posts filed under Communication">Communication</a> (11)
+	<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-14"><a href="http://machinesaredigging.com/category/types/communication/chats/" title="View all posts filed under Chats">Chats</a> (8)
+</li>
+	<li class="cat-item cat-item-29"><a href="http://machinesaredigging.com/category/types/communication/email/" title="View all posts filed under Email">Email</a> (1)
+</li>
+	<li class="cat-item cat-item-146"><a href="http://machinesaredigging.com/category/types/communication/quotes/" title="View all posts filed under Quotes">Quotes</a> (1)
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-141"><a href="http://machinesaredigging.com/category/types/resource/" title="View all posts filed under Resource">Resource</a> (1)
+</li>
+	<li class="cat-item cat-item-9"><a href="http://machinesaredigging.com/category/types/videos/" title="View all posts filed under Videos">Videos</a> (8)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-176"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/topics/" title="View all posts filed under Topics">Topics</a> (25)
+<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-68"><a href="http://machinesaredigging.com/category/topics/u-i/" title="User interface  ">U.I</a> (7)
+</li>
+	<li class="cat-item cat-item-34"><a href="http://machinesaredigging.com/category/topics/u-x/" title="User experience">U.X</a> (7)
+</li>
+	<li class="cat-item cat-item-16"><i class="icon-caret-down"></i><a href="http://machinesaredigging.com/category/topics/design/" title="View all posts filed under Design">Design</a> (7)
+	<ul style="display: none;" class="children">
+	<li class="cat-item cat-item-174"><a href="http://machinesaredigging.com/category/topics/design/system-design/" title="View all posts filed under System-Design">System-Design</a> (4)
+</li>
+	<li class="cat-item cat-item-178"><a href="http://machinesaredigging.com/category/topics/design/software-design/" title="View all posts filed under Software-Design">Software-Design</a> (1)
+</li>
+	<li class="cat-item cat-item-177"><a href="http://machinesaredigging.com/category/topics/design/object-design/" title="View all posts filed under Object-Design">Object-Design</a> (2)
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-96"><a href="http://machinesaredigging.com/category/topics/future/" title="View all posts filed under Future">Future</a> (4)
+</li>
+	<li class="cat-item cat-item-41"><a href="http://machinesaredigging.com/category/topics/privacy/" title="View all posts filed under Privacy">Privacy</a> (1)
+</li>
+	<li class="cat-item cat-item-94"><a href="http://machinesaredigging.com/category/topics/identity/" title="View all posts filed under Identity">Identity</a> (3)
+</li>
+	<li class="cat-item cat-item-30"><a href="http://machinesaredigging.com/category/topics/a-i/" title="Artificial intelligence">A.I</a> (1)
+</li>
+	<li class="cat-item cat-item-89"><a href="http://machinesaredigging.com/category/topics/humanism/" title="Articles about humanism and technology">Humanism</a> (1)
+</li>
+	<li class="cat-item cat-item-20"><a href="http://machinesaredigging.com/category/topics/nature-of-the-web/" title="View all posts filed under Nature of the Web">Nature of the Web</a> (2)
+</li>
+	<li class="cat-item cat-item-93"><a href="http://machinesaredigging.com/category/topics/philosophy/" title="View all posts filed under Philosophy">Philosophy</a> (1)
+</li>
+	<li class="cat-item cat-item-124"><a href="http://machinesaredigging.com/category/topics/politics-topics/" title="View all posts filed under Politics">Politics</a> (1)
+</li>
+</ul>
+</li>
+		</ul>
+</li><li id="execphp-5" class="widget-container widget_execphp"><h3 class="widget-title">Last Posts</h3>			
+			<div class="execphpwidget"><ul>
+    <li><a href="http://machinesaredigging.com/2014/03/09/please-collect-your-tickets-on-the-floor/" rel="bookmark">Please collect your tickets on the floor</a></li>
+    <li><a href="http://machinesaredigging.com/2013/11/14/why-dont-tech-people-give-a-full-answer/" rel="bookmark">Why don’t tech people give a full answer?</a></li>
+    <li><a href="http://machinesaredigging.com/2013/10/30/rings-bells-and-victory/" rel="bookmark">Rings, bells and victory</a></li>
+    <li><a href="http://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/" rel="bookmark">How does a web session work ?</a></li>
+    <li><a href="http://machinesaredigging.com/2013/08/21/kate-harff-hates-the-machine/" rel="bookmark">Kate Harff hates the machine</a></li>
+</ul></div>
+		</li><li id="twitter" class="widget-container widget_Twidget"><iframe title="Twitter Timeline" style="border: medium none; max-width: 100%; min-width: 180px;" class="twitter-timeline twitter-timeline-rendered" allowtransparency="true" id="twitter-widget-1" frameborder="0" height="250" scrolling="no" width="520"></iframe>
+		      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></li><!-- Wordpress Popular Posts Plugin v2.3.2 [W] [all] [regular] -->
+<li id="wpp-3" class="widget-container popular-posts">
+<h3 class="widget-title">Popular Posts</h3><!-- Wordpress Popular Posts Plugin v2.3.2 [Widget] [all] [regular] -->
+<ul>
+<li><a href="http://machinesaredigging.com/2011/04/08/how-to-install-the-printer-canon-mx340-wi-fi-without-the-cd-on-mac/" title="How to install the printer canon mx340 wi-fi without the cd on mac" class="wpp-post-title">How to install the printer canon mx340 wi-fi without the cd on mac</a> <span class="post-stats"></span></li>
+<li><a href="http://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/" title="How does a web session work ?" class="wpp-post-title">How does a web session work ?</a> <span class="post-stats"></span></li>
+<li><a href="http://machinesaredigging.com/2011/03/17/the-simpsons-technology-at-school/" title="The Simpsons – Technology at School" class="wpp-post-title">The Simpsons – Technology at School</a> <span class="post-stats"></span></li>
+<li><a href="http://machinesaredigging.com/2013/04/18/my-first-time-in-america-ah/" title="My first time in America-ah !" class="wpp-post-title">My first time in America-ah !</a> <span class="post-stats"></span></li>
+<li><a href="http://machinesaredigging.com/2013/04/28/gg-hangout-timeout-message/" title="Google hangout timeout message : are you still there?" class="wpp-post-title">Google hangout timeout message : are you still there?</a> <span class="post-stats"></span></li>
+
+</ul>
+</li>
+<!-- End Wordpress Popular Posts Plugin v2.3.2 -->
+<li id="execphp-4" class="widget-container widget_execphp"><h3 class="widget-title">Resources</h3>			
+			<div class="execphpwidget"><ul class="textwidget">
+<li><a href="http://www.netvibes.com/eloone">My sources</a></li>
+</ul>
+<p><!-- WordPress Plugin PostLists by Rene Ade - http://www.rene-ade.de/inhalte/wordpress-plugin-postlists.html -->
+</p><ul class="textwidget">
+<li><a href="http://machinesaredigging.com/2012/09/29/my-list-of-organic-sci-fi-movies/">My list of organic sci-fi movies</a></li>
+</ul>
+</div>
+		</li><li id="tag_cloud-3" class="widget-container widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href="http://machinesaredigging.com/tag/avertising/" class="tag-link-84" title="2 topics" style="font-size: 12.581818181818pt;">Advertising</a>
+<a href="http://machinesaredigging.com/tag/analog/" class="tag-link-77" title="1 topic" style="font-size: 8pt;">analog</a>
+<a href="http://machinesaredigging.com/tag/android/" class="tag-link-22" title="1 topic" style="font-size: 8pt;">Android</a>
+<a href="http://machinesaredigging.com/tag/art/" class="tag-link-40" title="1 topic" style="font-size: 8pt;">Art</a>
+<a href="http://machinesaredigging.com/tag/ballet/" class="tag-link-59" title="2 topics" style="font-size: 12.581818181818pt;">Ballet</a>
+<a href="http://machinesaredigging.com/tag/biomimicry/" class="tag-link-85" title="1 topic" style="font-size: 8pt;">Biomimicry</a>
+<a href="http://machinesaredigging.com/tag/blogging-coma/" class="tag-link-118" title="2 topics" style="font-size: 12.581818181818pt;">Blogging coma</a>
+<a href="http://machinesaredigging.com/tag/cinema/" class="tag-link-60" title="2 topics" style="font-size: 12.581818181818pt;">Cinema</a>
+<a href="http://machinesaredigging.com/tag/debugging/" class="tag-link-184" title="2 topics" style="font-size: 12.581818181818pt;">debugging</a>
+<a href="http://machinesaredigging.com/tag/digital/" class="tag-link-78" title="1 topic" style="font-size: 8pt;">digital</a>
+<a href="http://machinesaredigging.com/tag/digital-narcissism/" class="tag-link-62" title="2 topics" style="font-size: 12.581818181818pt;">Digital narcissism</a>
+<a href="http://machinesaredigging.com/tag/education/" class="tag-link-75" title="1 topic" style="font-size: 8pt;">Education</a>
+<a href="http://machinesaredigging.com/tag/engineers/" class="tag-link-119" title="2 topics" style="font-size: 12.581818181818pt;">Engineers</a>
+<a href="http://machinesaredigging.com/tag/facebook/" class="tag-link-90" title="4 topics" style="font-size: 18.181818181818pt;">Facebook</a>
+<a href="http://machinesaredigging.com/tag/featured-2/" class="tag-link-12" title="5 topics" style="font-size: 20.218181818182pt;">Featured</a>
+<a href="http://machinesaredigging.com/tag/first-post/" class="tag-link-69" title="1 topic" style="font-size: 8pt;">First post</a>
+<a href="http://machinesaredigging.com/tag/food/" class="tag-link-67" title="1 topic" style="font-size: 8pt;">Food</a>
+<a href="http://machinesaredigging.com/tag/frustration/" class="tag-link-120" title="1 topic" style="font-size: 8pt;">Frustration</a>
+<a href="http://machinesaredigging.com/tag/future/" class="tag-link-96" title="1 topic" style="font-size: 8pt;">Future</a>
+<a href="http://machinesaredigging.com/tag/geeks/" class="tag-link-43" title="2 topics" style="font-size: 12.581818181818pt;">Geeks</a>
+<a href="http://machinesaredigging.com/tag/git/" class="tag-link-129" title="2 topics" style="font-size: 12.581818181818pt;">Git</a>
+<a href="http://machinesaredigging.com/tag/good/" class="tag-link-51" title="1 topic" style="font-size: 8pt;">Good</a>
+<a href="http://machinesaredigging.com/tag/google/" class="tag-link-80" title="5 topics" style="font-size: 20.218181818182pt;">Google</a>
+<a href="http://machinesaredigging.com/tag/holidays/" class="tag-link-97" title="2 topics" style="font-size: 12.581818181818pt;">Holidays</a>
+<a href="http://machinesaredigging.com/tag/internet-roaming/" class="tag-link-95" title="1 topic" style="font-size: 8pt;">Internet roaming</a>
+<a href="http://machinesaredigging.com/tag/likeability/" class="tag-link-81" title="1 topic" style="font-size: 8pt;">Likeability</a>
+<a href="http://machinesaredigging.com/tag/logistics/" class="tag-link-127" title="1 topic" style="font-size: 8pt;">Logistics</a>
+<a href="http://machinesaredigging.com/tag/marketing/" class="tag-link-82" title="1 topic" style="font-size: 8pt;">Marketing</a>
+<a href="http://machinesaredigging.com/tag/medical/" class="tag-link-133" title="1 topic" style="font-size: 8pt;">Medical</a>
+<a href="http://machinesaredigging.com/tag/museums/" class="tag-link-100" title="2 topics" style="font-size: 12.581818181818pt;">museums</a>
+<a href="http://machinesaredigging.com/tag/paper/" class="tag-link-66" title="2 topics" style="font-size: 12.581818181818pt;">Paper</a>
+<a href="http://machinesaredigging.com/tag/performance/" class="tag-link-64" title="1 topic" style="font-size: 8pt;">Performance</a>
+<a href="http://machinesaredigging.com/tag/personal/" class="tag-link-121" title="1 topic" style="font-size: 8pt;">Personal</a>
+<a href="http://machinesaredigging.com/tag/personal-presence/" class="tag-link-76" title="1 topic" style="font-size: 8pt;">Personal presence</a>
+<a href="http://machinesaredigging.com/tag/politics/" class="tag-link-113" title="2 topics" style="font-size: 12.581818181818pt;">politics</a>
+<a href="http://machinesaredigging.com/tag/science-fiction/" class="tag-link-72" title="6 topics" style="font-size: 22pt;">Science-fiction</a>
+<a href="http://machinesaredigging.com/tag/self-portals/" class="tag-link-71" title="4 topics" style="font-size: 18.181818181818pt;">Self portals</a>
+<a href="http://machinesaredigging.com/tag/sessions/" class="tag-link-193" title="2 topics" style="font-size: 12.581818181818pt;">sessions</a>
+<a href="http://machinesaredigging.com/tag/simpsons/" class="tag-link-73" title="1 topic" style="font-size: 8pt;">Simpsons</a>
+<a href="http://machinesaredigging.com/tag/smartphones/" class="tag-link-65" title="3 topics" style="font-size: 15.636363636364pt;">Smartphones</a>
+<a href="http://machinesaredigging.com/tag/texts/" class="tag-link-23" title="1 topic" style="font-size: 8pt;">Texts</a>
+<a href="http://machinesaredigging.com/tag/the-social-network/" class="tag-link-25" title="1 topic" style="font-size: 8pt;">The social network</a>
+<a href="http://machinesaredigging.com/tag/tourism/" class="tag-link-98" title="2 topics" style="font-size: 12.581818181818pt;">Tourism</a>
+<a href="http://machinesaredigging.com/tag/tv-series/" class="tag-link-74" title="2 topics" style="font-size: 12.581818181818pt;">Tv-series</a>
+<a href="http://machinesaredigging.com/tag/windows-phone-7/" class="tag-link-26" title="1 topic" style="font-size: 8pt;">Windows phone 7</a></div>
+</li><li id="jquery-archive-list-widget" class="widget-container widget_display_jQuery_archives"><h3 class="widget-title">Year</h3><ul>
+<li class="jaw_years"><a class="jaw_years" href="#jal"><span class="jaw_symbol">►</span> 2014 (1)</a><ul>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> March (1)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2014/03/09/please-collect-your-tickets-on-the-floor/">Please collect your tickets on the floor</a></li></ul></li></ul></li>
+<li class="jaw_years"><a class="jaw_years" href="#jal"><span class="jaw_symbol">►</span> 2013 (24)</a><ul>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> November (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/11/14/why-dont-tech-people-give-a-full-answer/">Why don't tech people give a full answer?</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/11/14/the-regex-hold-up/">The regex hold up</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> October (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/10/30/rings-bells-and-victory/">Rings, bells and victory</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/">How does a web session work ?</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> September (1)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/09/11/deezer/">@deezer</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> August (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/08/21/kate-harff-hates-the-machine/">Kate Harff hates the machine</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/08/07/summer-reading/">Summer reading</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> July (1)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/07/10/a-day-on-the-grill/">A day on the grill</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> June (1)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/06/06/mozilla/">@mozilla</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> May (5)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/05/24/my-git-settings/">My git settings</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/05/21/jgridder-how-to-fit-elements-in-a-sized-grid/">jGridder : how to fit elements in a sized grid</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/05/14/despair-and-misery/">Despair and misery.</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/05/10/living-in-two-dimensions/">Living in two dimensions</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/05/01/how-people-ruined-my-movie-not-technology/">How people ruined my movie not technology</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> April (3)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/04/28/gg-hangout-timeout-message/">Google hangout timeout message : are you still there?</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/04/28/therapy-by-software/">Therapy by Software</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/04/18/my-first-time-in-america-ah/">My first time in America-ah !</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> March (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/03/07/youtube-and-its-subtle-search-algorithm/">Youtube and its subtle search algorithm</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/03/05/classes-must-die/">Classes must die.</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> February (4)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/02/27/quote/">My brother :</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/02/18/girls-day-out/">Girls day out !</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/02/08/electronic-gem/">Electronic gem</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/02/07/todays-pearl/">Today's pearl</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> January (1)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2013/01/04/the-toilets-mishap/">The toilets mishap</a></li></ul></li></ul></li>
+<li class="jaw_years"><a class="jaw_years" href="#jal"><span class="jaw_symbol">►</span> 2012 (18)</a><ul>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> December (1)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/12/08/the-tech-junkies/">My parents, the tech junkies</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> September (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/09/29/my-list-of-organic-sci-fi-movies/">My list of organic sci-fi movies</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/09/26/chat-fb-ggplus/">:D</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> August (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/08/29/what-kind-of-machines-should-not-freeze/">What kind of machines should not freeze</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/08/06/happy-birthday-geek/">Happy birthday geek !</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> July (5)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/07/20/the-ad-precedence/">The ad precedence</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/07/18/how-to-play-a-video-when-there-is-no-play-button/">How to play a video when there is no play button</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/07/10/nursing-machines-engineers-really-have-it-easy/">Nursing machines : engineers really have it easy</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/07/05/my-first-coding-dojo/">My first coding dojo</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/07/03/moonrise-deploy-the-devs-ticket-to-freedom/">Moonrise deploy, the dev's ticket to freedom</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> June (6)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/06/28/movie-review-the-final-cut/">Movie review : The final cut</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/06/20/taxed-in-3-clicks-or-the-universal-money-extraction/">Taxed in 3 clicks or the universal money extraction</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/06/19/book-review-the-caves-of-steel-asimov/">Book review : The caves of steel (Asimov)</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/06/17/of-course-im-a-professional-monkey/">"Of course ! I'm a professional monkey"</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/06/11/movie-review-prometheus/">Movie review : Prometheus</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/06/09/a-relic-from-the-past/">A relic from the past that makes you gasp and marvel at the present</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> May (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/05/31/named-after-a-variable/">Named after a variable</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2012/05/26/the-internet-voting-or-the-anti-democratic-catastrophe/">The Internet voting or the anti-democratic catastrophe </a></li></ul></li></ul></li>
+<li class="jaw_years"><a class="jaw_years" href="#jal"><span class="jaw_symbol">►</span> 2011 (18)</a><ul>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> October (1)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/10/02/movie-review-127-hours/">Movie review : 127 hours</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> September (3)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/09/26/please-format-me/">Please format me</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/09/15/the-i-sooo-love-my-phone-phenomenon/">The "I sooo love my phone" phenomenon</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/09/04/movie-review-the-adjustment-bureau/">Movie review: The Adjustment Bureau</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> August (3)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/08/30/google-plus-and-real-names-filtering-users-based-on-their-intentions/">Google plus and real names: filtering users based on their intentions</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/08/29/book-review-the-myths-of-innovation-by-scott-berkun/">Book review: The myths of innovation by Scott Berkun</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/08/21/hej-stockholm/">Hej Stockholm !</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> July (1)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/07/09/trip-to-cologne-using-the-internet-on-holidays/">Trip to Cologne: using the Internet on holidays</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> May (1)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/05/24/show-me-the-numbers/">Show me the numbers !!!!</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> April (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/04/08/how-to-install-the-printer-canon-mx340-wi-fi-without-the-cd-on-mac/">How to install the printer canon mx340 wi-fi without the cd on mac</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/04/06/biomimicry-and-fishes/">Biomimicry and Fishes</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> March (5)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/03/19/ad-driven-content/">Ad driven content</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/03/18/personal-presence-because-its-impossible-to-not-like/">Personal presence : Because it's impossible to not like</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/03/17/the-simpsons-technology-at-school/">The Simpsons – Technology at School</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/03/14/hal-9000/">HAL 9000</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/03/02/a-message-in-a-bottle-hello-world/">A message in a bottle : Hello world</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> February (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/02/23/the-honey-ui/">The Honey UI</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2011/02/22/tron-legacy-im-a-user-ill-improvise/">Tron Legacy : I’m a user, I’ll improvise</a></li></ul></li></ul></li>
+<li class="jaw_years"><a class="jaw_years" href="#jal"><span class="jaw_symbol">►</span> 2010 (22)</a><ul>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> November (1)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/11/21/weird-evening-please-show-the-names-in-group-texts/">Weird evening. Please show the names in group texts.</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> October (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/10/18/im-a-creep/">I’m a creep</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/10/17/windows-phone-7-designed-to-get-you-in-and-out-and-back-to-life-really-how/">Windows Phone 7 : Designed to get you In and Out and Back to life, really? How.</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> September (14)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/28/today-i-wrote-a-handwritten-letter/">Today I wrote a handwritten letter</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/25/machines-are-digging-2/">Machines are digging</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/22/real-vs-virtual-the-cinema-ballet/">Real vs Virtual : the Cinema Ballet</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/12/mc-donalds-ad-fries-wifi/">Mc Donalds Ad : Fries Wifi</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/12/givenchy-new-perfume-play/">Givenchy new perfume : Play</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/12/the-circle-of-no-life/">The circle of No Life</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/12/wwf-ad-campaign-save-dont-save/">WWF Ad Campaign : Save / Don’t save</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/10/on-google-new-search-engine/">On Google new search engine</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/08/digital-narcissism-we-are-digital-mammals/">Digital narcissism: We are digital mammals</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/07/tippex-experience-ad-a-hunter-shoots-a-bear/">Tippex experience Ad: A hunter shoots a bear!</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/03/sponsors-of-tomorrow-papapapom/">Sponsors of tomorrow: Papapapom !</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/02/smokin-ethernet/">Smokin’ Ethernet</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/01/i-really-hate-talking-how-technology-makes-it-ok/">“I really hate talking” : how Technology makes it OK</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/09/01/happiness-through-blogging/">Happiness through blogging?</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> August (3)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/08/26/my-phone-the-savior-of-awkward-moments-of-existence/">My phone the Savior of awkward moments of existence</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/08/24/google-and-the-troopers/">Google and the troopers</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/08/07/an-interview-with-myself/">An Interview With Myself</a></li></ul></li>
+	<li class="jaw_months" style="display:none;"><a class="jaw_months" href="#jal"><span class="jaw_symbol">►</span> July (2)</a><ul>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/07/28/the-web-is-a-scene/">The Web is a Scene</a></li>
+		<li class="jaw_posts" style="display:none;"><a href="http://machinesaredigging.com/2010/07/21/the-ballet-and-little-droid/">The ballet and Little Droid</a></li></ul></li></ul></li></ul></li><li id="text-5" class="widget-container widget_text">			<div class="textwidget"><!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config =
+ {data_track_clickback:true,
+  services_compact: 'email, facebook, twitter, stumbleupon,googlebuzz, print, more',
+services_expanded:'gmail,blogger,linkedin,netvibes,technocrati,favorites,digg,wordpress,buzz'
+};
+
+</script>
+<div class="addthis_toolbox addthis_default_style">
+<h3 class="widget-title"><a href="http://www.addthis.com/bookmark.php?v=250&amp;username=eloone" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://www.addthis.com']);" class="addthis_button_compact at300m"><span class="at16nc at300bs at15nc at15t_compact at16t_compact"><span class="at_a11y">More Sharing Services</span></span>Share this blog</a>
+</h3>
+<div class="atclear"></div></div>
+<script type="text/javascript" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/addthis_widget.js"></script><div id="_atssh" style="visibility: hidden; height: 1px; width: 1px; position: absolute; z-index: 100000;"><iframe src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/sh154.html" style="height: 1px; width: 1px; position: absolute; z-index: 100000; border: 0px none; left: 0px; top: 0px;" title="AddThis utility frame" id="_atssh171"></iframe></div><script src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/core128.js" type="text/javascript"></script>
+<!-- AddThis Button END --></div>
+		</li>			</ul>
+		</div><!-- #primary .widget-area -->
+
+	</div><!-- #main -->
+
+	<div id="footer" role="contentinfo">
+		<div id="colophon">
+
+
+
+		</div><!-- #colophon -->
+	</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+<div id="site-info">
+	<a href="http://machinesaredigging.com/" title="Machines are digging" rel="home">
+		Machines are digging	</a>
+	. Made by a machine. All rights reserved. Another <a href="http://wordpress.org/">Wordpress</a> blog.
+</div><!-- #site-info -->
+<div style="background-position: 3px 7px;" title="Exit Reading-Mode" id="read_mode_id" class="read_mode"></div>
+<div id="follow" class="right"><ul class="tab size32 down"><li class="follow"><img src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/blank.gif" alt="follow:"><span>follow:</span></li><li class="iconOnly"><a rel="nofollow me" target="_blank" style="display: block; background: url(&quot;http://machinesaredigging.com/blog-mad/wp-content/plugins/share-and-follow/default/32/feedburner.png&quot;) no-repeat scroll -32px 0px transparent; height: 32px; width: 32px;" class="feedburner" href="http://feedburner.google.com/fb/a/mailverify?uri=machinesaredigging/nxSR&amp;loc=en_US" title="Get updates by email"><span class="head">Get updates by email</span></a></li><li class="iconOnly"><a rel="nofollow me" target="_blank" style="display: block; background: url(&quot;http://machinesaredigging.com/blog-mad/wp-content/plugins/share-and-follow/default/32/rss.png&quot;) no-repeat scroll -37px 50% transparent; height: 32px; width: 32px;" class="rss" href="http://machinesaredigging.com/feed/rss/" title="Get updates by RSS"><span class="head">Get updates by RSS</span></a></li><li class="iconOnly"><a rel="nofollow me" target="_blank" style="display: block; background: url(&quot;http://machinesaredigging.com/blog-mad/wp-content/plugins/share-and-follow/default/32/twitter.png&quot;) no-repeat scroll -33px 50% transparent; height: 32px; width: 32px;" class="twitter" href="http://twitter.com/eloone" title="Read my tweets"><span class="head">Read my tweets</span></a></li></ul></div><script type="text/javascript" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/customsharemad.js"></script>
+<script type="text/javascript" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/jquery-archive-list.html"></script>
+
+
+<div style="display: block;" title="Scroll to top" class="side_button scroll_top" id="scroll_top"></div><iframe style="display: none;" allowtransparency="true" id="rufous-sandbox" frameborder="0" scrolling="no"></iframe><canvas style="display: none;"></canvas><iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="How%20does%20a%20web%20session%20work%20%3F%20%7C%20Machines%20are%20digging_files/postmessageRelay.html" id="oauth2relay306158839" name="oauth2relay306158839"></iframe></body><iframe src="" style="display: none;"></iframe></html>
