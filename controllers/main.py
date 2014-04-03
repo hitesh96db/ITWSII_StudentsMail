@@ -74,6 +74,7 @@ def loginvalidate():
 def loginmy():
 	db.templogin.truncate()
 	if len(request.vars) != 0:
+		session.forget(response)
 		return dict(log=request.vars["logout"])
 	return dict(log=0)
 
@@ -125,6 +126,7 @@ def send():
         return "Mail Sent!"
 
 def show():
+        #show
         mails = {};
         user = request.vars['id'];
         row = db(db.student.email_id == user).select(db.student.mails);

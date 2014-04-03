@@ -22,7 +22,7 @@ sS'type'
 p10
 S'id'
 p11
-ssS'name'
+ssS'email'
 p12
 (dp13
 g4
@@ -30,7 +30,7 @@ I512
 sg5
 I00
 sg6
-I2
+I3
 sg7
 S'CHAR(512)'
 p14
@@ -39,7 +39,7 @@ I00
 sg10
 S'string'
 p15
-ssS'email'
+ssS'name'
 p16
 (dp17
 g4
@@ -47,7 +47,7 @@ I512
 sg5
 I00
 sg6
-I3
+I2
 sg7
 S'CHAR(512)'
 p18
