@@ -21,8 +21,8 @@ br.form = list(br.forms())[0]
 	#       print control.name
 
 
-br["StUdent"] = "************"
-br["password"] = "***********"
+br["StUdent"] = "hitesh.sharma"
+br["password"] = "HSAdeUGu"
 	#br["rno"]="2013"
 	#br["grade"]="A"
 
@@ -67,3 +67,4 @@ studentinfo["batch"]=batch;
 
 print json.dumps(studentinfo)
 os.system("rm isas.html")
+

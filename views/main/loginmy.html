@@ -1,7 +1,7 @@
 <html>
 <head>
 <link href="{{=URL('static','css/loginmy.css')}}" type="text/css" rel="stylesheet"></link>
-<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 <script src="{{=URL('static','js/jquery.js')}}"></script>
 </head>
 <body>
@@ -53,11 +53,11 @@
 		}
 		
 		function login(){
-		
+		alert("Hi");		
 		var email = document.getElementById("user").value;
 		var password = document.getElementById("pass").value;
 		var xhr = new XMLHttpRequest();
-		destination = "http://"+ip+":"+port+"/itproject/main/loginvalidate"
+		destination = "https://"+ip+":"+port+"/itproject/main/loginvalidate"
 		xhr.open("POST",destination,true);
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhr.send("email="+email+"&password="+password);
@@ -71,7 +71,7 @@
 					else
 					{
 						var x = new XMLHttpRequest();
-						x.open("POST","http://"+ip+":"+port+"/itproject/main/passthru",true);
+						x.open("POST","https://"+ip+":"+port+"/itproject/main/passthru",true);
 						x.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 						x.send("name="+info["name"]+"&email="+email);
 						
@@ -80,7 +80,7 @@
 							if( x.readyState == 4 && x.status == 200 )
 							{
 								if ( x.responseText == "proceed" )
-									window.location.href = "http://127.0.0.1:8010/itproject/main/mails";
+									window.location.href = "https://127.0.0.1:8010/itproject/main/mails";
 							}
 						}
 //						window.location.href="http://127.0.0.1:8010/itproject/main/mails?name="+info["name"]
@@ -100,7 +100,7 @@
                                 	document.getElementById("talk").innerHTML = "Logout Successful";
                                 	$("#fail").slideDown("slow");
                                 	setTimeout(function(){ $("#fail").slideUp("fast"); },1500);
-					setTimeout(function(){ window.location.href="http://"+ip+":"+port+"/itproject/main/loginmy"; },1000);
+					setTimeout(function(){ window.location.href="https://"+ip+":"+port+"/itproject/main/loginmy"; },1000);
                 	}
 	
 		});

@@ -73,10 +73,12 @@
 		</div>
 	</div>
 	<script>
+		ip = "127.0.0.1";
+		port = "8010";
 		function getuser(){
                                 
                                 var xhr = new XMLHttpRequest();
-                                xhr.open("GET","http://127.0.0.1:8010/itproject/main/getuser",true);
+                                xhr.open("GET","https://"+ip+":"+port+"/itproject/main/getuser",true);
                                 xhr.send();
         
                                 xhr.onreadystatechange = function(){
@@ -90,7 +92,7 @@
                         
                         }
 		function logout(){
-                                window.location.href = "http://127.0.0.1:8010/itproject/main/loginmy?logout=1"
+                                window.location.href = "https://"+ip+":"+port+"/itproject/main/loginmy?logout=1"
                         }
 		$(document).ready(function()
 		{
@@ -109,7 +111,7 @@
         
                                 if( id != "" && tag != "" )
                                 {
-                                        xhr.open("GET","http://127.0.0.1:8010/itproject/main/send?id="+id+"&tag="+tag+"&sub="+sub+"&msg="+msg+"&send_id="+send_id+"&sender_name="+sender_name,true);
+                                        xhr.open("GET","https://"+ip+":"+port+"/itproject/main/send?id="+id+"&tag="+tag+"&sub="+sub+"&msg="+msg+"&send_id="+send_id+"&sender_name="+sender_name,true);
                                         xhr.send();
                 
                                         xhr.onreadystatechange = function(){
@@ -133,7 +135,7 @@
 			$("#inboxme").click(function(){
 				var xhr = new XMLHttpRequest();
 				var l = document.getElementById("idofuser").innerHTML;
-				xhr.open("GET","http://127.0.0.1:8010/itproject/main/show?id="+l,true);
+				xhr.open("GET","https://"+ip+":"+port+"/itproject/main/show?id="+l,true);
 				xhr.send();
 		
 				xhr.onreadystatechange = function()
