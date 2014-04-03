@@ -1565,3 +1565,8 @@ success!
 success!
 success!
 success!
+timestamp: 2014-04-03T22:33:13.586138
+ALTER TABLE mail ADD uploadfile CHAR(512);
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
