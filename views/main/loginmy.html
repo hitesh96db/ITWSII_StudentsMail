@@ -1,0 +1,111 @@
+<html>
+<head>
+<link href="{{=URL('static','css/loginmy.css')}}" type="text/css" rel="stylesheet"></link>
+<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+<script src="{{=URL('static','js/jquery.js')}}"></script>
+</head>
+<body>
+	<div id="main">
+		<p id="check">{{=log}}</p>
+		<div id="circle">	
+			<p></p>	
+		</div>
+		<div id="circle2">
+			<img id="logo" src="{{=URL('static','images/img07.jpg')}}" width="150px" height="150px"></img>
+			<div id="line"><p></p></div>
+			<p id="title1">Students</p>
+			<p id="title2">Mail</p>
+		</div>
+		<div id="login">
+			<form>
+				<label id="u" for="user">Email:</label>
+				<input id="user" type="text" name="user"></input>
+				<br>
+				<label id="p" for="pass">Password:</label>
+				<input id="pass" type="password" name="pass" onkeydown="checkforenter(event)"></input>	
+			</form>
+			<button class="myButton" onclick="login()">Login</button>
+		</div>
+		<div id="footer">
+			<p>International Institute of Information Technology, Hyderabad</p>
+		</div>
+		<div id="fail">
+			<p id="talk"></p>
+		</div>
+	</div>
+
+	<script>
+		var ip = "127.0.0.1";
+		var port = "8010";
+		function checkforlogout()
+		{
+			if ( document.getElementById("check").innerHTML == 1 )
+			{
+				document.getElementById("talk").innerHTML = "Logout Successful";
+				$("#fail").slideDown("fast");
+	                        setTimeout(function(){ $("#fail").slideUp("fast"); },1500);
+			}
+		}
+		function checkforenter(e)
+		{
+			if ( e.keyCode == 13 )
+				login();
+		}
+		
+		function login(){
+		
+		var email = document.getElementById("user").value;
+		var password = document.getElementById("pass").value;
+		var xhr = new XMLHttpRequest();
+		destination = "http://"+ip+":"+port+"/itproject/main/loginvalidate"
+		xhr.open("POST",destination,true);
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.send("email="+email+"&password="+password);
+		
+		xhr.onreadystatechange = function(){
+				if( xhr.readyState == 4 && xhr.status == 200 )	
+				{
+					info = $.parseJSON(xhr.responseText);
+					if( info["name"] == "unknown" )
+						faillogin();
+					else
+					{
+						var x = new XMLHttpRequest();
+						x.open("POST","http://"+ip+":"+port+"/itproject/main/passthru",true);
+						x.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+						x.send("name="+info["name"]+"&email="+email);
+						
+						x.onreadystatechange = function(){
+		
+							if( x.readyState == 4 && x.status == 200 )
+							{
+								if ( x.responseText == "proceed" )
+									window.location.href = "http://127.0.0.1:8010/itproject/main/mails";
+							}
+						}
+//						window.location.href="http://127.0.0.1:8010/itproject/main/mails?name="+info["name"]
+					}
+				}
+			}
+		}
+		function faillogin()
+		{
+			document.getElementById("talk").innerHTML = "Invalid Email/Password";
+			$("#fail").slideDown("fast");
+			setTimeout(function(){ $("#fail").slideUp("fast"); },1500);
+		}
+		$(document).ready(function(){
+                        if ( document.getElementById("check").innerHTML == 1 )
+                        {
+                                	document.getElementById("talk").innerHTML = "Logout Successful";
+                                	$("#fail").slideDown("slow");
+                                	setTimeout(function(){ $("#fail").slideUp("fast"); },1500);
+					setTimeout(function(){ window.location.href="http://"+ip+":"+port+"/itproject/main/loginmy"; },1000);
+                	}
+	
+		});
+
+	</script>
+</body>
+</html>
+

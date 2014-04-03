@@ -1,0 +1,150 @@
+<html>
+<head>
+	<script src="{{=URL('static','js/jquery.js')}}"></script>
+	<link href="{{=URL('static','css/mails.css')}}" rel="stylesheet" type="text/css"></link>
+</head>
+<body onload="getuser()">
+	<div id="main">
+		<div id="header">
+			<p id="title">Students Mail</p>
+			<div id="mail"><img id="mailimg" src="{{=URL('static','images/mail.png')}}" width="80px" height="80px"></img></div>
+			<span id="user"></span>
+			<div id="tg"></div>
+			<p id="logout" onclick="logout()"> Logout </p>
+			<p id="idofuser" style="display:none;"></p>
+		</div>
+		<ul id="tabs">
+			<li class="tags"><a class="top" href="#1">Academics</a><div id="c1"><p class="content">12</p></div></li>
+			<li class="tags"><a class="top" href="#2">Sports</a><div id="c2"><p class="content">23</p></div></li>
+			<li class="tags"><a class="top" href="#3">Events</a><div id="c3"><p class="content">32</p></div></li>
+			<li class="tags"><a class="top" href="#4">Cultural</a><div id="c4"><p class="content">11</p></div></li>
+			<li class="tags"><a class="top" href="#5">Urgent</a><div id="c5"><p class="content">5</p></div></li>
+			<li class="tags"><a class="top" href="#6">Lost/Found</a><div id="c6"><p class="content">100</p></div></li>
+			<li class="tags"><a class="top" href="#7">General</a><div id="c7"><p class="content">2</p></div></li>
+		</ul>
+		<div id="submain">
+			<div id="toolbar">
+				<div id="mailicons">
+                                <img src="{{=URL('static','images/reply.png')}}" width="30px" height="30px" style="position:absolute;margin-left:13px;margin-top:4px;" title="reply"></img>
+                                <img src="{{=URL('static','images/forward.png')}}" width="30px" height="30px" style="position:absolute;margin-left:68px;margin-top:4px;" title="forward"></img>
+                                <img src="{{=URL('static','images/delete.png')}}" width="30px" height="30px" style="position:absolute;margin-left:121px;margin-top:4px;" title="delete"></img>
+                                <img src="{{=URL('static','images/read.png')}}" width="30px" height="30px" style="position:absolute;margin-left:172px;margin-top:4px;" title="Mark as read"></img>
+                                <img src="{{=URL('static','images/unread.png')}}" width="30px" height="30px" style="position:absolute;margin-left:222px;margin-top:4px;" title="Mark as unread"></img>
+                                <img src="{{=URL('static','images/important.png')}}" width="30px" height="30px" style="position:absolute;margin-left:272px;margin-top:4px;" title="Mark as important"></img>
+                                </div>
+				<div id="magnifying-glass"></div>
+				<input id="search"></input>
+			</div>
+			<div id="sidebar">
+				<ul id="side">
+					<img id="compose" src="{{=URL('static','images/compose.png')}}" width="30px" height="30px"></img>
+					<li id="composeme" class="down"><a>Compose</a></li>
+					<img id="inbox" src="{{=URL('static','images/inbox.png')}}" width="30px" height="30px"></img>
+					<li id="inboxme" class="down"><a >Inbox</a></li>
+					<img id="sent" src="{{=URL('static','images/sent.png')}}" width="30px" height="30px"></img>
+					<li id="sentme" class="down"><a >Sent</a></li>
+					<img id="drafts" src="{{=URL('static','images/drafts.png')}}" width="30px" height="30px"></img>
+					<li id="draftsme" class="down"><a >Drafts</a></li>
+					<img id="important" src="{{=URL('static','images/important1.png')}}" width="30px" height="30px"></img>
+					<li id="importantme" class="down"><a >Important</a></li>
+					<img id="trash" src="{{=URL('static','images/trash.png')}}" width="30px" height="30px"></img>
+					<li id="trashme" class="down"><a >Trash</a></li>
+				</ul>
+			</div>
+			<div id="allmails">
+				<div id="composer">
+					<img id="close" src="{{=URL('static','images/close.png')}}" width="50px" height="50px"></img>
+					<div id="sender">
+						<p> Send </p>
+					</div>
+					<img id="attach" src="{{=URL('static','images/clip.png')}}" width="50px" height="50px"></img>
+					<form>	
+						<p id="recvrp" class="formhead">To</p>
+						<input id="recvr" type="name" name="recvr" ></input>
+						<p id="tagp" class="formhead" >Tag</p>
+						<input id="tag" type="name" name="tag" ></input>
+						<p id="subp" class="formhead" >Subject</p>
+						<input id="sub" type="name" name="sub"></input>
+						<p id="msgp" class="formhead">Message</p>
+						<textarea id="msg" name="msg" cols="106" rows="20" ></textarea>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function getuser(){
+                                
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("GET","http://127.0.0.1:8010/itproject/main/getuser",true);
+                                xhr.send();
+        
+                                xhr.onreadystatechange = function(){
+                                        if( xhr.readyState == 4 && xhr.status == 200 )
+                                        {                var l = jQuery.parseJSON(xhr.responseText);
+							 document.getElementById("user").innerHTML = l["name"];	
+							 document.getElementById("idofuser").innerHTML = l["email"];
+					}
+                                
+				}
+                        
+                        }
+		function logout(){
+                                window.location.href = "http://127.0.0.1:8010/itproject/main/loginmy?logout=1"
+                        }
+		$(document).ready(function()
+		{
+			$("#composeme").click(function(){
+					$("#composer").slideDown("slow");
+				});
+			$("#sender").click(function(){
+                        
+                                var xhr = new XMLHttpRequest();
+                                var id = document.getElementById("recvr").value;
+                                var tag = document.getElementById("tag").value;
+                                var sub = document.getElementById("sub").value;
+                                var msg = document.getElementById("msg").value;
+                                var send_id = document.getElementById("idofuser").innerHTML;
+                                var sender_name = document.getElementById("user").innerHTML;
+        
+                                if( id != "" && tag != "" )
+                                {
+                                        xhr.open("GET","http://127.0.0.1:8010/itproject/main/send?id="+id+"&tag="+tag+"&sub="+sub+"&msg="+msg+"&send_id="+send_id+"&sender_name="+sender_name,true);
+                                        xhr.send();
+                
+                                        xhr.onreadystatechange = function(){
+                                                
+                                                if( xhr.readyState == 4 && xhr.status == 200 )
+                                                {
+                                                        alert(xhr.responseText);
+							$("#composer").slideUp("slow");
+                                                }
+                                        }
+                                }
+                                else
+                                {
+                                        if( id == "" )
+                                                alert("Receivers ID field can not be left empty");
+                                        else if( tag == "" )
+                                                alert("TAG field can not be left empty");
+                                }
+                	});	
+	
+			$("#inboxme").click(function(){
+				var xhr = new XMLHttpRequest();
+				var l = document.getElementById("idofuser").innerHTML;
+				xhr.open("GET","http://127.0.0.1:8010/itproject/main/show?id="+l,true);
+				xhr.send();
+		
+				xhr.onreadystatechange = function()
+				{
+					if( xhr.readyState == 4 && xhr.status == 200 )
+						alert(xhr.responseText);
+				}	
+			});
+		});
+	</script>
+
+</body>
+</html>
+

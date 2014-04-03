@@ -1,0 +1,201 @@
+/*
+ * Layout shamelessly stolen from
+ * http://css.maxdesign.com.au/floatutorial/tutorial0801.htm
+ *
+ * I don't write CSS.
+ * I copy it from other people :-) - DHH
+ */
+
+#container
+{
+	width: 98%;
+	margin: 10px auto;
+	background-color: #fff;
+	color: #333;
+	border: 1px solid gray;
+	line-height: 130%;
+}
+
+#top
+{
+	padding: .5em;
+	background-color: #ddd;
+	border-bottom: 1px solid gray;
+}
+
+#top h1
+{
+	padding: 0;
+	margin: 0;
+}
+
+#leftnav
+{
+	float: left;
+	width: 180px;
+	margin: 0;
+	padding: 1em;
+	font-size: 80%;
+}
+
+#leftnav ul
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 1em;
+}
+
+#leftnav li
+{
+	display: block;
+	/*border-top: 1px solid gray;*/
+	border-bottom: 1px solid gray;
+}
+
+#leftnav li a
+{
+	/*margin-left: 1em;*/
+	text-decoration: none;
+}
+
+#leftnav li:hover
+{
+	background: #CFC;
+}
+
+#leftnav p
+{
+	margin: 0 0 1em 0;
+}
+
+#content
+{
+	margin-left: 200px;
+	border-left: 1px solid gray;
+	padding: 1em;
+	/*max-width: 36em;*/
+}
+
+#fullContent
+{
+	padding: 1em;
+}
+
+#content h2 { margin: 0 0 .5em 0; }
+
+#footer
+{
+	clear: both;
+	margin: 0;
+	padding: .5em;
+	color: #333;
+	background-color: #ddd;
+	border-top: 1px solid gray;
+}
+
+#nav {
+	/*background:#c99;*/
+	padding:5px;
+	/*margin-left: 20px;*/
+	border-bottom: 1px solid gray;
+	font-size: 80%;
+}
+#nav ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+#nav li{
+	display:inline;
+	margin:0;
+	padding:0;
+}
+
+table {
+	border-width: 1px 1px 1px 1px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: gray gray gray gray;
+	border-collapse: collapse;
+	/*background-color: white;*/
+}
+
+table th {
+	border-width: 1px 1px 1px 1px;
+	padding: 2px 2px 2px 2px;
+	border-style: inset inset inset inset;
+	border-color: gray gray gray gray;
+	/*background-color: white;*/
+}
+
+table td {
+	border-width: 1px 1px 1px 1px;
+	padding: 2px 2px 2px 2px;
+	border-style: inset inset inset inset;
+	border-color: gray gray gray gray;
+	/*background-color: white;*/
+}
+
+th {
+  /*font-size: 120%;*/
+  font-weight: bold;
+/*  background: #d0ffd0;*/
+}
+
+tr.exam {
+  background: #F0F0B0;
+}
+
+tr.break {
+  background: #D0D0D0;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dl.news dt {
+  font-weight: bold;
+}
+
+dl.news dt.hotnews {
+  color: red;
+}
+
+tr.note td {
+  padding: 4px;
+}
+
+tr.note td.text {
+  background: #FFFFC0;
+  border: 1px solid;
+}
+
+.callout {
+  margin-left: 40px;
+  border-width: 1px 1px 1px 1px;
+  padding: 2px 2px 2px 2px;
+  border-style: inset inset inset inset;
+  background: #FFFFC0;
+}
+
+/*
+ * Styles for rst2html output.
+ */
+
+pre.literal-block {
+	margin-left: 2em ;
+	margin-right: 2em ;
+	background-color: #eeeeee;
+	border: 1px solid;
+	padding: 2px 2px 2px 2px;
+	border-color: silver;
+}
+
+.line-block {
+	background-color: #eeeeee;
+	border: 1px solid;
+	padding: 2px 2px 2px 2px;
+	border-color: silver;
+}
+

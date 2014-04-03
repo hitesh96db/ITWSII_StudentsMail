@@ -1,0 +1,594 @@
+timestamp: 2014-04-02T17:14:00.255454
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2014-04-02T17:14:00.422289
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2014-04-02T17:14:00.556365
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2014-04-02T17:14:00.690633
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2014-04-02T17:14:00.824694
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2014-04-02T17:14:00.958355
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2014-04-02T17:14:01.336800
+CREATE TABLE mail(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    rec_email CHAR(512),
+    sender_email CHAR(512),
+    sender_name CHAR(512),
+    subject CHAR(512),
+    mail_message TEXT,
+    tag CHAR(512),
+    sent_time CHAR(512),
+    sent_date CHAR(512)
+);
+success!
+timestamp: 2014-04-02T17:14:01.481402
+CREATE TABLE student(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email_id CHAR(512),
+    name CHAR(512),
+    mails TEXT
+);
+success!
+timestamp: 2014-04-02T17:33:25.622885
+CREATE TABLE login(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name CHAR(512)
+);
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+DELETE FROM login;
+DELETE FROM sqlite_sequence WHERE name='login';
+success!
+timestamp: 2014-04-02T18:44:59.988014
+CREATE TABLE templogin(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name CHAR(512)
+);
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+timestamp: 2014-04-02T22:46:11.497903
+ALTER TABLE templogin ADD email CHAR(512);
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+DELETE FROM templogin;
+DELETE FROM sqlite_sequence WHERE name='templogin';
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!

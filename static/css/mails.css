@@ -1,0 +1,502 @@
+body
+{
+overflow:hidden;
+}
+#main
+{
+background-color:#003366;
+    height: 202%;
+    margin-left: -2%;
+    margin-top: -2%;
+    width: 102.6%;
+}
+#submain
+{
+background-color: #CCCCCC;
+    height: 177%;
+    margin-left: 6%;
+    position: fixed;
+    top: 27%;
+    width: 90%;
+
+}
+#header
+{
+/*background-color: #FFFFFF;*/
+    height: 13%;
+    margin-left: 1%;
+    position: fixed;
+    top: 0;
+    width: 100.4%;
+}
+#allmails
+{
+	background-color: white;
+    color: #FFFFFF;
+    height: 35%;
+    left: 23.5%;
+    white-space: wrap;
+    overflow-y: scroll;
+    overflow-x:hidden;
+    position: absolute;
+    top: 5.65%;
+    width: 76%;
+    z-index: 1000;
+}
+#user
+{
+	color: #FFFFFF;
+    font-family: Ubuntu Mono;
+    font-size: 1.5em;
+    left: 73%;
+    position: absolute;
+    top: 58%;
+    width: 200px;
+}
+#search
+ {
+ 	margin-left:850px;
+ 	margin-top:8px;
+ 	width:40%;
+ 	position:absolute;
+	left: -12%;
+	
+ }
+
+#logout:hover
+{
+color:black;
+box-shadow: 0 2px 4px 1px #000000;
+border-radius:3px;
+background-color:white;
+cursor:pointer;
+}
+
+#title
+{
+	color: #FFFFFF;
+    font-family: Ubuntu Mono;
+    font-size: 3.5em;
+    margin-left: 12%;
+    margin-top: 2%;
+}
+#mail
+{
+    border-radius: 20%;
+    left: 4.5%;
+    position: absolute;
+    top: 18%;
+}
+#logout
+{
+color:white;
+font-family: Ubuntu Mono;
+    font-size: 1.5em;
+    left: 89%;
+    position: absolute;
+    top: 32%;
+    transition: all 0.5s linear;
+}
+#mailimg
+{
+border-radius: 14px;
+    left: 33%;
+    position: absolute;
+    top: 18%;
+}
+#tg
+{ 
+border-bottom: 15px solid rgba(0, 0, 0, 0);
+    border-left: 15px solid #FFFFFF;
+    border-top: 15px solid rgba(0, 0, 0, 0);
+    height: 0;
+    left: 86.8%;
+    position: absolute;
+    top: 56%;
+    width: 0;
+}
+#tabs
+{
+	left: 1.6%;
+    position: fixed;
+    top: 17.4%;
+    width: 101.5%;
+}
+
+.tags
+{
+	border-left-color: #336699;
+    border-left-style: solid;
+    box-shadow: 0 -14px 0 0 #336699;
+    color: #C0C0C0;
+    display: block;
+    float: left;
+    font-family: Ubuntu Mono;
+    font-size: 22px;
+    text-align: left;
+    transition: box-shadow 0.7s ease 0s;
+    width: 12.47%;
+}
+.tags:active
+{   
+ box-shadow: 0px -14px 0 0 #FF6600;
+}
+.tags:hover
+{
+box-shadow: 0px -14px 0 0 #FF6600;
+color:white;
+}
+.top
+{
+color: inherit;
+    left: 2%;
+    position: relative;
+    text-decoration: none;
+    top: 13px;
+}
+a
+{
+text-decoration:none;
+color:inherit;
+}
+#c1
+{
+   background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 76%;
+    top: -36px;
+    position: relative;
+    width: 35px;
+}
+#c2
+{
+	background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 76%;
+    position: relative;
+    top: -36px;
+    width: 35px;
+}
+#c3
+{
+	background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 76%;
+    position: relative;
+    top: -36px;
+    width: 35px;
+}
+#c4
+{
+	background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 76%;
+    position: relative;
+    top: -36px;
+    width: 35px;
+}
+#c5
+{
+	background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 76%;
+    position: relative;
+    top: -36px;
+    width: 35px;
+}
+#c6
+{
+	background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 76%;
+    position: relative;
+    top: -36px;
+    width: 35px;
+}
+#c7
+{
+	background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 76%;
+    position: relative;
+    top: -36px;
+    width: 35px;
+}
+.content
+{
+color:black;
+font-size:20px;
+text-align:center;
+position:relative;
+top:6px;
+}
+#toolbar
+{
+    background-color: #FFFFFF;
+    border-radius: 9px;
+    box-shadow: 0 1px 1px 1px #000000;
+    height: 6%;
+    margin-left: 1.5%;
+    position: fixed;
+    top: 29%;
+    width: 87%;
+}
+#sidebar
+{
+	background-color: white;
+    height: 58%;
+    left: 6%;
+    position: fixed;
+    top: 37%;
+    width: 19%;
+    border-radius:3px;
+}
+#magnifying-glass
+{
+border: 0.1em solid #006699;
+    border-radius: 0.35em;
+    display: inline-block;
+    font-size: 2.5em;
+    height: 0.4em;
+    position: relative;
+    top: 5px;
+    width: 0.4em;
+    left: 56%;
+}
+#magnifying-glass::before { content: ""; display: inline-block; position: absolute; right: -0.25em; bottom: -0.1em; border-width: 0; background: #006699; width: 0.35em; height: 0.08em; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); }
+
+#side
+{
+ background-color: white;
+    left: 7%;
+    position: fixed;
+    width: 14%;
+    list-style-type:none;
+    top:38%;
+}
+.down
+{
+    background-color: #CCCCCC;
+    border-radius: 7px;
+    box-shadow: 0 -15px 8px -7px #888888;
+    color: #000000;
+    font-family: Ubuntu Mono;
+    font-size: 22px;
+    left: -9px;
+    padding: 18px;
+    transition: all 0.3s linear; 
+}
+#compose
+{
+position:relative;
+top:1%;
+}
+hr
+{
+color:black;
+}
+.down:hover
+{
+	background-color:#0099CC;
+        color:white;
+        cursor:pointer;
+	box-shadow:0px 0px 0px 0px #888888;
+}
+#important
+{
+left: 1px;
+    position: absolute;
+    top: 70%;
+}
+.div:active
+{
+	background-color:#0099CC;
+        color:white;
+        cursor:pointer;
+        box-shadow:0px 0px 0px 0px #888888;
+}
+#drafts
+{
+    left: 0;
+    position: absolute;
+    top: 54%;
+
+}
+#compose
+{
+left: 0;
+    position: absolute;
+    top: 4%;
+}
+
+#inbox
+{
+	left: 0;
+    position: absolute;
+    top: 20%;
+
+}
+#trash
+{
+	left: 0;
+    position: absolute;
+    top: 87%;
+
+}
+#sent
+{	
+	left: 0;
+    position: absolute;
+    top: 37%;
+}
+
+
+/* COMPOSE MAIL RELATED CSS ELEMENTS */
+#sender
+{
+	background-color: #006699;
+    border-radius: 133px;
+    height: 60px;
+    left: 87%;
+    position: fixed;
+    top: 40%;
+    color:white;
+    width: 60px;
+    z-index: 1000;
+    opacity:0.4;
+    transition:all 0.5s ease;
+}
+#sender:hover
+{
+    opacity:1;
+    color:white;
+    cursor:pointer;
+}
+#sender p
+{
+	font-family: Ubuntu Mono;
+    font-size: 21px;
+    left: 11%;
+    position: relative;
+    top: -6%;
+
+}
+#composer
+{
+	background-color: #F0F0F0  ;
+    height: 200%;
+    margin-left: 1%;
+    margin-top: 7.5px;
+    position: relative;
+    width: 98%;
+    display:none;
+    overflow:hidden;
+}
+#recvr
+{
+    left: 20%;
+    position: absolute;
+    top: 10%;
+    border-color:white;
+    border-style:solid;
+    width:70%;
+}
+#recvr:focus
+{
+	box-shadow: 0 0 0 2px #006699;
+}
+.formhead
+{
+	color:black;
+	font-family:Ubuntu Mono;
+	font-size:25px;
+}
+#recvrp
+{
+	color: #000000;
+    left: 6%;
+    position: absolute;
+    top: 7%;
+}
+	
+#tag
+{
+    left: 20%;
+    position: absolute;
+    top: 15%;
+    border-color:white;
+    border-style:solid;
+    width:70%;
+}
+
+#tag:focus
+{
+	box-shadow: 0 0 0 2px #006699;
+}
+
+
+#tagp
+{
+
+	color: #000000;
+    left: 6%;
+    position: absolute;
+    top: 12%;
+}
+#sub
+{
+    left: 20%;
+    position: absolute;
+    top: 20%;
+    border-color:white;
+    border-style:solid;
+    width:70%;
+}
+#sub:focus
+{
+	box-shadow: 0 0 0 2px #006699;
+}
+
+#subp
+{
+	color: #000000;
+    left: 6%;
+    position: absolute;
+    top: 17%;	
+}
+#msg
+{
+    left: 6%;
+    position: absolute;
+    top: 31%;
+    border-color:white;
+    border-style:solid;
+
+}
+#msg:focus
+{
+	box-shadow: 0 0 0 2px #006699;
+}
+
+#msgp
+{
+	color: #000000;
+    left: 6%;
+    position: absolute;
+    top: 24%;
+}
+
