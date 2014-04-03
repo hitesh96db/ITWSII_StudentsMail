@@ -1,1 +1,0 @@
-twttr.receiveCount({"count":1,"url":"http:\/\/www.geeksforgeeks.org\/greedy-algorithms-set-6-dijkstras-shortest-path-algorithm\/"});
