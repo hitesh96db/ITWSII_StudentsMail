@@ -73,12 +73,12 @@ def loginvalidate():
 
 def loginmy():
 	if len(request.vars) != 0:
-		session.forget(response)
+		session["name"] = "None"
+		session["email"] = "None"
 		return dict(log=request.vars["logout"])
 	return dict(log=0)
 
 def passthru():
-	session.secure()
 	session["name"] = request.vars["name"]
 	session["email"] = request.vars["email"]
 	return "proceed"
@@ -92,7 +92,10 @@ def getuser():
 		db.student.insert(email_id = email , name = name )
 	return "Added to Database!"
 
-def mails():	
+def mails():
+	if session["name"] == "None":
+		response.view = 'main/pls.html'
+		return dict()	
 	return dict()
 
 def getid():
