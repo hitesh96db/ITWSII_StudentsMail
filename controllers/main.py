@@ -73,7 +73,7 @@ def loginvalidate():
 
 def loginmy():
 	if len(request.vars) != 0:
-		session.forget(response)
+		session["name"] = "None"
 		return dict(log=request.vars["logout"])
 	return dict(log=0)
 
@@ -93,6 +93,9 @@ def getuser():
 	return "Added to Database!"
 
 def mails():	
+	if session["name"] == "Name":
+		response.view = "/main/pls.html"
+		return dict()
 	return dict()
 
 def getid():
