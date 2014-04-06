@@ -83,12 +83,7 @@ def record():
 #		response.flash="Form Accepted";
 #		ajax('check', [],  
 	return dict();
-def add():
-	name = request.get_vars['name'];
-	email = request.get_vars['email_id'];
-	c = db(db.student.email_id == email).select();
-	if(len(c) == 0):
-		db.student.insert(email_id=email, name=name);
+
 import time
 def send():
 	sent_time = time.strftime("%H:%M:%S");

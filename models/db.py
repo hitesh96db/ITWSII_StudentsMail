@@ -94,11 +94,10 @@ use_janrain(auth, filename='private/janrain.key')
 #db.define_table('records', Field('name', 'string'), Field('rollno', 'string'));
 ####################
 
-db.define_table("templogin",Field("Name","string"),Field("Email","string"))
 
-db.define_table('mail', Field('rec_email', 'string', requires=[IS_NOT_EMPTY()]), Field('sender_email','string', requires=[IS_NOT_EMPTY()]),Field('sender_name','string'),Field('subject', 'string', default='No subject'), Field('mail_message', 'text', default=''), Field('tag', 'string'), Field('sent_time','string'), Field('sent_date', 'string'), Field('uploadfile', 'upload'))
+db.define_table('mail', Field('rec_email', 'string', requires=[IS_NOT_EMPTY()]), Field('sender_email','string', requires=[IS_NOT_EMPTY()]),Field('sender_name','string'),Field('subject', 'string', default='No subject'), Field('mail_message', 'text', default=''), Field('tag', 'string'), Field('sent_time','string'), Field('sent_date', 'string'),Field('red','integer'),Field('important','integer'),Field('trash','integer'))
 
-db.define_table('student', Field('email_id','string', requires=IS_EMAIL()), Field('name','string'), Field('mails','list:reference mail'));
+db.define_table('student', Field('email_id','string'), Field('name','string'), Field('mails','list:reference mail'));
 
 #db.define_table('tag',Field('name'),format='%(name)s');
 #db.define_table('product',Field('name'), Field('tags','list:reference tag'))

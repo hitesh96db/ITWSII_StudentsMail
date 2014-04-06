@@ -35,8 +35,9 @@
 	</div>
 
 	<script>
-		var ip = "10.3.8.158";
-		var port = "8010";
+		var ip = "127.0.0.1";
+		var port = "8000";
+		var conn = "http";
 		function checkforlogout()
 		{
 			if ( document.getElementById("check").innerHTML == 1 )
@@ -56,7 +57,7 @@
 		var email = document.getElementById("user").value;
 		var password = document.getElementById("pass").value;
 		var xhr = new XMLHttpRequest();
-		destination = "https://"+ip+":"+port+"/itproject/main/loginvalidate"
+		destination = conn+"://"+ip+":"+port+"/itproject/main/loginvalidate"
 		xhr.open("POST",destination,true);
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhr.send("email="+email+"&password="+password);
@@ -70,7 +71,7 @@
 					else
 					{
 						var x = new XMLHttpRequest();
-						x.open("POST","https://"+ip+":"+port+"/itproject/main/passthru",true);
+						x.open("POST",conn+"://"+ip+":"+port+"/itproject/main/passthru",true);
 						x.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 						x.send("name="+info["name"]+"&email="+email);
 						
@@ -79,7 +80,7 @@
 							if( x.readyState == 4 && x.status == 200 )
 							{
 								if ( x.responseText == "proceed" )
-									window.location.href = "https://"+ip+":"+port+"/itproject/main/mails";
+									window.location.href = conn+"://"+ip+":"+port+"/itproject/main/mails";
 							}
 						}
 //						window.location.href="http://127.0.0.1:8010/itproject/main/mails?name="+info["name"]
@@ -99,7 +100,7 @@
                                 	document.getElementById("talk").innerHTML = "Logout Successful";
                                 	$("#fail").slideDown("slow");
                                 	setTimeout(function(){ $("#fail").slideUp("fast"); },1500);
-					setTimeout(function(){ window.location.href="https://"+ip+":"+port+"/itproject/main/loginmy"; },1000);
+					setTimeout(function(){ window.location.href=conn+"://"+ip+":"+port+"/itproject/main/loginmy"; },1000);
                 	}
 	
 		});

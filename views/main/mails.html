@@ -1,6 +1,8 @@
 <html>
 <head>
 	<script src="{{=URL('static','js/jquery.js')}}"></script>
+	 <script src="{{=URL('static','js/jquery.easydropdown.min.js')}}"></script>
+	<link href="{{=URL('static','css/easydropdown.metro.css')}}" rel="stylesheet" type="text/css"></link>
 	<link href="{{=URL('static','css/mails.css')}}" rel="stylesheet" type="text/css"></link>
 </head>
 <body onload="getuser()">
@@ -14,13 +16,13 @@
 			<p id="idofuser" style="display:none;">{{=session["email"]}}</p>
 		</div>
 		<ul id="tabs">
-			<li class="tags"><a class="top" href="#1">Academics</a><div id="c1"><p class="content">12</p></div></li>
-			<li class="tags"><a class="top" href="#2">Sports</a><div id="c2"><p class="content">23</p></div></li>
-			<li class="tags"><a class="top" href="#3">Events</a><div id="c3"><p class="content">32</p></div></li>
-			<li class="tags"><a class="top" href="#4">Cultural</a><div id="c4"><p class="content">11</p></div></li>
-			<li class="tags"><a class="top" href="#5">Urgent</a><div id="c5"><p class="content">5</p></div></li>
-			<li class="tags"><a class="top" href="#6">Lost/Found</a><div id="c6"><p class="content">100</p></div></li>
-			<li class="tags"><a class="top" href="#7">General</a><div id="c7"><p class="content">2</p></div></li>
+			<li class="activemy" onclick="makeactive(this)"><a class="top" href="#1">Academics</a><div id="c1"><p class="content">12</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#2">Sports</a><div id="c2"><p class="content">23</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#3">Events</a><div id="c3"><p class="content">32</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#4">Cultural</a><div id="c4"><p class="content">11</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#5">Urgent</a><div id="c5"><p class="content">5</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#6">Lost/Found</a><div id="c6"><p class="content">100</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#7">General</a><div id="c7"><p class="content">2</p></div></li>
 		</ul>
 		<div id="submain">
 			<div id="toolbar">
@@ -38,17 +40,17 @@
 			<div id="sidebar">
 				<ul id="side">
 					<img id="compose" src="{{=URL('static','images/compose.png')}}" width="30px" height="30px"></img>
-					<li id="composeme" class="down"><a>Compose</a></li>
+					<li id="composeme" class="down" onclick="makesideactive(this)"><a>Compose</a></li>
 					<img id="inbox" src="{{=URL('static','images/inbox.png')}}" width="30px" height="30px"></img>
-					<li id="inboxme" class="down"><a >Inbox</a></li>
+					<li id="inboxme" class="sideactive" onclick="makesideactive(this)" ><a >Inbox</a></li>
 					<img id="sent" src="{{=URL('static','images/sent.png')}}" width="30px" height="30px"></img>
-					<li id="sentme" class="down"><a >Sent</a></li>
+					<li id="sentme" class="down" onclick="makesideactive(this)" ><a >Sent</a></li>
 					<img id="drafts" src="{{=URL('static','images/drafts.png')}}" width="30px" height="30px"></img>
-					<li id="draftsme" class="down"><a >Drafts</a></li>
+					<li id="draftsme" class="down" onclick="makesideactive(this)" ><a >Drafts</a></li>
 					<img id="important" src="{{=URL('static','images/important1.png')}}" width="30px" height="30px"></img>
-					<li id="importantme" class="down"><a >Important</a></li>
+					<li id="importantme" class="down" onclick="makesideactive(this)" ><a >Important</a></li>
 					<img id="trash" src="{{=URL('static','images/trash.png')}}" width="30px" height="30px"></img>
-					<li id="trashme" class="down"><a >Trash</a></li>
+					<li id="trashme" class="down" onclick="makesideactive(this)" ><a >Trash</a></li>
 				</ul>
 			</div>
 			<div id="allmails">
@@ -59,13 +61,29 @@
 					</div>
 					<form>	
 						<p id="recvrp" class="formhead">To</p>
-						<input id="recvr" type="name" name="recvr" ></input>
+						<input id="recvrinput" type="name" name="recvr" onkeyup="auto(event)" onkeydown="sendtodiv(event)"></input>
+						<div id="suggestions">	
+						</div>
+						<div id="recvr">
+						<ul id="receivers">
+							
+						</ul>
+						</div>
 						<p id="tagp" class="formhead" >Tag</p>
-						<input id="tag" type="name" name="tag" ></input>
+						<select class="dropdown">
+							<option value="1">Academics</option>
+							<option value="2">Sports</option>
+							<option value="3">Events</option>
+							<option value="4">Cultural</option>
+							<option value="5">Urgent</option>
+							<option value="6">Lost/Found</option>
+							<option value="7">General</option>
+							<option value="8"></option>
+						</select>
 						<p id="subp" class="formhead" >Subject</p>
 						<input id="sub" type="name" name="sub"></input>
 						<p id="msgp" class="formhead">Message</p>
-						<textarea id="msg" name="msg" cols="106" rows="20" ></textarea>
+						<textarea id="msg" name="msg" cols="82.5" rows="20" ></textarea>
 						<p id="attachp" >Attachments</p>
 						<input id="attach" type="file"></input>
 					</form>
@@ -74,12 +92,42 @@
 		</div>
 	</div>
 	<script>
-		ip = "10.3.8.158";
-		port = "8010";
+		ip = "127.0.0.1";
+		port = "8000";
+		conn = "http";
+		var activeelement = document.getElementById("tabs").children[0];
+		var sa = document.getElementById("inboxme");
+
+		function makesideactive(e){
+			sa.className = "down";
+			sa = e;
+			e.className = "sideactive";
+		}
+		function makeactive(e){
+			 activeelement.className = "tags";
+			 activeelement = e;
+			 e.className = "activemy";
+			 
+		}
+		function putinto(el)
+		{
+				 var id = el.innerHTML;
+         
+                                        var listitem = document.createElement("LI");
+                                        listitem.className = "rev";
+                                        listitem.onclick = function() { document.getElementById("receivers").removeChild(this); }
+                                        var text = document.createTextNode(id);
+                                        listitem.appendChild(text);
+                                        ulist = document.getElementById("receivers");
+                                        ulist.appendChild(listitem);
+                                        document.getElementById("recvrinput").value = "";
+                           
+	
+		}
 		function getuser(){
                                 
                                 var xhr = new XMLHttpRequest();
-                                xhr.open("GET","https://"+ip+":"+port+"/itproject/main/getuser",true);
+                                xhr.open("GET",conn+"://"+ip+":"+port+"/itproject/main/getuser",true);
                                 xhr.send();
         
                                 xhr.onreadystatechange = function(){
@@ -94,14 +142,76 @@
 				}
                         
                         }
+		function sendtodiv(e)
+		{
+			if ( e.keyCode == 13 )
+			{	
+				var id = document.getElementById("recvrinput").value;
+				if ( id != "" )
+				{
+					var listitem = document.createElement("LI");
+					listitem.className = "rev";
+					listitem.onclick = function() { document.getElementById("receivers").removeChild(this); }
+					var id = document.getElementById("recvrinput").value;
+					var text = document.createTextNode(id);
+					listitem.appendChild(text);
+					ulist = document.getElementById("receivers");
+					ulist.appendChild(listitem);
+					document.getElementById("recvrinput").value = "";
+				}
+			}
+		}
+		function auto(e)
+		{
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET",conn+"://"+ip+":"+port+"/itproject/main/getid?id="+document.getElementById("recvrinput").value,true);
+				xhr.send()
+				
+				xhr.onreadystatechange = function()
+				{
+					if( xhr.readyState == 4 && xhr.status == 200 )
+					{
+						response = xhr.responseText;
+						k = response.split(" ");
+						div = document.getElementById("suggestions");
+						j = div.children.length;
+						for( k = j-1 ; k>=0; k-- )
+							div.removeChild(div.children[k]);
+						
+						if( document.getElementById("recvrinput").value != "" )
+						{
+							if( response.length != 0 )
+							{	
+									k = response.split(" ");
+									for(i=0;i<k.length;i++)
+									{
+										var sug = document.createElement("P");
+										var txt = document.createTextNode(k[i]);
+										sug.appendChild(txt);
+										sug.onclick = function(){ putinto(this);  document.getElementById("suggestions").style.visibility = "hidden"; };
+										div.appendChild(sug);
+										div.style.visibility="visible";
+									}
+							}
+						}
+						else
+							div.style.visibility = "hidden";
+							
+					}
+				}
+		}
 		function logout(){
-                                window.location.href = "https://"+ip+":"+port+"/itproject/main/loginmy?logout=1"
+                                window.location.href = conn+"://"+ip+":"+port+"/itproject/main/loginmy?logout=1"
                         }
 		$(document).ready(function()
 		{
 			$("#composeme").click(function(){
 					$("#composer").slideDown("slow");
 				});
+			$("#close").click(function(){
+					alert("Save to Drafts");
+					$("#composer").fadeOut("fast");
+			});
 			$("#sender").click(function(){
                         
                                 var xhr = new XMLHttpRequest();
@@ -114,7 +224,7 @@
         
                                 if( id != "" && tag != "" )
                                 {
-                                        xhr.open("GET","https://"+ip+":"+port+"/itproject/main/send?id="+id+"&tag="+tag+"&sub="+sub+"&msg="+msg+"&send_id="+send_id+"&sender_name="+sender_name,true);
+                                        xhr.open("GET",conn+"://"+ip+":"+port+"/itproject/main/send?id="+id+"&tag="+tag+"&sub="+sub+"&msg="+msg+"&send_id="+send_id+"&sender_name="+sender_name,true);
                                         xhr.send();
                 
                                         xhr.onreadystatechange = function(){
@@ -122,7 +232,7 @@
                                                 if( xhr.readyState == 4 && xhr.status == 200 )
                                                 {
                                                         alert(xhr.responseText);
-							$("#composer").slideUp("slow");
+							$("#composer").fadeOut("fast");
                                                 }
                                         }
                                 }
@@ -138,7 +248,7 @@
 			$("#inboxme").click(function(){
 				var xhr = new XMLHttpRequest();
 				var l = document.getElementById("idofuser").innerHTML;
-				xhr.open("GET","https://"+ip+":"+port+"/itproject/main/show?id="+l,true);
+				xhr.open("GET",conn+"://"+ip+":"+port+"/itproject/main/show?id="+l,true);
 				xhr.send();
 		
 				xhr.onreadystatechange = function()
