@@ -92,9 +92,9 @@
 		</div>
 	</div>
 	<script>
-		ip = "127.0.0.1";
+		ip = "10.3.8.158";
 		port = "8000";
-		conn = "http";
+		conn = "https";
 		var activeelement = document.getElementById("tabs").children[0];
 		var sa = document.getElementById("inboxme");
 
@@ -215,24 +215,40 @@
 			$("#sender").click(function(){
                         
                                 var xhr = new XMLHttpRequest();
-                                var id = document.getElementById("recvr").value;
-                                var tag = document.getElementById("tag").value;
-                                var sub = document.getElementById("sub").value;
+                                reclist = {};
+				var el = document.getElementById("receivers");
+				list = el.children;
+				for( k = 0 ; k < list.length ; k++ )
+					reclist[k] = list[k].innerHTML;
+				
+				details = {}
+				details["receivers"] = JSON.stringify(reclist);
+				
+				var tagel = document.getElementsByTagName("select");
+				var tag = tagel[0].options[tagel[0].selectedIndex].innerHTML;
+				
+				details["tag"] = tag;
+				var sub = document.getElementById("sub").value;
+				details["sub"] = sub;
                                 var msg = document.getElementById("msg").value;
+				details["msg"] = msg;
                                 var send_id = document.getElementById("idofuser").innerHTML;
+				details["send_id"] = send_id;
                                 var sender_name = document.getElementById("user").innerHTML;
-        
-                                if( id != "" && tag != "" )
+        			details["sender_name"] = sender_name;
+		
+                                if( tag != "" )
                                 {
-                                        xhr.open("GET",conn+"://"+ip+":"+port+"/itproject/main/send?id="+id+"&tag="+tag+"&sub="+sub+"&msg="+msg+"&send_id="+send_id+"&sender_name="+sender_name,true);
-                                        xhr.send();
+                                        xhr.open("POST",conn+"://"+ip+":"+port+"/itproject/main/send",true);
+					xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                                        xhr.send(JSON.stringify(details));
                 
                                         xhr.onreadystatechange = function(){
                                                 
                                                 if( xhr.readyState == 4 && xhr.status == 200 )
                                                 {
                                                         alert(xhr.responseText);
-							$("#composer").fadeOut("fast");
+//							$("#composer").fadeOut("fast");
                                                 }
                                         }
                                 }

@@ -70,29 +70,12 @@ def loginvalidate():
 
 	return json.dumps(studentinfo)
 
-def add_TA():
-	TA = {'anish.shankar':'Anish Shankar', 'anurag.soni':'Anurag Soni', 'madhavan.chetlur':'Madhavan Malolan', 'rajeshkumar.gupta':'Rajeshkumar Gupta', 'ayush.minocha':'Ayush Minocha', 'vineet.kumar':'Vineet Kumar', 'ankush.jain':'Ankush Jain', 'mayank.g':'Mayank Gupta', 'swapna.kidambi':'Swapna Kidambi', 'vishrut.mehta':'Vishrut Mehta', 'gaurav.mishra':'Gaurav Mishra'}
-	for i in TA:
-		c = db(db.student.email_id == i).select();
-		if(len(c) == 0):
-			db.student.insert(email_id=i, name=TA[i]);
-	
-	d = {}
-	rows = db(db.student).select();
-	for row in rows:
-		d[row.email_id] = row.name;
-	
-	return str(d);
-	
 
 def loginmy():
-	from gluon.tools import Auth
 	if len(request.vars) != 0:
-#	session.forget(response)
-		auth.logout(logout_onlogout=lambda user: session.update({'auth':None}))
-#		return dict(log=request.vars["logout"])
-#	return dict(log=0)
-	return dict()
+		session.forget(response)
+		return dict(log=request.vars["logout"])
+	return dict(log=0)
 
 def passthru():
 	session.secure()
@@ -107,7 +90,6 @@ def getuser():
 	c = db( db.student.email_id == email ).select()
 	if len(c) == 0:
 		db.student.insert(email_id = email , name = name )
-	db(db.student.email_id == None).delete();
 	return "Added to Database!"
 
 def mails():	
@@ -125,21 +107,30 @@ def getid():
 			s = s+" "+row.email_id
 	return str(s)
 
+def add_TA():
+        TA = {'anish.shankar':'Anish Shankar', 'anurag.soni':'Anurag Soni', 'madhavan.chetlur':'Madhavan Malolan', 'rajeshkumar.gupta':'Rajeshkumar Gupta', 'ayush.minocha':'Ayush Minocha', 'vineet.kumar':'Vineet Kumar', 'ankush.jain':'Ankush Jain', 'mayank.g':'Mayank Gupta', 'swapna.kidambi':'Swapna Kidambi', 'vishrut.mehta':'Vishrut Mehta', 'gaurav.mishra':'Gaurav Mishra'}
+        for i in TA:
+                c = db(db.student.email_id == i).select();
+                if(len(c) == 0):
+                        db.student.insert(email_id=i, name=TA[i]);
+
+        d = {}
+        rows = db(db.student).select();
+        for row in rows:
+                d[row.email_id] = row.name;
+
+        return "Added TAs"
+
 def send():
 
 	import time
 
         sent_time = time.strftime("%H:%M:%S");
         sent_date = time.strftime("%d-%m-%Y");
-        a = {};
-        b = []
-        a['id'] = request.get_vars['id'];
-        a['sub'] = request.get_vars['sub'];
-        a['msg'] = request.get_vars['msg'];
-        a['tag'] = request.get_vars['tag'];
-        a['send_id'] = request.get_vars['send_id'];
-	a['sender_name'] = request.vars['sender_name'];
-	
+       
+	import gluon.contrib.simplejson
+        a = gluon.contrib.simplejson.loads(request.body.read())
+		
         c = db(db.student.email_id == a['id']).select();
         if(len(c) == 0):
                 return "Please enter a valid e-mail address.";
