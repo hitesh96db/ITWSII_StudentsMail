@@ -127,6 +127,7 @@ def add_TA():
 def send():
 
 	import time
+	import simplejson as json
 
         sent_time = time.strftime("%H:%M:%S");
         sent_date = time.strftime("%d-%m-%Y");
@@ -134,20 +135,33 @@ def send():
 	import gluon.contrib.simplejson
         a = gluon.contrib.simplejson.loads(request.body.read())
 	
-	return str(a)	
-        c = db(db.student.email_id == a['id']).select();
-        if(len(c) == 0):
-                return "Please enter a valid e-mail address.";
-        db.mail.insert(sender_name=a['sender_name'],rec_email=a['id'], sender_email=a['send_id'], subject=a['sub'],mail_message=a['msg'], sent_date=sent_date, sent_time=sent_time, tag=a['tag']);
-        rows = db(db.mail).select();
-        for row in rows:
-                if row.rec_email == a['id']:
-                        b.append(row.id);
-        rows = db(db.student).select();
-        for row in rows:
-                if row.email_id == a['id']:
-                        row.update_record(mails=b);
-        return "Mail Sent!"
+	d = {}
+	d = eval(a['receivers'])
+        for i in d:
+        	c = db(db.student.email_id == d[i]).select();
+		if(len(c) == 0):
+        	        return "Please enter a valid e-mail address.";
+
+	for i in d:
+        	db.mail.insert(sender_name=a['sender_name'],rec_email=d[i], sender_email=a['send_id'], subject=a['sub'],mail_message=a['msg'], sent_date=sent_date, sent_time=sent_time, tag=a['tag']);
+       
+	m = {}
+	rows = db(db.mail).select();
+
+	for i in d:
+		b = []
+		for row in rows:
+                	if row.rec_email == d[i]:
+                        	b.append(row.id);
+		m[d[i]] = b;
+        
+	rows = db(db.student).select();
+        for i in m:
+		for row in rows:
+                	if row.email_id == m[i]:
+                        	row.update_record(mails=m[i]);
+      
+	return "Mail Sent!"
 
 def show():
         mails = {};
