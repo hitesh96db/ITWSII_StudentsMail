@@ -10,339 +10,391 @@ background-color:#003366;
     margin-top: -2%;
     width: 102.6%;
 }
+td
+{
+	padding:5px;
+}
+#i1
+{
+	height:4%;
+	width:4%;
+	border-radius:4px;
+	background-color:orange;
+	text-align:center;
+}
+#i2
+{
+	height:4%;
+	width:70%;
+	border-radius:4px;
+	background-color:orange;
+	text-align:center;
+}
+#i3
+{
+	height:4%;
+	width:4%;
+     	background-color:orange;
+	border-radius:4px;
+	text-align:center;
+}
+#i4
+{
+	height:4%;
+	width:4%;
+      	background-color:orange;
+	border-radius:4px;
+	text-align:center;
+}
+#i5
+{
+	height:20px;
+	width:350px;
+        background-color:orange;
+	border-radius:4px;
+	text-align:center;
+}
+
+.newtop
+{
+height:30px;
+width:70px;
+      background-color:blue;
+position:relative;	
+}
 #submain
 {
-background-color: #CCCCCC;
-    height: 177%;
-    margin-left: 6%;
-    position: fixed;
-    top: 27%;
-    width: 90%;
+	background-color: #CCCCCC;
+height: 177%;
+	margin-left: 6%;
+position: fixed;
+top: 27%;
+width: 90%;
 
 }
 #mailicons
 {
-	visibility:hidden;
+visibility:hidden;
 }
 #header
 {
-/*background-color: #FFFFFF;*/
-    height: 13%;
-    margin-left: 1%;
-    position: fixed;
-    top: 0;
-    width: 100.4%;
+	/*background-color: #FFFFFF;*/
+height: 13%;
+	margin-left: 1%;
+position: fixed;
+top: 0;
+width: 100.4%;
 }
 #allmails
 {
 	background-color: white;
-    color: #FFFFFF;
-    height: 35%;
-    left: 23.5%;
-    white-space: wrap;
-    overflow-y: scroll;
-    overflow-x:hidden;
-    position: absolute;
-    top: 5.65%;
-    width: 76%;
-    z-index: 1000;
+color: #FFFFFF;
+height: 35%;
+left: 23.5%;
+      white-space: wrap;
+      overflow-y: scroll;
+      overflow-x:hidden;
+position: absolute;
+top: 5.65%;
+width: 76%;
+       z-index: 1000;
 }
 #user
 {
-	color: #FFFFFF;
-    font-family: Ubuntu Mono;
-    font-size: 1.5em;
-    left: 73%;
-    position: absolute;
-    top: 58%;
-    width: 200px;
+color: #FFFFFF;
+       font-family: Ubuntu Mono;
+       font-size: 1.5em;
+left: 73%;
+position: absolute;
+top: 58%;
+width: 200px;
 }
 #search
- {
- 	margin-left:850px;
- 	margin-top:8px;
- 	width:36%;
- 	position:absolute;
-	left: -12%;
-	border: solid 0.25em;
-        border-color: white white grey white; 	
-  	transition: all 0.5s ease;
- }
+{
+	margin-left:850px;
+	margin-top:8px;
+width:36%;
+position:absolute;
+left: -12%;
+border: solid 0.25em;
+	border-color: white white grey white; 	
+transition: all 0.5s ease;
+}
 #search:focus
- {
+{
 	border-color:white white #006699 white;
- }
+}
 #logout:hover
 {
 color:black;
-box-shadow: 0 2px 4px 1px #000000;
-border-radius:3px;
-background-color:white;
+      box-shadow: 0 2px 4px 1px #000000;
+      border-radius:3px;
+      background-color:white;
 cursor:pointer;
 }
 
 #title
 {
-	color: #FFFFFF;
-    font-family: Ubuntu Mono;
-    font-size: 3.5em;
-    margin-left: 12%;
-    margin-top: 2%;
+color: #FFFFFF;
+       font-family: Ubuntu Mono;
+       font-size: 3.5em;
+       margin-left: 12%;
+       margin-top: 2%;
 }
 #mail
 {
-    border-radius: 20%;
-    left: 4.5%;
-    position: absolute;
-    top: 18%;
+	border-radius: 20%;
+left: 4.5%;
+position: absolute;
+top: 18%;
 }
 #logout
 {
 color:white;
-font-family: Ubuntu Mono;
-    font-size: 1.5em;
-    left: 89%;
-    position: absolute;
-    top: 32%;
-    transition: all 0.5s linear;
+      font-family: Ubuntu Mono;
+      font-size: 1.5em;
+left: 89%;
+position: absolute;
+top: 32%;
+transition: all 0.5s linear;
 }
 #mailimg
 {
-border-radius: 14px;
-    left: 33%;
-    position: absolute;
-    top: 18%;
+	border-radius: 14px;
+left: 33%;
+position: absolute;
+top: 18%;
 }
 #tg
 { 
-border-bottom: 15px solid rgba(0, 0, 0, 0);
-    border-left: 15px solid #FFFFFF;
-    border-top: 15px solid rgba(0, 0, 0, 0);
-    height: 0;
-    left: 86.8%;
-    position: absolute;
-    top: 56%;
-    width: 0;
+	border-bottom: 15px solid rgba(0, 0, 0, 0);
+	border-left: 15px solid #FFFFFF;
+	border-top: 15px solid rgba(0, 0, 0, 0);
+height: 0;
+left: 86.8%;
+position: absolute;
+top: 56%;
+width: 0;
 }
 #tabs
 {
-	left: 1.6%;
-    position: fixed;
-    top: 17.4%;
-    width: 101.5%;
+left: 1.6%;
+position: fixed;
+top: 17.4%;
+width: 101.5%;
 }
 #close
 {
-	left: 90.5%;
-    position: fixed;
-    top: 39%;
+left: 90.5%;
+position: fixed;
+top: 39%;
 }
 #attach
 {
-	left: 19.8%;
-    position: absolute;
-    top: 29%;
-    color:black;
+left: 19.8%;
+position: absolute;
+top: 29%;
+color:black;
 }
 #attachp
 {
-	color: #000000;
-    font-family: Ubuntu Mono;
-    font-size: 17px;
-    left: 6%;
-    position: absolute;
-    top: 27.3%;
+color: #000000;
+       font-family: Ubuntu Mono;
+       font-size: 17px;
+left: 6%;
+position: absolute;
+top: 27.3%;
 }
 .tags
 {
 	border-left-color: #336699;
-    border-left-style: solid;
-    box-shadow: 0 -14px 0 0 #336699;
-    color: #C0C0C0;
-    display: block;
-    float: left;
-    font-family: Ubuntu Mono;
-    font-size: 22px;
-    text-align: left;
-    transition: box-shadow 0.7s ease 0s;
-    width: 12.47%;
+	border-left-style: solid;
+	box-shadow: 0 -14px 0 0 #336699;
+color: #C0C0C0;
+display: block;
+float: left;
+       font-family: Ubuntu Mono;
+       font-size: 22px;
+       text-align: left;
+transition: box-shadow 0.7s ease 0s;
+width: 12.47%;
 }
 .activemy
 {
-	    border-left-color: #336699;
-    border-left-style: solid;
-    box-shadow: 0 -14px 0 0 #FF6600;
-    color: white;
-    display: block;
-    float: left;
-    font-family: Ubuntu Mono;
-    font-size: 22px;
-    text-align: left;
-    transition: box-shadow 0.7s ease 0s;
-    width: 12.47%;
+	border-left-color: #336699;
+	border-left-style: solid;
+	box-shadow: 0 -14px 0 0 #FF6600;
+color: white;
+display: block;
+float: left;
+       font-family: Ubuntu Mono;
+       font-size: 22px;
+       text-align: left;
+transition: box-shadow 0.7s ease 0s;
+width: 12.47%;
 }
 .tags:active
 {   
- box-shadow: 0px -14px 0 0 #FF6600;
+	box-shadow: 0px -14px 0 0 #FF6600;
 }
 .tags:hover
 {
-box-shadow: 0px -14px 0 0 #FF6600;
+	box-shadow: 0px -14px 0 0 #FF6600;
 color:white;
 }
 .top
 {
 color: inherit;
-    left: 2%;
-    position: relative;
-    text-decoration: none;
-    top: 13px;
+left: 2%;
+position: relative;
+	  text-decoration: none;
+top: 13px;
 }
 a
 {
-text-decoration:none;
+	text-decoration:none;
 color:inherit;
 }
 #c1
 {
-   background-color: #C0C0C0;
-    border-radius: 8px;
-    bottom: 45px;
-    height: 35px;
-    left: 76%;
-    top: -36px;
-    position: relative;
-    width: 35px;
+	background-color: #C0C0C0;
+	border-radius: 8px;
+bottom: 45px;
+height: 35px;
+left: 76%;
+top: -36px;
+position: relative;
+width: 35px;
 }
 #c2
 {
 	background-color: #C0C0C0;
-    border-radius: 8px;
-    bottom: 45px;
-    height: 35px;
-    left: 76%;
-    position: relative;
-    top: -36px;
-    width: 35px;
+	border-radius: 8px;
+bottom: 45px;
+height: 35px;
+left: 76%;
+position: relative;
+top: -36px;
+width: 35px;
 }
 #c3
 {
 	background-color: #C0C0C0;
-    border-radius: 8px;
-    bottom: 45px;
-    height: 35px;
-    left: 76%;
-    position: relative;
-    top: -36px;
-    width: 35px;
+	border-radius: 8px;
+bottom: 45px;
+height: 35px;
+left: 76%;
+position: relative;
+top: -36px;
+width: 35px;
 }
 #c4
 {
 	background-color: #C0C0C0;
-    border-radius: 8px;
-    bottom: 45px;
-    height: 35px;
-    left: 76%;
-    position: relative;
-    top: -36px;
-    width: 35px;
+	border-radius: 8px;
+bottom: 45px;
+height: 35px;
+left: 76%;
+position: relative;
+top: -36px;
+width: 35px;
 }
 #c5
 {
 	background-color: #C0C0C0;
-    border-radius: 8px;
-    bottom: 45px;
-    height: 35px;
-    left: 76%;
-    position: relative;
-    top: -36px;
-    width: 35px;
+	border-radius: 8px;
+bottom: 45px;
+height: 35px;
+left: 76%;
+position: relative;
+top: -36px;
+width: 35px;
 }
 #c6
 {
 	background-color: #C0C0C0;
-    border-radius: 8px;
-    bottom: 45px;
-    height: 35px;
-    left: 76%;
-    position: relative;
-    top: -36px;
-    width: 35px;
+	border-radius: 8px;
+bottom: 45px;
+height: 35px;
+left: 76%;
+position: relative;
+top: -36px;
+width: 35px;
 }
 #c7
 {
 	background-color: #C0C0C0;
-    border-radius: 8px;
-    bottom: 45px;
-    height: 35px;
-    left: 76%;
-    position: relative;
-    top: -36px;
-    width: 35px;
+	border-radius: 8px;
+bottom: 45px;
+height: 35px;
+left: 76%;
+position: relative;
+top: -36px;
+width: 35px;
 }
 .content
 {
 color:black;
-font-size:20px;
-text-align:center;
+      font-size:20px;
+      text-align:center;
 position:relative;
 top:6px;
 }
 #toolbar
 {
-    background-color: #FFFFFF;
-    border-radius: 9px;
-    box-shadow: 0 1px 1px 1px #000000;
-    height: 6%;
-    margin-left: 1.5%;
-    position: fixed;
-    top: 29%;
-    width: 87%;
+	background-color: #FFFFFF;
+	border-radius: 9px;
+	box-shadow: 0 1px 1px 1px #000000;
+height: 6%;
+	margin-left: 1.5%;
+position: fixed;
+top: 29%;
+width: 87%;
 }
 #sidebar
 {
 	background-color: white;
-    height: 58%;
-    left: 6%;
-    position: fixed;
-    top: 37%;
-    width: 19%;
-    border-radius:3px;
+height: 58%;
+left: 6%;
+position: fixed;
+top: 37%;
+width: 19%;
+       border-radius:3px;
 }
 #magnifying-glass
 {
 border: 0.1em solid #006699;
-    border-radius: 0.35em;
-    display: inline-block;
-    font-size: 2.5em;
-    height: 0.4em;
-    position: relative;
-    top: 5px;
-    width: 0.4em;
-    left: 56%;
+	border-radius: 0.35em;
+display: inline-block;
+	 font-size: 2.5em;
+height: 0.4em;
+position: relative;
+top: 5px;
+width: 0.4em;
+left: 56%;
 }
 #magnifying-glass::before { content: ""; display: inline-block; position: absolute; right: -0.25em; bottom: -0.1em; border-width: 0; background: #006699; width: 0.35em; height: 0.08em; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); }
 
 #side
 {
- background-color: white;
-    left: 7%;
-    position: fixed;
-    width: 14%;
-    list-style-type:none;
-    top:38%;
+	background-color: white;
+left: 7%;
+position: fixed;
+width: 14%;
+       list-style-type:none;
+top:38%;
 }
 .down
 {
-    background-color: #CCCCCC;
-    border-radius: 7px;
-    box-shadow: 0 -15px 8px -7px #888888;
-    color: #000000;
-    font-family: Ubuntu Mono;
-    font-size: 22px;
-    left: -9px;
-    padding: 18px;
-    transition: all 0.3s linear; 
+	background-color: #CCCCCC;
+	border-radius: 7px;
+	box-shadow: 0 -15px 8px -7px #888888;
+color: #000000;
+       font-family: Ubuntu Mono;
+       font-size: 22px;
+left: -9px;
+padding: 18px;
+transition: all 0.3s linear; 
 }
 
 #compose
@@ -357,68 +409,68 @@ color:black;
 .down:hover
 {
 	background-color:#0099CC;
-        color:white;
-        cursor:pointer;
-	box-shadow:0px 0px 0px 0px #888888;
+color:white;
+cursor:pointer;
+       box-shadow:0px 0px 0px 0px #888888;
 }
 .sideactive
 {
-    border-radius: 7px;
-    font-family: Ubuntu Mono;
-    font-size: 22px;
-    left: -9px;
-    padding: 18px;
- background-color:#0099CC;
-        color:white;
-        cursor:pointer;
-        box-shadow:0px 0px 0px 0px #888888;
+	border-radius: 7px;
+	font-family: Ubuntu Mono;
+	font-size: 22px;
+left: -9px;
+padding: 18px;
+	 background-color:#0099CC;
+color:white;
+cursor:pointer;
+       box-shadow:0px 0px 0px 0px #888888;
 }
 #important
 {
 left: 1px;
-    position: absolute;
-    top: 70%;
+position: absolute;
+top: 70%;
 }
 .div:active
 {
 	background-color:#0099CC;
-        color:white;
-        cursor:pointer;
-        box-shadow:0px 0px 0px 0px #888888;
+color:white;
+cursor:pointer;
+       box-shadow:0px 0px 0px 0px #888888;
 }
 #drafts
 {
-    left: 0;
-    position: absolute;
-    top: 54%;
+left: 0;
+position: absolute;
+top: 54%;
 
 }
 #compose
 {
 left: 0;
-    position: absolute;
-    top: 4%;
+position: absolute;
+top: 4%;
 }
 
 #inbox
 {
-	left: 0;
-    position: absolute;
-    top: 20%;
+left: 0;
+position: absolute;
+top: 20%;
 
 }
 #trash
 {
-	left: 0;
-    position: absolute;
-    top: 87%;
+left: 0;
+position: absolute;
+top: 87%;
 
 }
 #sent
 {	
-	left: 0;
-    position: absolute;
-    top: 37%;
+left: 0;
+position: absolute;
+top: 37%;
 }
 
 
@@ -426,64 +478,75 @@ left: 0;
 #sender
 {
 	background-color: #006699;
-    border-radius: 133px;
-    height: 60px;
-    left: 87%;
-    position: fixed;
-    top: 49%;
-    color:white;
-    width: 60px;
-    z-index: 1000;
-    opacity:0.4;
-    transition:all 0.5s ease;
+	border-radius: 133px;
+height: 60px;
+left: 87%;
+position: fixed;
+top: 49%;
+color:white;
+width: 60px;
+       z-index: 1000;
+opacity:0.4;
+transition:all 0.5s ease;
 }
 #sender:hover
 {
-    opacity:1;
-    color:white;
-    cursor:pointer;
+opacity:1;
+color:white;
+cursor:pointer;
 }
 #sender p
 {
 	font-family: Ubuntu Mono;
-    font-size: 21px;
-    left: 11%;
-    position: relative;
-    top: -6%;
+	font-size: 21px;
+left: 11%;
+position: relative;
+top: -6%;
+
+}
+#inboxer
+{
+	background-color: #F0F0F0  ;
+height: 200%;
+	margin-left: 1%;
+	margin-top: 7.5px;
+position: relative;
+width: 98%;
+overflow:hidden;
 
 }
 #composer
 {
 	background-color: #F0F0F0  ;
-    height: 200%;
-    margin-left: 1%;
-    margin-top: 7.5px;
-    position: relative;
-    width: 98%;
-    display:none;
-    overflow:hidden;
+height: 200%;
+	margin-left: 1%;
+	margin-top: 7.5px;
+position: relative;
+width: 98%;
+display:none;
+overflow:hidden;
 }
 #recvr
 {
 	border-color: #FFFFFF;
-    border-style: solid;
-    height: 8%;
-    left: 20%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    position: absolute;
-    top: 10%;
-    width: 69.3%;
+	border-style: solid;
+height: 8%;
+left: 20%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+position: absolute;
+top: 10%;
+width: 69.3%;
 }
 #recvrinput
 {
-    border-color: #FFFFFF;
-    border-style: solid;
-    height: 3%;
-    left: 20%;
-    position: absolute;
-    top: 6%;
-    width: 69.8%;
+	border-color: #FFFFFF;
+	border-style: solid;
+height: 3%;
+left: 20%;
+position: absolute;
+top: 6%;
+width: 69.8%;
 }
 #recvrinput:focus
 {
@@ -491,76 +554,76 @@ left: 0;
 }
 .formhead
 {
-	color:black;
-	font-family:Ubuntu Mono;
-	font-size:25px;
+color:black;
+      font-family:Ubuntu Mono;
+      font-size:25px;
 }
 #recvrp
 {
-	color: #000000;
-    left: 6%;
-    position: absolute;
-    top: 3%;
+color: #000000;
+left: 6%;
+position: absolute;
+top: 3%;
 }
 #receivers
 {
-	display: block;
-    left: -6.5%;
-    list-style-type: none;
-    position: relative;
-    top: -15%;
-    width: 97%;
+display: block;
+left: -6.5%;
+      list-style-type: none;
+position: relative;
+top: -15%;
+width: 97%;
 }
 .rev
 {
 	background-color: #006699;
-    color: #FFFFFF;
-    display: inline;
-    float: left;
-    font-family: Ubuntu Mono;
-    margin-left: 0.5%;
-    margin-top: 0.2%;
-    padding: 3px;
+color: #FFFFFF;
+display: inline;
+float: left;
+       font-family: Ubuntu Mono;
+       margin-left: 0.5%;
+       margin-top: 0.2%;
+padding: 3px;
 }	
 #suggestions
 {
-    background-color: #006699;
-    color: white;
-    left: 20%;
-    position: absolute;
-    top: 9%;
-    width: 69.8%;
-    z-index: 2;
-    visibility:hidden;
+	background-color: #006699;
+color: white;
+left: 20%;
+position: absolute;
+top: 9%;
+width: 69.8%;
+       z-index: 2;
+visibility:hidden;
 }
 #suggestions p
 {
-	padding:6px;
+padding:6px;
 	font-family:Ubuntu Mono;
-        font-size:16px;
+	font-size:16px;
 	border-radius:2px;
 }
 #suggestions p:hover
 {
-	color:white;
-	background-color:#0099CC;
+color:white;
+      background-color:#0099CC;
 }
 #tagp
 {
 
-	color: #000000;
-    left: 6%;
-    position: absolute;
-    top: 17%;
+color: #000000;
+left: 6%;
+position: absolute;
+top: 17%;
 }
 #sub
 {
-    left: 20%;
-    position: absolute;
-    top: 25%;
-    border-color:white;
-    border-style:solid;
-    width:70%;
+left: 20%;
+position: absolute;
+top: 25%;
+     border-color:white;
+     border-style:solid;
+width:70%;
 }
 #sub:focus
 {
@@ -569,20 +632,20 @@ left: 0;
 
 #subp
 {
-	color: #000000;
-    left: 6%;
-    position: absolute;
-    top: 22%;	
+color: #000000;
+left: 6%;
+position: absolute;
+top: 22%;	
 }
 #msg
 {
-    left: 6%;
-    position: absolute;
-    top: 37%;
-    border-color:white;
-    border-style:solid;
-    font-family:Ubuntu Mono;
-    font-size:18px;
+left: 6%;
+position: absolute;
+top: 37%;
+     border-color:white;
+     border-style:solid;
+     font-family:Ubuntu Mono;
+     font-size:18px;
 }
 #msg:focus
 {
@@ -591,10 +654,10 @@ left: 0;
 
 #msgp
 {
-	color: #000000;
-    left: 6%;
-    position: absolute;
-    top: 30%;
+color: #000000;
+left: 6%;
+position: absolute;
+top: 30%;
 }
 
 
