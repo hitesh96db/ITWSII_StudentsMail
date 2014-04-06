@@ -130,7 +130,8 @@ def send():
        
 	import gluon.contrib.simplejson
         a = gluon.contrib.simplejson.loads(request.body.read())
-		
+	
+	return str(a)	
         c = db(db.student.email_id == a['id']).select();
         if(len(c) == 0):
                 return "Please enter a valid e-mail address.";

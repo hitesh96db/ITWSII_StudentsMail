@@ -127,7 +127,7 @@
 		function getuser(){
                                 
                                 var xhr = new XMLHttpRequest();
-                                xhr.open("GET",conn+"://"+ip+":"+port+"/itproject/main/getuser",true);
+                                xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/getuser",true);
                                 xhr.send();
         
                                 xhr.onreadystatechange = function(){
@@ -164,7 +164,7 @@
 		function auto(e)
 		{
 				var xhr = new XMLHttpRequest();
-				xhr.open("GET",conn+"://"+ip+":"+port+"/itproject/main/getid?id="+document.getElementById("recvrinput").value,true);
+				xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/getid?id="+document.getElementById("recvrinput").value,true);
 				xhr.send()
 				
 				xhr.onreadystatechange = function()
@@ -201,7 +201,7 @@
 				}
 		}
 		function logout(){
-                                window.location.href = conn+"://"+ip+":"+port+"/itproject/main/loginmy?logout=1"
+                                window.location.href = conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/loginmy?logout=1"
                         }
 		$(document).ready(function()
 		{
@@ -239,7 +239,7 @@
 		
                                 if( tag != "" )
                                 {
-                                        xhr.open("POST",conn+"://"+ip+":"+port+"/itproject/main/send",true);
+                                        xhr.open("POST",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/send",true);
 					xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                                         xhr.send(JSON.stringify(details));
                 
@@ -264,7 +264,7 @@
 			$("#inboxme").click(function(){
 				var xhr = new XMLHttpRequest();
 				var l = document.getElementById("idofuser").innerHTML;
-				xhr.open("GET",conn+"://"+ip+":"+port+"/itproject/main/show?id="+l,true);
+				xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/show?id="+l,true);
 				xhr.send();
 		
 				xhr.onreadystatechange = function()

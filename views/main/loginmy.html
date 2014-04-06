@@ -57,7 +57,7 @@
 		var email = document.getElementById("user").value;
 		var password = document.getElementById("pass").value;
 		var xhr = new XMLHttpRequest();
-		destination = conn+"://"+ip+":"+port+"/itproject/main/loginvalidate"
+		destination = conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/loginvalidate"
 		xhr.open("POST",destination,true);
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhr.send("email="+email+"&password="+password);
@@ -71,7 +71,7 @@
 					else
 					{
 						var x = new XMLHttpRequest();
-						x.open("POST",conn+"://"+ip+":"+port+"/itproject/main/passthru",true);
+						x.open("POST",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/passthru",true);
 						x.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 						x.send("name="+info["name"]+"&email="+email);
 						
@@ -80,10 +80,9 @@
 							if( x.readyState == 4 && x.status == 200 )
 							{
 								if ( x.responseText == "proceed" )
-									window.location.href = conn+"://"+ip+":"+port+"/itproject/main/mails";
+									window.location.href = conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/mails";
 							}
 						}
-//						window.location.href="http://127.0.0.1:8010/itproject/main/mails?name="+info["name"]
 					}
 				}
 			}
@@ -100,7 +99,7 @@
                                 	document.getElementById("talk").innerHTML = "Logout Successful";
                                 	$("#fail").slideDown("slow");
                                 	setTimeout(function(){ $("#fail").slideUp("fast"); },1500);
-					setTimeout(function(){ window.location.href=conn+"://"+ip+":"+port+"/itproject/main/loginmy"; },1000);
+					setTimeout(function(){ window.location.href=conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/loginmy"; },1000);
                 	}
 	
 		});
