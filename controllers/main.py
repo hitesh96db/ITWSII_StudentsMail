@@ -163,6 +163,8 @@ def send():
 	return "Mail Sent!"
 
 def show():
+	import json
+	ct = 1;
         mails = {};
         user = request.vars['id'];
         row = db(db.student.email_id == user).select(db.student.mails);
@@ -171,36 +173,51 @@ def show():
 			return str(mails);
                 for j in i['mails']:
                    temp = {}
-                   temp['send_id'] = j.sender_email
-                   temp['sub'] = j.subject
-                   temp['msg'] = j.mail_message
-                   temp['sent_date'] = j.sent_date
-                   temp['sent_time'] = j.sent_time
-                   temp['tag'] = j.tag
-                   mails[j] = temp;
-        return str(mails)
+                   temp["send_id"] = j.sender_email
+                   temp["sub"] = j.subject
+                   temp["msg"] = j.mail_message
+                   temp["sent_date"] = j.sent_date
+                   temp["sent_time"] = j.sent_time
+                   temp["tag"] = j.tag
+                   mails[ct] = temp;
+		   ct += 1;
+        return json.dumps(mails)
+
+def count():
+	import json
+	c = {'Academics':0, 'Sports':0, 'Events':0, 'Cultural':0, 'Urgent':0, 'Lost/Found':0, 'General':0}
+	name = request.get_vars['name'];
+	row = db(db.student.email_id == name).select()
+	for r in row:
+	    a = r.mails
+	for i in a:
+	    if db.mail.id == i:
+	        c[db.mail.tag] += 1;
+
+	return json.dumps(c)
 
 def drafts():
-	import time, gluon.contrib.simplejson
-	import json
+        import time, gluon.contrib.simplejson
+        import json
 
-	date = time.strftime("%d-%m-%Y")
+        date = time.strftime("%d-%m-%Y")
         a = gluon.contrib.simplejson.loads(request.body.read())
 
         receivers = {}
         receivers = eval(a['receivers'])
 
-	db.draftmail.insert(sender_name=a['sender_name'],receivers=receivers, sender_email=a['send_id'], subject=a['sub'],mail_message=a['msg'], made_date=date, tag=a['tag'])
-	
-	return "Message Saved to Drafts!"	
+        db.draftmail.insert(sender_name=a['sender_name'],receivers=receivers, sender_email=a['send_id'], subject=a['sub'],mail_message=a['msg'], made_date=date, tag=a['tag'])
+
+        return "Message Saved to Drafts!"
 
 def getdrafts():
-	
-	import time, gluon.contrib.simplejson
-	import json
 
-	send_id = request.vars["email"]
-	
-	rows = db( db.draftmail.sender_email == send_id ).select()
-	
-	return str(rows)
+        import time, gluon.contrib.simplejson
+        import json
+
+        send_id = request.vars["email"]
+
+        rows = db( db.draftmail.sender_email == send_id ).select()
+
+        return str(rows)
+
