@@ -163,6 +163,8 @@ def send():
 	return "Mail Sent!"
 
 def show():
+	import json
+	ct = 1;
         mails = {};
         user = request.vars['id'];
         row = db(db.student.email_id == user).select(db.student.mails);
@@ -171,12 +173,25 @@ def show():
 			return str(mails);
                 for j in i['mails']:
                    temp = {}
-                   temp['send_id'] = j.sender_email
-                   temp['sub'] = j.subject
-                   temp['msg'] = j.mail_message
-                   temp['sent_date'] = j.sent_date
-                   temp['sent_time'] = j.sent_time
-                   temp['tag'] = j.tag
-                   mails[j] = temp;
-        return str(mails)
+                   temp["send_id"] = j.sender_email
+                   temp["sub"] = j.subject
+                   temp["msg"] = j.mail_message
+                   temp["sent_date"] = j.sent_date
+                   temp["sent_time"] = j.sent_time
+                   temp["tag"] = j.tag
+                   mails[ct] = temp;
+		   ct += 1;
+        return json.dumps(mails)
 
+def count():
+	import json
+	c = {'Academics':0, 'Sports':0, 'Events':0, 'Cultural':0, 'Urgent':0, 'Lost/Found':0, 'General':0}
+	name = request.get_vars['name'];
+	row = db(db.student.email_id == name).select()
+	for r in row:
+	    a = r.mails
+	for i in a:
+	    if db.mail.id == i:
+	        c[db.mail.tag] += 1;
+
+	return json.dumps(c)
