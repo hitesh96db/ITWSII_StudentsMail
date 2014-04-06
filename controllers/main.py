@@ -127,7 +127,6 @@ def add_TA():
 def send():
 
 	import time
-	import simplejson as json
 
         sent_time = time.strftime("%H:%M:%S");
         sent_date = time.strftime("%d-%m-%Y");
@@ -158,7 +157,7 @@ def send():
 	rows = db(db.student).select();
         for i in m:
 		for row in rows:
-                	if row.email_id == m[i]:
+                	if row.email_id == i:
                         	row.update_record(mails=m[i]);
       
 	return "Mail Sent!"
@@ -168,6 +167,8 @@ def show():
         user = request.vars['id'];
         row = db(db.student.email_id == user).select(db.student.mails);
         for i in row:
+		if i['mails'] == None:
+			return str(mails);
                 for j in i['mails']:
                    temp = {}
                    temp['send_id'] = j.sender_email
@@ -178,3 +179,4 @@ def show():
                    temp['tag'] = j.tag
                    mails[j] = temp;
         return str(mails)
+
