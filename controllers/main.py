@@ -70,12 +70,29 @@ def loginvalidate():
 
 	return json.dumps(studentinfo)
 
+def add_TA():
+	TA = {'anish.shankar':'Anish Shankar', 'anurag.soni':'Anurag Soni', 'madhavan.chetlur':'Madhavan Malolan', 'rajeshkumar.gupta':'Rajeshkumar Gupta', 'ayush.minocha':'Ayush Minocha', 'vineet.kumar':'Vineet Kumar', 'ankush.jain':'Ankush Jain', 'mayank.g':'Mayank Gupta', 'swapna.kidambi':'Swapna Kidambi', 'vishrut.mehta':'Vishrut Mehta', 'gaurav.mishra':'Gaurav Mishra'}
+	for i in TA:
+		c = db(db.student.email_id == i).select();
+		if(len(c) == 0):
+			db.student.insert(email_id=i, name=TA[i]);
+	
+	d = {}
+	rows = db(db.student).select();
+	for row in rows:
+		d[row.email_id] = row.name;
+	
+	return str(d);
+	
 
 def loginmy():
+	from gluon.tools import Auth
 	if len(request.vars) != 0:
-		session.forget(response)
-		return dict(log=request.vars["logout"])
-	return dict(log=0)
+#	session.forget(response)
+		auth.logout(logout_onlogout=lambda user: session.update({'auth':None}))
+#		return dict(log=request.vars["logout"])
+#	return dict(log=0)
+	return dict()
 
 def passthru():
 	session.secure()
@@ -90,6 +107,7 @@ def getuser():
 	c = db( db.student.email_id == email ).select()
 	if len(c) == 0:
 		db.student.insert(email_id = email , name = name )
+	db(db.student.email_id == None).delete();
 	return "Added to Database!"
 
 def mails():	
