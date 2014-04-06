@@ -93,8 +93,8 @@ def getuser():
 	return "Added to Database!"
 
 def mails():	
-	if session["name"] == "Name":
-		response.view = "/main/pls.html"
+	if session["name"] == "None":
+		response.view = "main/pls.html"
 		return dict()
 	return dict()
 

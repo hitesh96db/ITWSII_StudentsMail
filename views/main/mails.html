@@ -119,9 +119,9 @@
 		</div>
 	</div>
 	<script>
-		ip = "127.0.0.1";
+		ip = "10.2.44.248";
 		port = "8000";
-		conn = "http";
+		conn = "https";
 		var activeelement = document.getElementById("tabs").children[0];
 		var sa = document.getElementById("inboxme");
 
@@ -342,7 +342,7 @@
 				$("#inboxer").slideDown();
 				var xhr = new XMLHttpRequest();
 				var l = document.getElementById("idofuser").innerHTML;
-				xhr.open("GET",conn+"://"+ip+":"+port+"/itproject/main/show?id="+l,true);
+				xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/show?id="+l,true);
 				xhr.send();
 
 				xhr.onreadystatechange = function()
