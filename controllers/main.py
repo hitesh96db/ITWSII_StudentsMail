@@ -180,3 +180,27 @@ def show():
                    mails[j] = temp;
         return str(mails)
 
+def drafts():
+	import time, gluon.contrib.simplejson
+	import json
+
+	date = time.strftime("%d-%m-%Y")
+        a = gluon.contrib.simplejson.loads(request.body.read())
+
+        receivers = {}
+        receivers = eval(a['receivers'])
+
+	db.draftmail.insert(sender_name=a['sender_name'],receivers=receivers, sender_email=a['send_id'], subject=a['sub'],mail_message=a['msg'], made_date=date, tag=a['tag'])
+	
+	return "Message Saved to Drafts!"	
+
+def getdrafts():
+	
+	import time, gluon.contrib.simplejson
+	import json
+
+	send_id = request.vars["email"]
+	
+	rows = db( db.draftmail.sender_email == send_id ).select()
+	
+	return str(rows)

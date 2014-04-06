@@ -1922,3 +1922,62 @@ ALTER TABLE mail ADD trash INTEGER;
 timestamp: 2014-04-05T15:05:57.072101
 ALTER TABLE mail ADD red INTEGER;
 success!
+timestamp: 2014-04-06T22:21:05.418698
+CREATE TABLE draftmail(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    receivers TEXT,
+    sender_email CHAR(512),
+    sender_name CHAR(512),
+    subject CHAR(512),
+    mail_message TEXT,
+    tag CHAR(512),
+    sent_date CHAR(512)
+);
+success!
+timestamp: 2014-04-06T22:23:32.987247
+ALTER TABLE draftmail ADD made_date CHAR(512);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!

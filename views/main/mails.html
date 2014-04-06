@@ -92,13 +92,9 @@
 		</div>
 	</div>
 	<script>
-<<<<<<< HEAD
 		ip = "10.2.44.248";
-=======
-		ip = "127.0.0.1";
->>>>>>> b5f66f7dfa9b61fbea49bc0b4e1844e2284c0527
 		port = "8000";
-		conn = "http";
+		conn = "https";
 		var activeelement = document.getElementById("tabs").children[0];
 		var sa = document.getElementById("inboxme");
 
@@ -209,11 +205,57 @@
                         }
 		$(document).ready(function()
 		{
+			function savetodrafts(){
+	
+				var xhr = new XMLHttpRequest();
+                                reclist = {};
+                                var el = document.getElementById("receivers");
+                                list = el.children;
+                                for( k = 0 ; k < list.length ; k++ )
+                                        reclist[k] = list[k].innerHTML;
+                                
+                                details = {};
+				if( reclist.length != 0 )
+				{
+                         	       details["receivers"] = JSON.stringify(reclist);
+                                
+                       	               var tagel = document.getElementsByTagName("select");
+                       	               var tag = tagel[0].options[tagel[0].selectedIndex].innerHTML;
+                                
+                        	        details["tag"] = tag;
+                                	var sub = document.getElementById("sub").value;
+                 	                details["sub"] = sub;
+                       		        var msg = document.getElementById("msg").value;
+                 	                details["msg"] = msg;
+					if( sub != "" && msg != "" )
+					{
+           	        	                     var send_id = document.getElementById("idofuser").innerHTML;
+                	    	                     details["send_id"] = send_id;
+                                    		     var sender_name = document.getElementById("user").innerHTML;
+                     	         	             details["sender_name"] = sender_name;
+						     	
+						     xhr.open("POST",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/drafts",true);
+                              		             xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                               		             xhr.send(JSON.stringify(details));
+                
+              		                             xhr.onreadystatechange = function(){
+                                                
+                           			                     if( xhr.readyState == 4 && xhr.status == 200 )
+                                                		     {
+                                            			     	       alert(xhr.responseText);
+                                                		     }
+                                        	    }
+			
+					}
+				}
+		        }
+
 			$("#composeme").click(function(){
 					$("#composer").slideDown("slow");
 				});
 			$("#close").click(function(){
-					alert("Save to Drafts");
+				
+					savetodrafts();
 					$("#composer").fadeOut("fast");
 			});
 			$("#sender").click(function(){
@@ -257,11 +299,9 @@
                                         }
                                 }
                                 else
-                                {
+                               	{
                                         if( id == "" )
                                                 alert("Receivers ID field can not be left empty");
-                                        else if( tag == "" )
-                                                alert("TAG field can not be left empty");
                                 }
                 	});	
 	
@@ -276,6 +316,19 @@
 					if( xhr.readyState == 4 && xhr.status == 200 )
 						alert(xhr.responseText);
 				}	
+			});
+
+			$("#draftsme").click(function(){
+				var xhr = new XMLHttpRequest();
+				
+				xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/getdrafts?email="+document.getElementById("idofuser").innerHTML,true);
+				xhr.send();
+				
+				xhr.onreadystatechange = function()
+				{
+					if( xhr.readyState == 4 && xhr.status == 200 )
+						alert(xhr.responseText);
+				}
 			});
 		});
 	</script>
