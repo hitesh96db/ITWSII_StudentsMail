@@ -1,0 +1,313 @@
+#main
+{
+background-color:#003366;
+    height: 202%;
+    margin-left: -2%;
+    margin-top: -2%;
+    width: 102.6%;
+}
+#submain
+{
+background-color: #CCCCCC;
+    height: 180%;
+    margin-left: 6%;
+    position: fixed;
+    top: 27%;
+    width: 90%;
+
+}
+img:hover
+{
+	cursor:pointer;
+}
+#mailicons
+{
+	display:none;
+}
+#search
+{
+	margin-left:850px;
+	margin-top:8px;
+	width:40%;
+	position:absolute;
+}
+#header
+{
+/*background-color: #FFFFFF;*/
+    height: 13%;
+    margin-left: 1%;
+    position: fixed;
+    top: 0;
+    width: 100.4%;
+}
+#user
+{
+	color: #FFFFFF;
+    font-family: Ubuntu Mono;
+    font-size: 1.5em;
+    left: 73%;
+    position: absolute;
+    top: 58%;
+    width: 200px;
+}
+#logout:hover
+{
+color:black;
+box-shadow: 0 2px 4px 1px #000000;
+border-radius:3px;
+background-color:white;
+cursor:pointer;
+}
+
+#title
+{
+	color: #FFFFFF;
+    font-family: Ubuntu Mono;
+    font-size: 3.5em;
+    margin-left: 12%;
+    margin-top: 2%;
+}
+#mail
+{
+    border-radius: 20%;
+    left: 4.5%;
+    position: absolute;
+    top: 18%;
+}
+#logout
+{
+color:white;
+font-family: Ubuntu Mono;
+    font-size: 1.5em;
+    left: 89%;
+    position: absolute;
+    top: 32%;
+    transition: all 0.5s linear;
+}
+#mailimg
+{
+border-radius: 14px;
+    left: 33%;
+    position: absolute;
+    top: 18%;
+}
+#tg
+{ 
+border-bottom: 15px solid rgba(0, 0, 0, 0);
+    border-left: 15px solid #FFFFFF;
+    border-top: 15px solid rgba(0, 0, 0, 0);
+    height: 0;
+    left: 86.8%;
+    position: absolute;
+    top: 56%;
+    width: 0;
+}
+#tabs
+{
+	left: 1.6%;
+    position: fixed;
+    top: 17.4%;
+    width: 101.5%;
+}
+
+.tags
+{
+    color:#C0C0C0;
+    border-left-color: #336699;
+    border-left-style: solid;
+    box-shadow: 0 -14px 0 0 #336699;
+    display: block;
+    float: left;
+    font-family: Ubuntu Mono;
+    font-size: 27px;
+    padding: 4.5px;
+    text-align: left;
+    width: 16.9%;
+    transition: box-shadow 0.7s ease;
+}
+.tags:active
+{   
+ box-shadow: 0px -14px 0 0 #FF6600;
+}
+.tags:hover
+{
+box-shadow: 0px -14px 0 0 #FF6600;
+color:white;
+}
+a
+{
+text-decoration:none;
+color:inherit;
+}
+#c1
+{
+   background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 81%;
+    position: relative;
+    width: 35px;
+}
+#c2
+{
+   background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 81%;
+    position: relative;
+    width: 35px;
+}
+#c3
+{
+   background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 81%;
+    position: relative;
+    width: 35px;
+}
+#c4
+{
+   background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 81%;
+    position: relative;
+    width: 35px;
+}
+#c5
+{
+   background-color: #C0C0C0;
+    border-radius: 8px;
+    bottom: 45px;
+    height: 35px;
+    left: 81%;
+    position: relative;
+    width: 35px;
+}
+.content
+{
+color:black;
+font-size:20px;
+text-align:center;
+position:relative;
+top:6px;
+}
+#toolbar
+{
+    background-color: #FFFFFF;
+    border-radius: 9px;
+    box-shadow: 0 1px 1px 1px #000000;
+    height: 6%;
+    margin-left: 1.5%;
+    position: fixed;
+    top: 29%;
+    width: 87%;
+}
+#sidebar
+{
+	background-color: white;
+    height: 58%;
+    left: 6%;
+    position: fixed;
+    top: 37%;
+    width: 19%;
+    border-radius:3px;
+}
+#magnifying-glass
+{
+border: 0.1em solid #006699;
+    border-radius: 0.35em;
+    display: inline-block;
+    font-size: 2.5em;
+    height: 0.4em;
+    left: 75%;
+    position: relative;
+    top: 4px;
+    width: 0.4em;
+    margin-left:-19%;
+}
+#magnifying-glass::before { content: ""; display: inline-block; position: absolute; right: -0.25em; bottom: -0.1em; border-width: 0; background: #006699; width: 0.35em; height: 0.08em; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); }
+
+#side
+{
+ background-color: white;
+    left: 7%;
+    position: fixed;
+    width: 14%;
+    list-style-type:none;
+    top:42%;
+}
+.down
+{
+    background-color: #CCCCCC;
+    border-radius: 7px;
+    box-shadow: 0 -15px 8px -7px #888888;
+    color: #000000;
+    font-family: Ubuntu Mono;
+    font-size: 22px;
+    left: -9px;
+    padding: 18px;
+    transition: all 0.3s linear; 
+}
+#compose
+{
+position:relative;
+top:1%;
+}
+hr
+{
+color:black;
+}
+.down:hover
+{
+	background-color:#0099CC;
+        color:white;
+        cursor:pointer;
+	box-shadow:0px 0px 0px 0px #888888;
+}
+.div:active
+{
+	background-color:#0099CC;
+        color:white;
+        cursor:pointer;
+        box-shadow:0px 0px 0px 0px #888888;
+}
+#drafts
+{
+    left: 0;
+    position: absolute;
+    top: 65%;
+
+}
+#compose
+{
+left: 0;
+    position: absolute;
+    top: 6%;
+}
+
+#inbox
+{
+	left: 0;
+    position: absolute;
+    top: 27%;
+
+}
+#trash
+{
+	left: 0;
+    position: absolute;
+    top: 83%;
+
+}
+#sent
+{	
+	left: 0;
+    position: absolute;
+    top: 46%;
+}

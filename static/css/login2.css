@@ -1,0 +1,129 @@
+#main-body
+{
+	position: absolute;
+	width:100%;
+	height:50%;
+}
+#login-box-part1
+{
+	border-radius: 37px;
+	border-top: 6px solid #2ECCFA;
+	height: 30%;
+	left:51.2%;
+	position: absolute;
+	top:25%;
+	transform:rotate(7deg);
+	-webkit-transform:rotate(7deg);
+	width:31%;
+}
+#login-box-part2
+{
+	border-left: 6px solid #2ECCFA;
+	border-radius: 49px;
+	height: 120%;
+	left:52.3%;
+	position: absolute;
+	top:21%;
+	transform:rotate(-6deg);
+	-webkit-transform:rotate(-6deg);
+	width:4%;
+}
+#login-box-part3
+{
+	border-radius: 44px;
+	height: 10%;
+	left:54.8%;
+	position: absolute;
+	top:127.3%;
+	transform:rotate(-5deg);
+	-webkit-transform:rotate(-5deg);
+	width:24%;
+	border-bottom: 6px solid #2ECCFA;
+}
+#login-box-part4
+{
+	border-radius: 22px;
+	border-right: 6px solid #2ECCFA;
+	height:101%;
+	left:76%;
+	position: absolute;
+	top:35%;
+	transform:rotate(10deg);
+	-webkit-transform:rotate(10deg);
+	width:4%;
+}
+#login-input
+{
+	position: absolute;
+	left: 54%;
+	top:76%;
+	width:30%;
+	height:50%;
+}
+#login-img
+{
+	border-radius: 30px;
+	left:53%;
+	position: absolute;
+	top:25%;
+	width:12%
+}
+.login
+{
+	font-family: 'Voltaire', sans-serif;
+}
+#pass-div
+{
+	width:106%;
+	height:10%;
+	position: absolute;
+	top: 35%;
+}
+#e-id-div
+{
+	width:106%;
+	height:5%;
+	position: absolute;
+	top:3%;
+}
+#back-body
+{
+	background:-moz-linear-gradient(to bottom, white, rgba(46, 204, 250, 0.2));
+	background:linear-gradient(to bottom, white, rgba(46, 204, 250, 0.1));
+	height:58%;
+	left:-1%;
+	position: absolute;
+	top:41%;
+	width: 101%;
+	z-index: -1;
+}
+input
+{
+	width: 58%;
+}
+.title
+{
+	font-family: 'Rationale', sans-serif;
+}
+#main-title
+{
+	position: absolute;
+	font-family: 'Rationale', sans-serif;
+	font-size: 85px;
+	left:21%;
+	top:-3%;
+}
+#sub-title
+{
+	position: absolute;
+	font-family: 'Rationale', sans-serif;
+	left:21%;
+	font-size: 64px;
+	top:26%;
+}
+ul li
+{
+	list-style-type: none;
+	font-family: 'Carrois Gothic SC', sans-serif;
+	font-size: 41px;
+}

@@ -1,0 +1,923 @@
+<html>
+<head>
+	<script src="{{=URL('static','js/jquery.js')}}"></script>
+	 <script src="{{=URL('static','js/jquery.easydropdown.min.js')}}"></script>
+	<link href="{{=URL('static','css/easydropdown.metro.css')}}" rel="stylesheet" type="text/css"></link>
+	<link href="{{=URL('static','css/mails.css')}}" rel="stylesheet" type="text/css"></link>
+</head>
+<body onload="getuser()">
+	<div id="main">
+		<div id="header">
+			<p id="title">Students Mail</p>
+			<div id="mail"><img id="mailimg" src="{{=URL('static','images/mail.png')}}" width="80px" height="80px"></img></div>
+			<span id="user">{{=session["name"]}}</span>
+			<div id="tg"></div>
+			<p id="logout" onclick="logout()"> Logout </p>
+			<p id="idofuser" style="display:none;">{{=session["email"]}}</p>
+		</div>
+		<ul id="tabs">
+			<li class="activemy" onclick="makeactive(this)"><a class="top" href="#1">Academics</a><div id="c1"><p class="content">12</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#2">Sports</a><div id="c2"><p class="content">23</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#3">Events</a><div id="c3"><p class="content">32</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#4">Cultural</a><div id="c4"><p class="content">11</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#5">Urgent</a><div id="c5"><p class="content">5</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#6">Lost/Found</a><div id="c6"><p class="content">100</p></div></li>
+			<li class="tags" onclick="makeactive(this)"><a class="top" href="#7">General</a><div id="c7"><p class="content">2</p></div></li>
+		</ul>
+		<div id="submain">
+			<div id="toolbar">
+				<div id="mailicons">
+                                <img src="{{=URL('static','images/reply.png')}}" width="30px" height="30px" style="position:absolute;margin-left:13px;margin-top:4px;" title="reply"></img>
+                                <img src="{{=URL('static','images/forward.png')}}" width="30px" height="30px" style="position:absolute;margin-left:68px;margin-top:4px;" title="forward"></img>
+                                <img src="{{=URL('static','images/delete.png')}}" width="30px" height="30px" style="position:absolute;margin-left:121px;margin-top:4px;" title="delete"></img>
+                                <img src="{{=URL('static','images/read.png')}}" width="30px" height="30px" style="position:absolute;margin-left:172px;margin-top:4px;" title="Mark as read"></img>
+                                <img src="{{=URL('static','images/unread.png')}}" width="30px" height="30px" style="position:absolute;margin-left:222px;margin-top:4px;" title="Mark as unread"></img>
+                                <img src="{{=URL('static','images/important.png')}}" width="30px" height="30px" style="position:absolute;margin-left:272px;margin-top:4px;" title="Mark as important"></img>
+                                </div>
+				<div id="magnifying-glass"></div>
+				<input id="search"></input>
+			</div>
+			<div id="sidebar">
+				<ul id="side">
+					<img id="compose" src="{{=URL('static','images/compose.png')}}" width="30px" height="30px"></img>
+					<li id="composeme" class="down" onclick="makesideactive(this)"><a>Compose</a></li>
+					<img id="inbox" src="{{=URL('static','images/inbox.png')}}" width="30px" height="30px"></img>
+					<li id="inboxme" class="sideactive" onclick="makesideactive(this)" ><a >Inbox</a></li>
+					<img id="sent" src="{{=URL('static','images/sent.png')}}" width="30px" height="30px"></img>
+					<li id="sentme" class="down" onclick="makesideactive(this)" ><a >Sent</a></li>
+					<img id="drafts" src="{{=URL('static','images/drafts.png')}}" width="30px" height="30px"></img>
+					<li id="draftsme" class="down" onclick="makesideactive(this)" ><a >Drafts</a></li>
+					<img id="important" src="{{=URL('static','images/important1.png')}}" width="30px" height="30px"></img>
+					<li id="importantme" class="down" onclick="makesideactive(this)" ><a >Important</a></li>
+					<img id="trash" src="{{=URL('static','images/trash.png')}}" width="30px" height="30px"></img>
+					<li id="trashme" class="down" onclick="makesideactive(this)" ><a >Trash</a></li>
+				</ul>
+			</div>
+			<img src="{{=URL('static','images/delete.png')}}" onclick="deletedraftmails()" width="30px" height="30px" title="Delete!" id="draftdelete"></img>
+
+			<div id="allmails">
+				<div id="inboxer">
+					<table class="table" id="bigtable">
+					<tr>
+						<td class="one" id="i1"></td>
+						<td class="two" id="i2">Subject</td>
+						<td class="three" id="i3">From</td>
+						<td class="four" id="i4">Date</td>
+						<td class="five" id="i5"><img src="../static/images/attmain.png" style="height=14px;width:20px;"/></td>
+					</tr>
+					<tr>
+						<td class="one"><input type="checkbox" name="radiog_lite" id="radio1" class="css-checkbox" /></td>
+						<td class="two"><label for="radio1" class="css-label">Hello guys</label></td>
+						<td class="three">hitesh.sharma</td>
+						<td class="four">15/02/2014</td>
+						<td class="five"><img src="../static/images/paperclip.png" style="height=14px;width:28px"/></td>
+					</tr>	
+					<tr>
+						<td class="one"><input type="checkbox" name="radiog_lite" id="radio2" class="css-checkbox" /></td>
+						<td class="two"><label for="radio2" class="css-label">Hey people!!!</label></td>
+						<td class="three">goutam.nair</td>
+						<td class="four">05/02/2014</td>
+						<td class="five"><img src="../static/images/paperclip.png" style="height=14px;width:28px;"/></td>
+					</tr>	
+		
+					</table>
+				</div>
+
+				<div id="composer">
+					<img id="close" src="{{=URL('static','images/close.png')}}" width="20px" height="20px"></img>
+					<div id="sender">
+						<p> Send </p>
+					</div>
+					<form>	
+						<p id="recvrp" class="formhead">To</p>
+						<input id="recvrinput" type="name" name="recvr" onkeyup="auto(event,1)" onkeydown="sendtodiv(event,1)"></input>
+						<div id="suggestions">	
+						</div>
+						<div id="recvr">
+						<ul id="receivers">
+							
+						</ul>
+						</div>
+						<p id="tagp" class="formhead" >Tag</p>
+						<select class="dropdown">
+							<option value="1">Academics</option>
+							<option value="2">Sports</option>
+							<option value="3">Events</option>
+							<option value="4">Cultural</option>
+							<option value="5">Urgent</option>
+							<option value="6">Lost/Found</option>
+							<option value="7">General</option>
+							<option value="8"></option>
+						</select>
+						<p id="subp" class="formhead" >Subject</p>
+						<input id="sub" type="name" name="sub"></input>
+						<p id="msgp" class="formhead">Message</p>
+						<textarea id="msg" name="msg" cols="82.5" rows="20" ></textarea>
+						<p id="attachp" >Attachments</p>
+						<input id="attach" type="file"></input>
+					</form>
+				</div>
+				<div id="draftser">
+                                        <table class="table" id="drafttable">
+                                        <tr>
+                                                <td class="one" id="i1"></td>
+                                                <td class="two" id="i2">Subject</td>
+                                                <td class="three" id="i3">Receivers</td>
+                                                <td class="four" id="i4">Date</td>
+                                                <td class="five" id="i5"><img src="../static/images/attmain.png" style="height=14px;width:20px;"/></td>
+                                        </tr>
+                                        </table>
+                                </div>
+				<div id="composerD">
+					<img id="closeD" onclick="closedraftmail()" src="{{=URL('static','images/close.png')}}" width="20px" height="20px"></img>
+                                        <div id="senderD" onclick="senddraftmail()">
+                                                <p> Send </p>
+                                        </div>
+                                        <form>
+                                                <p id="recvrpD" class="formhead">To</p>
+                                                <input id="recvrinputD" type="name" name="recvr" onkeyup="auto(event,2)" onkeydown="sendtodiv(event,2)"></input>
+                                                <div id="suggestionsD">
+                                                </div>
+                                                <div id="recvrD">
+                                                <ul id="receiversD">
+
+                                                </ul>
+                                                </div>
+                                                <p id="tagpD" class="formhead" >Tag</p>
+                                                <select class="dropdown">
+                                                        <option value="1">Academics</option>
+                                                        <option value="2">Sports</option>
+                                                        <option value="3">Events</option>
+                                                        <option value="4">Cultural</option>
+                                                        <option value="5">Urgent</option>
+                                                        <option value="6">Lost/Found</option>
+                                                        <option value="7">General</option>
+                                                        <option value="8"></option>
+                                                </select>
+                                                <p id="subpD" class="formhead" >Subject</p>
+                                                <input id="subD" type="name" name="sub"></input>
+                                                <p id="msgpD" class="formhead">Message</p>
+                                                <textarea id="msgD" name="msg" cols="82.5" rows="20" ></textarea>
+                                                <p id="attachpD" >Attachments</p>
+                                                <input id="attachD" type="file"></input>
+                                        </form>
+				</div>
+				<div id="senter">
+                                        <table class="table" id="senttable">
+                                        <tr>
+                                                <td class="one" id="i1"></td>
+                                                <td class="two" id="i2">Subject</td>
+                                                <td class="three" id="i3">Receivers</td>
+                                                <td class="four" id="i4">Date</td>
+                                                <td class="five" id="i5"><img src="../static/images/attmain.png" style="height=14px;width:20px;"/></td>
+                                        </tr>
+                                        </table>
+                                </div>
+				<div id="sentview">
+					<img id="closeS" onclick="closesentmail()" src="{{=URL('static','images/close.png')}}" width="20px" height="20px"></img>
+					 <p id="viewto">To</p>
+                                         <div id="viewrecvr">
+                                         <ul id="viewrecvrlist">
+						<li class="rev">hitesh.sharma</li><li class="rev">goutam.nair</li>
+                                         </ul>
+                                         </div>
+                                         <p id="viewtaghead" >Tag</p>
+					 <p id="viewtagtail">Academics</p>
+                                         <p id="viewsubhead" >Subject</p>
+                                         <p id="viewsubtail">sadlasd</input>
+                                         <p id="viewmsghead">Message</p>
+                                         <div id="viewmsgtail">laksdjalkd</div>
+                                         <p id="viewattach" >Attachments</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		ip = "127.0.0.1";
+		port = "8000";
+		conn = "http";
+		var activeelement = document.getElementById("tabs").children[0];
+		var sa = document.getElementById("inboxme");
+		var draftlist = {};
+		var draftsubject = "";
+		var draftmessage = "";
+		var draftreceivers = {};
+		var deletedraftlist = [];
+		var completelist;
+                var cuckoo;
+		
+		function makesideactive(e){
+			sa.className = "down";
+			sa = e;
+			e.className = "sideactive";
+		}
+		function makeactive(e){
+			 activeelement.className = "tags";
+			 activeelement = e;
+			 e.className = "activemy";
+			 
+		}
+		function putinto(el,p)
+		{
+			if( p == 1 )
+				end = "";
+			else
+				end = "D";
+
+				 var id = el.innerHTML;
+         
+                                        var listitem = document.createElement("LI");
+                                        listitem.className = "rev";
+                                        listitem.onclick = function() { document.getElementById("receivers"+end).removeChild(this); }
+                                        var text = document.createTextNode(id);
+                                        listitem.appendChild(text);
+                                        ulist = document.getElementById("receivers"+end);
+                                        ulist.appendChild(listitem);
+                                        document.getElementById("recvrinput"+end).value = "";
+                           
+	
+		}
+		function gettagcount()
+		{
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/count?name="+document.getElementById("idofuser").innerHTML,true);
+                        xhr.send();
+	
+			xhr.onreadystatechange = function(){	
+					if( xhr.readyState == 4 && xhr.status == 200 )
+						alert(xhr.responseText);
+			}
+	
+	
+		}
+		function getuser(){
+                                
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/getuser",true);
+                                xhr.send();
+        
+                                xhr.onreadystatechange = function(){
+                                        if( xhr.readyState == 4 && xhr.status == 200 )
+                                        {                
+							var k = xhr.responseText;
+							gettagcount();	
+					}
+                                
+				}
+                        
+                        }
+		function sendtodiv(e,p)
+		{
+			if( p == 1 )
+				end = "";
+			else
+				end = "D";
+			if ( e.keyCode == 13 )
+			{	
+				var id = document.getElementById("recvrinput"+end).value;
+				if ( id != "" )
+				{
+					var listitem = document.createElement("LI");
+					listitem.className = "rev";
+					listitem.onclick = function() { document.getElementById("receivers"+end).removeChild(this); }
+					var id = document.getElementById("recvrinput"+end).value;
+					var text = document.createTextNode(id);
+					listitem.appendChild(text);
+					ulist = document.getElementById("receivers"+end);
+					ulist.appendChild(listitem);
+					document.getElementById("recvrinput"+end).value = "";
+				}
+			}
+		}
+		function auto(e,p)
+		{
+				if( p == 1 )
+					end = "";
+				else
+					end = "D";
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/getid?id="+document.getElementById("recvrinput"+end).value,true);
+				xhr.send()
+				
+				xhr.onreadystatechange = function()
+				{
+					if( xhr.readyState == 4 && xhr.status == 200 )
+					{
+						response = xhr.responseText;
+						k = response.split(" ");
+						div = document.getElementById("suggestions"+end);
+						j = div.children.length;
+						for( k = j-1 ; k>=0; k-- )
+							div.removeChild(div.children[k]);
+						
+						if( document.getElementById("recvrinput"+end).value != "" )
+						{
+							if( response.length != 0 )
+							{	
+									k = response.split(" ");
+									for(i=0;i<k.length;i++)
+									{
+										var sug = document.createElement("P");
+										var txt = document.createTextNode(k[i]);
+										sug.appendChild(txt);
+										sug.onclick = function(){ putinto(this,p);  document.getElementById("suggestions"+end).style.visibility = "hidden"; };
+										div.appendChild(sug);
+										div.style.visibility="visible";
+									}
+							}
+						}
+						else
+							div.style.visibility = "hidden";
+							
+					}
+				}
+		}
+		function logout(){
+                                window.location.href = conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/loginmy?logout=1"
+                        }
+		function showdraftmessage(e)
+		{
+				  k = e.id;
+                               	  k = k.slice(3,k.length);
+				  document.getElementById("draftdelete").style.display = "none";
+	
+					 document.getElementById("subD").value = ""; 
+                                        document.getElementById("msgD").value = "";
+                                        doko = document.getElementById("recvrD");
+                                        doko.removeChild(doko.children[0]);
+                                        koko = document.createElement("UL");
+                                        koko.id = "receiversD";
+                                        doko.appendChild(koko);
+
+				  for ( i=1 ; ; i++ )
+                                  {
+                                         if( typeof draftlist[i] != "undefined" )
+                                         {
+						if ( i == k )
+						{
+                                                        p = draftlist[i]["receivers"];
+                                                        for( x = 0;;x++)
+                                                        {
+                                                                if ( typeof p[x] == "undefined" )
+                               						break;
+							}
+		//					x is len;
+				
+						       for( toko= 0; toko < x ; toko ++ )
+						       {
+									  var listitem = document.createElement("LI");
+                                 				          listitem.className = "rev";
+										id = p[toko];
+                                       						 listitem.onclick = function() { document.getElementById("receiversD").removeChild(this); }
+                                     						   var text = document.createTextNode(id);
+                                 					       listitem.appendChild(text);
+                                    					    ulist = document.getElementById("receiversD");
+                                 					       ulist.appendChild(listitem);
+                                   					     document.getElementById("recvrinputD").value = "";
+							}
+                                
+                  			              var tagel = document.getElementsByTagName("select");
+                            			    var tag = tagel[0].options[tagel[0].selectedIndex].innerHTML;
+                                 
+							document.getElementById("closeD").style.display = "block";
+							document.getElementById("senderD").style.display = "block";
+							draftsubject = draftlist[i]["subject"];
+							draftmessage = draftlist[i]["mail_message"];
+							draftreceivers = draftlist[i]["receivers"];
+							document.getElementById("composerD").style.display = "block";
+							document.getElementById("subD").value = draftlist[i]["subject"];
+                                                        document.getElementById("msgD").value = draftlist[i]["mail_message"];
+
+							document.getElementById("draftser").style.display = "none";   
+						}
+	
+					}
+					else
+						break;
+		      		}
+		}
+		function senddraftmail(){
+
+				document.getElementById("draftdelete").style.display = "none";
+				var xhr = new XMLHttpRequest();
+                                var xp = new XMLHttpRequest();
+                                reclist = {};
+                                var el = document.getElementById("receiversD");
+                                list = el.children;
+                                for( k = 0 ; k < list.length ; k++ )
+                                        reclist[k] = list[k].innerHTML;
+                                
+                                details = {}
+                                details["receivers"] = JSON.stringify(reclist);
+                                
+                                var tagel = document.getElementsByTagName("select");
+                                var tag = tagel[0].options[tagel[0].selectedIndex].innerHTML;
+                                
+                                details["tag"] = tag;
+                                var sub = document.getElementById("subD").value;
+                                details["sub"] = sub;
+                                var msg = document.getElementById("msgD").value;
+                                details["msg"] = msg;
+                                var send_id = document.getElementById("idofuser").innerHTML;
+                                details["send_id"] = send_id;
+                                var sender_name = document.getElementById("user").innerHTML;
+                                details["sender_name"] = sender_name;
+               			draftdetails = {};		
+				draftdetails["send_id"] = send_id;
+				draftdetails["sender_name"] = sender_name;
+				draftdetails["sub"] = draftsubject;
+				draftdetails["message"] = draftmessage;
+				draftdetails["receivers"] = JSON.stringify(draftreceivers);
+
+                                if( tag != "" )
+                                {
+	
+                                        xhr.open("POST",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/send",true);
+                                        xp.open("POST",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/checkdrafts",true);
+                                        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                                        xp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                                        xhr.send(JSON.stringify(details));
+                                        xp.send(JSON.stringify(draftdetails));
+
+                                        xhr.onreadystatechange = function(){
+                                                
+                                                if( xhr.readyState == 4 && xhr.status == 200 )
+                                                {
+                                                        alert(xhr.responseText);
+                                                	document.getElementById("composerD").style.display = "none";
+                                                        document.getElementById("draftser").style.display = "block";
+							document.getElementById("draftdelete").style.display = "block";   
+							refreshdraftmails();
+						}
+                                        }
+                                        xp.onreadystatechange = function(){
+                                                if ( xp.readyState == 4 && xp.status == 200 )
+                                                        console.log(xp.responseText);
+                                        }
+                                }
+                                else
+                                {
+                                        if( id == "" )
+                                                alert("Receivers ID field can not be left empty");
+                                }
+					
+		}
+		function closedraftmail()
+		{
+				  var xhr = new XMLHttpRequest();
+                                reclist = {};
+                                var el = document.getElementById("receiversD");
+                                list = el.children;
+                                for( k = 0 ; k < list.length ; k++ )
+                                        reclist[k] = list[k].innerHTML;
+                                
+                                details = {};
+                                if( reclist.length != 0 )
+                                {
+                                       details["receivers"] = JSON.stringify(reclist);
+                                
+                                       var tagel = document.getElementsByTagName("select");
+                                       var tag = tagel[0].options[tagel[0].selectedIndex].innerHTML;
+                                
+                                        details["tag"] = tag;
+                                        var sub = document.getElementById("subD").value;
+                                        details["sub"] = sub;
+                                        var msg = document.getElementById("msgD").value;
+                                        details["msg"] = msg;
+                                        if( sub != "" && msg != "" )
+                                        {
+                                                     var send_id = document.getElementById("idofuser").innerHTML;
+                                                             details["send_id"] = send_id;
+                                                     var sender_name = document.getElementById("user").innerHTML;
+                                                     details["sender_name"] = sender_name;
+       
+                                                     xhr.open("POST",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/drafts",true);
+                                                     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                                           	     xhr.send(JSON.stringify(details));
+                                              	//	console.log(details);
+						       xhr.onreadystatechange = function(){
+                                                
+                                                                     if( xhr.readyState == 4 && xhr.status == 200 )
+                                                                     {
+										if ( xhr.responseText != "already" )
+										{
+											alert("Message saved to drafts!");
+											refreshdraftmails();
+                                                      				}
+                                        			     }
+                        				}
+                                	}
+				}
+				document.getElementById("closeD").style.display = "none";
+                                document.getElementById("senderD").style.display = "none";
+				document.getElementById("composerD").style.display = "none";
+                                document.getElementById("draftser").style.display = "block";   
+				document.getElementById("draftdelete").style.display = "block";
+		}
+		function refreshdraftmails()
+		{
+					draftlist = {}; 
+                                        var xp = new XMLHttpRequest();
+                                
+                                        xp.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/getdrafts?email="+document.getElementById("idofuser").innerHTML,true);
+                                        xp.send();
+                                
+                                        l = document.getElementById("draftser");
+                                        l.removeChild(l.children[0]);
+                                        table = document.createElement("TABLE");
+                                        table.id = "drafttable";
+                                        table.className = "table";
+                                        l.appendChild(table);
+                                        
+					 $("#drafttable").append("<tr><td class='one' id='i1'></td><td class='two' id='i2'>Subject</td><td class='three' id='i3'>Receivers</td><td class='four' id='i4'>Date</td><td class='five' id='i5'><img src='../static/images/attmain.png' height='14px' width='20px'/></td></tr>");
+
+
+                                        xp.onreadystatechange = function()
+                                        {
+                                                if( xp.readyState == 4 && xp.status == 200 )
+                                                {
+                                                        draftlist = JSON.parse(xp.responseText);
+                                                        for ( i=1 ; ; i++ )
+                                                        {
+                                                                if( typeof draftlist[i] != "undefined" )
+                                                                {
+                                                                        p = draftlist[i]["receivers"];
+                                                                        for( k = 0;;k++)
+                                                                        {
+                                                                                if ( typeof p[k] == "undefined" )
+                                                                                        break;
+                                                                        }
+									$("#drafttable").append("<tr><td class='one'><input onclick='watchout(this)' type='checkbox' name='radiog_lite' id='radio2' class='css-checkbox'></td><td class='two' id='msg"+i+"' onclick='showdraftmessage(this)'><label for='radio2' class='css-label'>"+draftlist[i]['subject']+"</label></td><td class='three'>"+k+"</td><td class='four'>"+draftlist[i]['made_date']+"</td><td class='five'><img src='../static/images/paperclip.png' height='14px' width='28px'></img></tr>");
+                                                                
+       	                                                        }
+                                                                else if( typeof draftlist[i] == "undefined" )
+                                                                       break;
+
+                                                        }
+						}
+					}
+		}
+		function deletedraftmails()
+		{
+			deleter = {}
+			for(i=0 ; i<deletedraftlist.length ; i++ )
+			{
+				idofmsg = deletedraftlist[i].slice(3,deletedraftlist[i].length);
+				deleter[i] = JSON.stringify(draftlist[idofmsg]);
+			}
+			console.log(JSON.stringify(deleter));
+	
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/deletedrafts",true);
+			xhr.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+			xhr.send(JSON.stringify(deleter));
+		
+			xhr.onreadystatechange = function()
+			{
+				if( xhr.readyState == 4 && xhr.status == 200 )
+				{	alert(xhr.responseText);
+					refreshdraftmails();
+				}
+			}
+			deletedraftlist = [];
+		}
+		function watchout(e)
+		{
+			id = e.parentNode.parentNode.children[1].id;
+			console.log(e.checked);
+			if ( e.checked == true )
+			{
+				deletedraftlist.push(id);			
+			}
+			else
+			{
+				k = [];
+				deletedraftlist.filter(function(idd) { if( idd != id ) { k.push(idd) } });
+				deletedraftlist = k;
+			}
+		}
+		function showsentmessage(e)
+		{
+			popop = e.id.slice(4,e.id.length);
+			document.getElementById("senter").style.display = "none";
+			document.getElementById("sentview").style.display = "block";
+			mail = completelist[popop];
+			
+			 doko = document.getElementById("viewrecvr");
+                         doko.removeChild(doko.children[0]);
+                         koko = document.createElement("UL");
+                         koko.id = "viewrecvrlist";
+                         doko.appendChild(koko);
+			
+			k = completelist[popop]["receivers"].split(" ");
+			for(i=0;i<k.length;i++)
+			{
+				var listitem = document.createElement("LI");
+       		                 listitem.className = "rev";
+                 	       var text = document.createTextNode(k[i]);
+                	        listitem.appendChild(text);
+               		         ulist = document.getElementById("viewrecvrlist");
+                        	ulist.appendChild(listitem);
+			}
+			document.getElementById("viewtagtail").innerHTML = mail["tag"];
+			document.getElementById("viewsubtail").innerHTML = mail["subject"];
+                        document.getElementById("viewmsgtail").innerHTML = mail["mail_message"];
+		
+		}
+		function closesentmail()
+		{
+			document.getElementById("senter").style.display = "block";
+                        document.getElementById("sentview").style.display = "none";		
+		}
+		$(document).ready(function()
+		{
+/*			$("#composeme").click(function(){
+			$("#inboxer").hide();
+			$("#composer").slideDown("slow");
+			});
+*/
+			var sa = document.getElementById("inboxme");
+			
+			function savetodrafts(){
+	
+				var xhr = new XMLHttpRequest();
+                                reclist = {};
+                                var el = document.getElementById("receivers");
+                                list = el.children;
+                                for( k = 0 ; k < list.length ; k++ )
+                                        reclist[k] = list[k].innerHTML;
+                                
+                                details = {};
+				if( reclist.length != 0 )
+				{
+                         	       details["receivers"] = JSON.stringify(reclist);
+                                
+                       	               var tagel = document.getElementsByTagName("select");
+                       	               var tag = tagel[0].options[tagel[0].selectedIndex].innerHTML;
+                                
+                        	        details["tag"] = tag;
+                                	var sub = document.getElementById("sub").value;
+                 	                details["sub"] = sub;
+                       		        var msg = document.getElementById("msg").value;
+                 	                details["msg"] = msg;
+					if( sub != "" && msg != "" )
+					{
+           	        	                     var send_id = document.getElementById("idofuser").innerHTML;
+                	    	        	             details["send_id"] = send_id;
+                                    		     var sender_name = document.getElementById("user").innerHTML;
+                     	         	             details["sender_name"] = sender_name;
+						     	
+						     xhr.open("POST",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/drafts",true);
+                              		             xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                               		      	     xhr.send(JSON.stringify(details));
+              		                             xhr.onreadystatechange = function(){
+                                                
+                           			                     if( xhr.readyState == 4 && xhr.status == 200 )
+                                            			     	       alert(xhr.responseText);
+                                                      }
+                                        }
+			
+				}
+			}
+				
+			$("#composeme").click(function(){
+		
+				 document.getElementById("sub").value = ""; 
+                                        document.getElementById("msg").value = "";
+                                        d = document.getElementById("recvr");
+                                        d.removeChild(d.children[0]);
+                                        k = document.createElement("UL");
+                                        k.id = "receivers";
+                                        d.appendChild(k);
+
+				sa.className = "down";
+                                e = document.getElementById("composeme");
+                                divname =  sa.id.slice(0,-2);
+                                console.log("Checking : "+divname);
+				if ( divname == "compose" )
+                                {
+					 $("#close").fadeOut("fast");
+                                                 $("#sender").fadeOut("fast"); 
+                                                 $("#composer").fadeOut("fast");
+	
+                                }
+                        	else if( divname == "drafts" )
+                                      $("#draftdelete").fadeOut("fast");
+      				else if( divname == "sent" )
+				      document.getElementById("sentview").style.display = "none";     
+ 
+				$("#"+divname+"er").fadeOut("fast");		
+                                e.className = "sideactive";
+				sa = e;
+				 $("#close").fadeIn("slow");
+                                 $("#sender").fadeIn("slow"); 
+                                 $("#composer").fadeIn("slow");
+
+
+
+				});
+			$("#close").click(function(){
+				
+					savetodrafts();
+					sa.className = "down";
+                                        e = document.getElementById("inboxme");
+                                        $("#close").fadeOut("fast");
+                                        $("#sender").fadeOut("fast"); 
+                                        $("#composer").fadeOut("fast");
+                                        e.className = "sideactive";
+                                        $("#inboxer").fadeIn("slow");
+                                        sa = e;	
+					$("#composer").fadeOut("fast");
+			});
+			$("#sender").click(function(){
+                        
+                                var xhr = new XMLHttpRequest();
+                            	var xp = new XMLHttpRequest();
+			        reclist = {};
+				var el = document.getElementById("receivers");
+				list = el.children;
+				for( k = 0 ; k < list.length ; k++ )
+					reclist[k] = list[k].innerHTML;
+				
+				details = {}
+				details["receivers"] = JSON.stringify(reclist);
+				
+				var tagel = document.getElementsByTagName("select");
+				var tag = tagel[0].options[tagel[0].selectedIndex].innerHTML;
+				
+				details["tag"] = tag;
+				var sub = document.getElementById("sub").value;
+				details["sub"] = sub;
+                                var msg = document.getElementById("msg").value;
+				details["msg"] = msg;
+                                var send_id = document.getElementById("idofuser").innerHTML;
+				details["send_id"] = send_id;
+                                var sender_name = document.getElementById("user").innerHTML;
+        			details["sender_name"] = sender_name;
+		
+                                if( tag != "" )
+                                {
+                                        xhr.open("POST",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/send",true);
+					xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                                        xhr.send(JSON.stringify(details));
+                                        xhr.onreadystatechange = function(){
+                                                
+                                                if( xhr.readyState == 4 && xhr.status == 200 )
+                                                {
+                                                        alert(xhr.responseText);
+							$("#composer").fadeOut("fast");
+                                                	sa.className = "down";
+			                                e = document.getElementById("inboxme");
+                                   			      $("#close").fadeOut("fast");
+                                              		      $("#sender").fadeOut("fast"); 
+                                           		      $("#composer").fadeOut("fast");
+                                
+                             			       e.className = "sideactive";
+                            			       $("#inboxer").fadeIn("slow");
+    	                  			       sa = e;	
+						}
+                                        }
+                                }
+                                else
+                               	{
+                                        if( id == "" )
+                                                alert("Receivers ID field can not be left empty");
+                                }
+                	});	
+	
+			$("#inboxme").click(function(){
+
+				
+				sa.className = "down";
+                                e = document.getElementById("inboxme");
+                                divname =  sa.id.slice(0,-2);	
+				if ( divname == "compose" )
+				{
+					 $("#close").fadeOut("fast");
+                                                 $("#sender").fadeOut("fast"); 
+                                                 $("#composer").fadeOut("fast");
+
+				}
+				else if( divname == "drafts" )
+					$("#draftdelete").fadeOut("fast");
+				 else if( divname == "sent" )
+                                      document.getElementById("sentview").style.display = "none";     
+
+				
+				$("#"+divname+"er").fadeOut("fast");
+				e.className = "sideactive";
+                                $("#inboxer").fadeIn("slow");
+
+				sa = e;
+				
+				var xhr = new XMLHttpRequest();
+				var l = document.getElementById("idofuser").innerHTML;
+				xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/show?id="+l,true);
+				xhr.send();
+
+				xhr.onreadystatechange = function()
+				{
+					if( xhr.readyState == 4 && xhr.status == 200 )
+					{	
+						obj=JSON.parse(xhr.responseText);
+						jQuery.each(obj, function(key, value) {
+							    //console.log(key, value);
+							    tmpobj = value;
+							    jQuery.each(tmpobj,function(key,value){
+								    if (key=="tag"&&value=="Academics"){
+								   	 console.log(key,value);
+									 }
+								    });
+
+							    });
+						//alert(xhr.responseText);
+
+					}
+				}	
+				});
+		
+
+			$("#draftsme").click(function(){
+				
+               			       sa.className = "down";
+                              	       e = document.getElementById("draftsme");
+                               	       divname =  sa.id.slice(0,-2);
+                         	       if ( divname == "compose" )
+                                	{
+						 $("#close").fadeOut("fast");
+						 $("#sender").fadeOut("fast"); 
+						 $("#composer").fadeOut("fast");
+	
+					}
+					 else if( divname == "sent" )
+	                                      document.getElementById("sentview").style.display = "none";     
+
+					$("#"+divname+"er").fadeOut("slow");
+ 
+                      	                e.className = "sideactive";
+        	            		$("#draftser").fadeIn("slow");
+					sa = e;
+				
+					$("#draftdelete").fadeIn("slow");
+					refreshdraftmails();
+			});
+			$("#sentme").click(function(){
+				
+
+				sa.className = "down";
+                                e = document.getElementById("sentme");
+                                divname =  sa.id.slice(0,-2);   
+                                if ( divname == "compose" )
+                                {
+                                         $("#close").fadeOut("fast");
+                                                 $("#sender").fadeOut("fast"); 
+                                                 $("#composer").fadeOut("fast");
+
+                                }
+                                else if( divname == "drafts" )
+                                        $("#draftdelete").fadeOut("fast");
+                             	 else if( divname == "sent" )
+                                      document.getElementById("sentview").style.display = "none";     
+
+			        $("#"+divname+"er").fadeOut("fast");
+                           
+			        e.className = "sideactive";
+                                $("#senter").fadeIn("slow");
+                                sa = e;
+                               	
+				document.getElementById("senter").style.display = "block";
+        	                document.getElementById("sentview").style.display = "none";             
+	 
+
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/sentmails?email="+document.getElementById("idofuser").innerHTML,true);
+				xhr.send();
+			
+				l = document.getElementById("senter");
+                                l.removeChild(l.children[0]);
+                                table = document.createElement("TABLE");
+                                table.id = "senttable";
+                                table.className = "table";
+                                l.appendChild(table);
+                                        
+                                $("#senttable").append("<tr><td class='one' id='i1'></td><td class='two' id='i2'>Subject</td><td class='three' id='i3'>Receivers</td><td class='four' id='i4'>Date</td><td class='five' id='i5'><img src='../static/images/attmain.png' height='14px' width='20px'/></td></tr>");
+
+				xhr.onreadystatechange = function(){
+					
+						if( xhr.readyState == 4 && xhr.status == 200 )
+						{
+							completelist = JSON.parse(xhr.responseText);
+							for( i in completelist )
+							{
+								k = completelist[i]["receivers"].split(" ");
+								console.log(k);
+                                             		        $("#senttable").append("<tr><td class='one'><input onclick='yo(this)' type='checkbox' name='radiog_lite' id='radio2' class='css-checkbox'></td><td class='two' id='sent"+i+"' onclick='showsentmessage(this)'><label for='radio2' class='css-label'>"+completelist[i]["subject"]+"</label></td><td class='three'>"+(k.length-1)+"</td><td class='four'>"+completelist[i]["sent_date"]+"</td><td class='five'><img src='../static/images/paperclip.png' height='14px' width='28px'></img></tr>");
+							}
+						}	
+				}
+			});
+		});
+	</script>
+
+</body>
+</html>
