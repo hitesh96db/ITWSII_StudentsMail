@@ -188,7 +188,16 @@ width: 101.5%;
 left: 90.5%;
 position: fixed;
 top: 39%;
+display:none;
 }
+#closeD
+{
+left: 90.5%;
+position: fixed;
+top: 39%;
+display:none;
+}
+
 #attach
 {
 left: 19.8%;
@@ -196,6 +205,14 @@ position: absolute;
 top: 29%;
 color:black;
 }
+#attachD
+{
+left: 19.8%;
+position: absolute;
+top: 29%;
+color:black;
+}
+
 #attachp
 {
 color: #000000;
@@ -205,6 +222,16 @@ left: 6%;
 position: absolute;
 top: 27.3%;
 }
+#attachpD
+{
+color: #000000;
+       font-family: Ubuntu Mono;
+       font-size: 17px;
+left: 6%;
+position: absolute;
+top: 27.3%;
+}
+
 .tags
 {
 	border-left-color: #336699;
@@ -485,9 +512,10 @@ position: fixed;
 top: 49%;
 color:white;
 width: 60px;
-       z-index: 1000;
+       z-index: 100000;
 opacity:0.4;
 transition:all 0.5s ease;
+display:none;
 }
 #sender:hover
 {
@@ -504,16 +532,44 @@ position: relative;
 top: -6%;
 
 }
+#senderD
+{        background-color: #006699;
+        border-radius: 133px;
+height: 60px;
+left: 87%;
+position: fixed;
+top: 49%;
+color:white;
+width: 60px;
+       z-index: 100000;
+opacity:0.4;
+transition:all 0.5s ease;
+display:none;
+}
+#senderD:hover
+{
+opacity:1;
+color:white;
+cursor:pointer;
+}
+#senderD p
+{
+        font-family: Ubuntu Mono;
+        font-size: 21px;
+left: 11%;
+position: relative;
+top: -6%;
+
+}
 #inboxer
 {
 	background-color: #F0F0F0  ;
-height: 200%;
 	margin-left: 1%;
 	margin-top: 7.5px;
 position: relative;
 width: 98%;
 overflow:hidden;
-
+	display:none;
 }
 #composer
 {
@@ -521,6 +577,17 @@ overflow:hidden;
 height: 200%;
 	margin-left: 1%;
 	margin-top: 7.5px;
+position: relative;
+width: 98%;
+display:none;
+overflow:hidden;
+}
+#composerD
+{
+        background-color: #F0F0F0  ;
+height: 200%;
+        margin-left: 1%;
+        margin-top: 7.5px;
 position: relative;
 width: 98%;
 display:none;
@@ -538,6 +605,19 @@ position: absolute;
 top: 10%;
 width: 69.3%;
 }
+#recvrD
+{
+        border-color: #FFFFFF;
+        border-style: solid;
+height: 8%;
+left: 20%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+position: absolute;
+top: 10%;
+width: 69.3%;
+}
+
 #recvrinput
 {
 	border-color: #FFFFFF;
@@ -549,6 +629,20 @@ top: 6%;
 width: 69.8%;
 }
 #recvrinput:focus
+{
+	box-shadow: 0 0 0 2px #006699;
+}
+#recvrinputD
+{
+        border-color: #FFFFFF;
+        border-style: solid;
+height: 3%;
+left: 20%;
+position: absolute;
+top: 6%;
+width: 69.8%;
+}
+#recvrinputD:focus
 {
 	box-shadow: 0 0 0 2px #006699;
 }
@@ -565,7 +659,23 @@ left: 6%;
 position: absolute;
 top: 3%;
 }
+#recvrpD
+{
+color: #000000;
+left: 6%;
+position: absolute;
+top: 3%;
+}
 #receivers
+{
+display: block;
+left: -6.5%;
+      list-style-type: none;
+position: relative;
+top: -15%;
+width: 97%;
+}
+#receiversD
 {
 display: block;
 left: -6.5%;
@@ -608,6 +718,31 @@ padding:6px;
 color:white;
       background-color:#0099CC;
 }
+#suggestionsD
+{
+        background-color: #006699;
+color: white;
+left: 20%;
+position: absolute;
+top: 9%;
+width: 69.8%;
+       z-index: 2;
+visibility:hidden;
+}
+#suggestionsD p
+{
+padding:6px;
+        font-family:Ubuntu Mono;
+        font-size:16px;
+        border-radius:2px;
+}
+#suggestionsD p:hover
+{
+color:white;
+      background-color:#0099CC;
+}
+
+
 #tagp
 {
 
@@ -616,6 +751,15 @@ left: 6%;
 position: absolute;
 top: 17%;
 }
+#tagpD
+{
+
+color: #000000;
+left: 6%;
+position: absolute;
+top: 17%;
+}
+
 #sub
 {
 left: 20%;
@@ -629,6 +773,19 @@ width:70%;
 {
 	box-shadow: 0 0 0 2px #006699;
 }
+#subD
+{
+left: 20%;
+position: absolute;
+top: 25%;
+     border-color:white;
+     border-style:solid;
+width:70%;
+}
+#subD:focus
+{
+        box-shadow: 0 0 0 2px #006699;
+}
 
 #subp
 {
@@ -637,6 +794,15 @@ left: 6%;
 position: absolute;
 top: 22%;	
 }
+
+#subpD
+{
+color: #000000;
+left: 6%;
+position: absolute;
+top: 22%;
+}
+
 #msg
 {
 left: 6%;
@@ -659,5 +825,171 @@ left: 6%;
 position: absolute;
 top: 30%;
 }
+#msgD
+{
+left: 6%;
+position: absolute;
+top: 37%;
+     border-color:white;
+     border-style:solid;
+     font-family:Ubuntu Mono;
+     font-size:18px;
+}
+#msgD:focus
+{
+        box-shadow: 0 0 0 2px #006699;
+}
 
+#msgpD
+{
+color: #000000;
+left: 6%;
+position: absolute;
+top:30%;
+}
+#draftser
+{
+    display:none;
+    background-color: #F0F0F0;
+    margin-left: 1%;
+    margin-top: 7.5px;
+    overflow: hidden;
+    position: relative;
+    width: 98%;
+}
+#draftdelete
+{
+position:absolute;
+margin-left:27px;
+margin-top:18px;
+display:none;
+}
+#senter
+{
+	display:none;
+    background-color: #F0F0F0;
+    margin-left: 1%;
+    margin-top: 7.5px;
+    overflow: hidden;
+    position: relative;
+    width: 98%;
 
+}
+#sentview
+{
+	background-color:#006699;
+	color:white;
+	height: 200%;
+        margin-left: 1%;
+        margin-top: 7.5px;
+	position: relative;
+	width: 98%;
+	overflow:hidden;
+	display:none;
+}
+#viewto
+{
+	color: #FFFFFF;
+    font-family: Ubuntu Mono;
+    font-size: 26px;
+    left: 32px;
+    position: absolute;
+    top: 3%;
+}
+#viewrecvr
+{
+            border-color: #FFFFFF;
+        border-style: solid;
+      overflow-x: hidden;
+      overflow-y: scroll;
+width: 69.3%;
+	left:4%;
+	position: absolute;
+    top: 10%;
+    width: 94%;
+    height:8%;
+    background-color:white;
+}
+
+#viewrecvrlist
+{
+	display: block;
+left: -3.5%;
+      list-style-type: none;
+position: relative;
+top: -15%;
+width: 97%;
+
+}
+#viewtaghead
+{
+    color: #FFFFFF;
+    left: 32px;
+    position: absolute;
+    top: 17%;
+font-family:Ubuntu Mono;
+    font-size:26px;
+
+}
+#viewtagtail
+{
+    color: #FFFFFF;
+    left: 71px;
+    position: absolute;
+    top: 22%;
+	font-family:Ubuntu Mono;
+    font-size:20px;
+
+}
+#viewsubhead
+{
+	color: #FFFFFF;
+    font-family: Ubuntu Mono;
+    font-size: 26px;
+    left: 32px;
+    position: absolute;
+    top: 25%;
+}
+#viewsubtail
+{
+	color: #FFFFFF;
+    font-family: Ubuntu Mono;
+    font-size: 20px;
+    left: 71px;
+    position: absolute;
+    top: 30%;
+}
+#viewmsghead
+{
+	color: #FFFFFF;
+    font-family: Ubuntu Mono;
+    font-size: 26px;
+    left: 32px;
+    position: absolute;
+    top: 37%;
+}
+#viewmsgtail
+{
+	color: #FFFFFF;
+    font-family: Ubuntu Mono;
+    font-size: 20px;
+    height: 38%;
+    left: 32px;
+    position: absolute;
+    top: 45%;
+    width: 94%;
+}
+#viewattach
+{
+	background-color: #000000;
+    color: #FFFFFF;
+    left: 32px;
+    position: absolute;
+    top: 90%;
+}
+#closeS
+{
+	left: 96%;
+    position: relative;
+    top: 1%;
+}
