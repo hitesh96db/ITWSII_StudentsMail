@@ -33,10 +33,13 @@ def getuser():
 	return "Added to Database!"
 
 def mails():
+	form = SQLFORM(db.attachments, formstyle="divs", submit_button="Attach");
+	if form.accepts(request, formname=None):
+		 pass    
 	if session["name"] == "None":
 		response.view = 'main/pls.html'
-		return dict()	
-	return dict()
+		return dict(form=form)	
+	return dict(form=form)
 
 def getid():
 	substr = request.vars["id"]
@@ -238,6 +241,4 @@ def deletedrafts():
 	
 		db((db.draftmail.sender_name == k['sender_name'] )&(db.draftmail.receivers == k["receivers"])&(db.draftmail.sender_email == k['sender_email'])&(db.draftmail.subject == k['subject'] ) &( db.draftmail.mail_message == k['mail_message'])).delete()
 
-        return "Deleted from Drafts!"
-
-	
+        return "Deleted from Drafts!"	

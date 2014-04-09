@@ -4,6 +4,27 @@
 	 <script src="{{=URL('static','js/jquery.easydropdown.min.js')}}"></script>
 	<link href="{{=URL('static','css/easydropdown.metro.css')}}" rel="stylesheet" type="text/css"></link>
 	<link href="{{=URL('static','css/mails.css')}}" rel="stylesheet" type="text/css"></link>
+
+	<style>
+		fieldset{
+			display:block;
+			border:0px;
+		}
+		.w2p_fw{
+			color : black;
+			position : absolute;
+			top : 30% !important;
+			left : 30% !important;
+		}
+		#attachments_attachment__label{
+			visibility:hidden !important;
+		}
+		#submit_record__row{
+			position:absolute;
+			top:36%;
+			left:31%;
+		}
+	</style>
 </head>
 <body onload="getuser()">
 	<div id="main">
@@ -85,9 +106,9 @@
 
 				<div id="composer">
 					<img id="close" src="{{=URL('static','images/close.png')}}" width="20px" height="20px"></img>
-					<div id="sender">
-						<p> Send </p>
-					</div>
+					<!--<div id="sender">
+						<input type="submit" value="Send" id="sender"/>
+					</div>-->
 					<form>	
 						<p id="recvrp" class="formhead">To</p>
 						<input id="recvrinput" type="name" name="recvr" onkeyup="auto(event,1)" onkeydown="sendtodiv(event,1)"></input>
@@ -113,9 +134,9 @@
 						<input id="sub" type="name" name="sub"></input>
 						<p id="msgp" class="formhead">Message</p>
 						<textarea id="msg" name="msg" cols="82.5" rows="20" ></textarea>
-						<p id="attachp" >Attachments</p>
-						<input id="attach" type="file"></input>
 					</form>
+					{{=form}}
+					<img src="{{=URL('static', 'images/attachment.png')}}" width="60px" height="40px" style="position:absolute;top:29%;left:15%"></img>
 				</div>
 				<div id="draftser">
                                         <table class="table" id="drafttable">
@@ -196,6 +217,10 @@
 		ip = "127.0.0.1";
 		port = "8000";
 		conn = "http";
+
+		a = document.getElementsByClassName("w2p_fw");
+		a[1].children[0].id = "sender"
+		a[1].children[0].value="Send"
 		var activeelement = document.getElementById("tabs").children[0];
 		var sa = document.getElementById("inboxme");
 		var draftlist = {};
@@ -207,6 +232,8 @@
                 var cuckoo;
 		
 		function makesideactive(e){
+			b = document.getElementsByClassName("w2p_fw");
+			b[0].children[0].value=""
 			sa.className = "down";
 			sa = e;
 			e.className = "sideactive";
@@ -251,7 +278,6 @@
 	
 		}
 		function getuser(){
-                                
                                 var xhr = new XMLHttpRequest();
                                 xhr.open("GET",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/getuser",true);
                                 xhr.send();
@@ -635,7 +661,7 @@
 			$("#inboxer").hide();
 			$("#composer").slideDown("slow");
 			});
-*/
+*/			
 			var sa = document.getElementById("inboxme");
 			
 			function savetodrafts(){
@@ -730,7 +756,6 @@
 					$("#composer").fadeOut("fast");
 			});
 			$("#sender").click(function(){
-                        
                                 var xhr = new XMLHttpRequest();
                             	var xp = new XMLHttpRequest();
 			        reclist = {};
@@ -754,14 +779,14 @@
 				details["send_id"] = send_id;
                                 var sender_name = document.getElementById("user").innerHTML;
         			details["sender_name"] = sender_name;
-		
+					
+				alert("Mail Sent!!")
                                 if( tag != "" )
                                 {
                                         xhr.open("POST",conn+"://"+ip+":"+port+"/ITWSII_StudentsMail/main/send",true);
 					xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                                         xhr.send(JSON.stringify(details));
                                         xhr.onreadystatechange = function(){
-                                                
                                                 if( xhr.readyState == 4 && xhr.status == 200 )
                                                 {
                                                         alert(xhr.responseText);

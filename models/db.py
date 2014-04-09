@@ -102,6 +102,10 @@ db.define_table('mail', Field('rec_email', 'string', requires=[IS_NOT_EMPTY()]),
 
 db.define_table('student', Field('email_id','string'), Field('name','string'), Field('mails','list:reference mail'));
 
+db.define_table('attachments',
+		Field('attachment', 'upload')
+	       )
+
 #db.define_table('tag',Field('name'),format='%(name)s');
 #db.define_table('product',Field('name'), Field('tags','list:reference tag'))
 
