@@ -1,0 +1,374 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.TypeError'> eval() arg 1 must be a string or code object"
+p3
+sS'layer'
+p4
+S'/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/controllers/main.py'
+p5
+sS'code'
+p6
+S'def loginvalidate():\n\timport json\n\n        studentinfo = {}\n\n        studentinfo["name"]="Hitesh Sharma";\n        studentinfo["rollno"]="201301065";\n\n        studentinfo["batch"]="2K14";\n\n        return json.dumps(studentinfo)\n\n\ndef loginmy():\n\tif len(request.vars) != 0:\n\t\tsession["name"] = "None"\n\t\tsession["email"] = "None"\n\t\treturn dict(log=request.vars["logout"])\n\treturn dict(log=0)\n\ndef passthru():\n\tsession["name"] = request.vars["name"]\n\tsession["email"] = request.vars["email"]\n\treturn "proceed"\n\ndef getuser():\n\n\tname = session["name"]\n\temail = session["email"]\n\tc = db( db.student.email_id == email ).select()\n\tif len(c) == 0:\n\t\tdb.student.insert(email_id = email , name = name )\n\treturn "Added to Database!"\n\ndef mails():\n\n\timport time\n#       session.sent_time = time.strftime("%H:%M:%S");\n#       session.sent_date = time.strftime("%d-%m-%Y");\n\n\tif session["name"] == "None":\n\t\tresponse.view = \'main/pls.html\'\n\t\treturn dict()\t\n\treturn dict()\n\ndef getid():\n\tsubstr = request.vars["id"]\n\tl = len(substr)\n\trows = db(db.student.email_id[:l] == substr ).select()\n\ts = ""\n\tfor row in rows:\n\t\tif s == "":\n\t\t\ts = row.email_id\t\n\t\telse:\n\t\t\ts = s+" "+row.email_id\n\treturn str(s)\n\ndef add_TA():\n        TA = {\'anish.shankar\':\'Anish Shankar\', \'anurag.soni\':\'Anurag Soni\', \'madhavan.chetlur\':\'Madhavan Malolan\', \'rajeshkumar.gupta\':\'Rajeshkumar Gupta\', \'ayush.minocha\':\'Ayush Minocha\', \'vineet.kumar\':\'Vineet Kumar\', \'ankush.jain\':\'Ankush Jain\', \'mayank.g\':\'Mayank Gupta\', \'swapna.kidambi\':\'Swapna Kidambi\', \'vishrut.mehta\':\'Vishrut Mehta\', \'gaurav.mishra\':\'Gaurav Mishra\'}\n        for i in TA:\n                c = db(db.student.email_id == i).select();\n                if(len(c) == 0):\n                        db.student.insert(email_id=i, name=TA[i]);\n\n        d = {}\n        rows = db(db.student).select();\n        for row in rows:\n                d[row.email_id] = row.name;\n\n        return "Added TAs"\n\ndef send():\n\n\timport time\n\n        session.sent_time = time.strftime("%H:%M:%S");\n        session.sent_date = time.strftime("%d-%m-%Y");\n\trow = db(db.un).select()       \n\timport gluon.contrib.simplejson,json\n\ta = gluon.contrib.simplejson.loads(request.body.read())\n\td = a["receivers"].split(" ")\n\tsentreceivers = ""\n\td.remove("")\n        for i in d:\n   \t\tc = db(db.student.email_id == i).select();\n\t\tif(len(c) == 0):\n       \t\t\treturn "Please enter a valid e-mail address.";\n\tfor i in d:\n\t\tif a["sub"] == "":\n\t\t\ta["sub"] = "No Subject"\n\t\tsentreceivers = sentreceivers+" "+i\n        \tdb.mail.insert(sender_name=a["sender_name"],rec_email=i, sender_email=a["send_id"], subject=a["sub"],mail_message=a["msg"], sent_date=session.sent_date, sent_time=session.sent_time, tag=a["tag"], unique_field=row[0].mail_number);\n\t\n\tdb.sentmail.insert(sender_name=a["sender_name"],receivers=sentreceivers, sender_email=a["send_id"], subject=a["sub"],mail_message=a["msg"], sent_date=session.sent_date, sent_time=session.sent_time, tag=a["tag"], unique_field=row[0].mail_number)      \n\tm = {}\n\trows = db(db.mail).select();\n\tfor i in d:\n\t\tb = []\n\t\tfor row in rows:\n                \tif row.rec_email == i:\n                        \tb.append(row.id);\n\t\tm[i] = b;\n\trows = db(db.student).select();\n        for i in m:\n\t\tfor row in rows:\n                \tif row.email_id == i:\n \t                       \trow.update_record(mails=m[i]);\n\t\t\n\trow = db(db.un).select()       \n\t#time.sleep(1);\t\n\trow[0].mail_number += 1;\n\trow[0].update_record(mail_number = row[0].mail_number);\n\treturn "Mail Sent!"\n\ndef attach():\n\trow = db(db.un).select();\n\tattachme = db(db.attachments).select();\n\tmail = db(db.mail).select();\n\tfor i in mail:\n\t\tfor j in attachme:\n                       check = row[0].mail_number\n                       if j.uniqueId == check and i.unique_field == check:\n                     \t\ti.update_record(attachment=j.id)\n\tmail = db(db.sentmail).select();\n        for i in mail:\n                for j in attachme:\n                        check = row[0].mail_number-1\n                        if j.uniqueId == check and i.unique_field == check:\n                                i.update_record(attachment=j.id)\n        return ""\ndef show():\n\timport json\n\tct = 1;\n        mails = {};\n        user = request.vars[\'id\'];\n        row = db(db.student.email_id == user).select(db.student.mails);\n        for i in row:\n\t\tif i[\'mails\'] == None:\n\t\t\treturn str(mails);\n                for j in i[\'mails\']:\n\t\t    if j.delt == 0:\n                   \ttemp = {}\n                   \ttemp["send_id"] = j.sender_email\n                   \ttemp["sub"] = j.subject\n                   \ttemp["msg"] = j.mail_message\n                   \ttemp["sent_date"] = j.sent_date\n                   \ttemp["sent_time"] = j.sent_time\n                   \ttemp["tag"] = j.tag\n\t\t   \ttemp["id"] = j.id\n                   \tmails[ct] = temp;\n\t\t   \tct += 1;\n        return json.dumps(mails)\n\ndef count():\n        import json\n        c = {\'Academics\':0, \'Sports\':0, \'Events\':0, \'Cultural\':0, \'Urgent\':0, \'Lost/Found\':0, \'General\':0}\n        name = request.get_vars[\'name\'];\n        row = db(db.student.email_id == name).select()\n        for r in row:\n            a = r.mails\n\n        for i in a:\n            if db.mail.id == i and db.mail.red == 0:\n                if c.has_key(i.tag):\n                        c[i.tag] += 1;\n\n        return json.dumps(c)\n\ndef sent():\n\timport json\n\tct = 1\n\tmails = {}\n\teid = request.get_vars[\'eid\']\n\trows = db(db.mail.sender_email == eid).select()\n\tfor row in rows:\n\t\td = {}\n\t\td[\'rec_email\'] = row.rec_email\n\t\td[\'sub\'] = row.subject\n\t\td[\'msg\'] = row.mail_message\n\t\td[\'tag\'] = row.tag\n\t\td[\'time\'] = row.sent_time\n\t\td[\'date\'] = row.sent_date\n\t\tmails[ct] = d;\n\t\tct += 1\n\treturn json.dumps(mails)\n\ndef sentmails():\n\n\timport json\n\temail = request.vars["email"]\n\trows = db(db.sentmail.id > 0).select()\n\trows = rows.as_list()\n\n        k = [ str(x) for x in range(1,len(rows)+1) ]\n\t\n        js = dict(zip(k,rows))\n\n        return json.dumps(js)\n\n\ndef drafts():\n        import time, gluon.contrib.simplejson\n        import json\n\n        date = time.strftime("%d-%m-%Y")\n        a = gluon.contrib.simplejson.loads(request.body.read())\n\n        receivers = a["receivers"]\n\trows = db(db.draftmail).select()\n\tflag = 0\n\tfor i in rows:\n\t\tif i.sender_name == a[\'sender_name\'] and i.receivers == receivers and i.sender_email == a[\'send_id\'] and i.subject == a[\'sub\'] and i.mail_message == a[\'msg\']:\n\t\t\treturn "already"\n\n  \tdb.draftmail.insert(sender_name=a[\'sender_name\'],receivers=receivers, sender_email=a[\'send_id\'], subject=a[\'sub\'],mail_message=a[\'msg\'], made_date=date, tag=a[\'tag\'])\n        return "Message Saved to Drafts!"\n\n\ndef getdrafts():\n\n        import time, gluon.contrib.simplejson\n        import json\n        send_id = request.vars["email"]\n\n        rows = db( db.draftmail.sender_email == send_id ).select()\n\trows = rows.as_list()\n\t\n\tk = [ x for x in range(1,len(rows)+1) ]\n\t\n\tjs = dict(zip(k,rows))\t\n       \n\treturn json.dumps(js)\n\ndef checkdrafts():\n\timport time, gluon.contrib.simplejson\n        import json\n\n        date = time.strftime("%d-%m-%Y")\n        a = gluon.contrib.simplejson.loads(request.body.read())\n\n        receivers = a[\'receivers\']\n\t\n\tdb((db.draftmail.sender_name == a[\'sender_name\'] )&(db.draftmail.receivers == receivers)&(db.draftmail.sender_email == a[\'send_id\'])&(db.draftmail.subject == a[\'sub\'] ) &( db.draftmail.mail_message == a[\'message\'])).delete()\n        \n\treturn "draft message deleted!"\n\ndef deletedrafts():\n\t\n\timport time, gluon.contrib.simplejson\n\twhole = gluon.contrib.simplejson.loads(request.body.read())\n\t\t\n\tfor i in whole:\n\t\n\t\tk = {}\n\t\tk = eval(whole[i])\n\t\n\t\tdb((db.draftmail.sender_name == k[\'sender_name\'] )&(db.draftmail.receivers == k["receivers"])&(db.draftmail.sender_email == k[\'sender_email\'])&(db.draftmail.subject == k[\'subject\'] ) &( db.draftmail.mail_message == k[\'mail_message\'])).delete()\n\n        return "Deleted from Drafts!"\n\ndef deletesent():\n\n\timport time, gluon.contrib.simplejson\n        whole = gluon.contrib.simplejson.loads(request.body.read())\n\n        for i in whole:\n\n                k = {}\n                k = eval(whole[i])\n\n                db((db.sentmail.sender_name == k[\'sender_name\'] )&(db.sentmail.receivers == k["receivers"])&(db.sentmail.sender_email == k[\'sender_email\'])&(db.sentmail.subject == k[\'subject\'] )&( db.sentmail.mail_message == k[\'mail_message\'])).delete()\n\n        return "Deleted from Sent!"\n\t\ndef attachment():\n\tId = request.vars[\'id\'];\n\tSmail = db(db.sentmail.id==Id).select()\n\tif Smail[0].attachment is not None:\n\t\tattachId = Smail[0].attachment[0].Name\n\t\tlink = Smail[0].attachment[0].attachment\n\t\treturn attachId+">"+link\n\treturn ""\ndef attachment2():\n\tId = request.vars[\'id\'];\n\tmail = db(db.mail.id==Id).select()\n\tif mail[0].attachment is not None:\n\t\tattachId = mail[0].attachment[0].Name\n\t\tlink = mail[0].attachment[0].attachment\n\t\treturn attachId+">"+link\n\treturn ""\n\ndef deleteInbox():\n\tcounter = request.vars[\'count\'];\n\tcounter = counter.split(">");\n\tcounter.pop();\n\tfor i in counter:\n\t\trow = db(db.mail.id==i).select()\n\t\trow[0].update_record(delt=1);\n\treturn ""\n\ndef search():\n\n        import json\n        ct = 1\n        result = {}\n        x = request.vars["value"];\n        name = request.vars["name"]\n        if x == \'\':\n                return json.dumps("None");\n        rows = db(db.mail.rec_email == name).select();\n        for row in rows:\n                if x.lower() in row.subject.lower() or x.lower() in row.sender_email.lower():\n                        mail = {}\n                        mail["subject"] = row.subject\n                        mail["sender"] = row.sender_email\n                        mail["sent_date"] = row.sent_date\n                        mail["tag"] = row.tag\n                        result[ct] = mail\n                        ct += 1\n        return json.dumps(result);\n\n\ndef showTrash():\t\n\timport json\n\tct = 1;\n        mails = {};\n        user = request.vars[\'id\'];\n        row = db(db.student.email_id == user).select(db.student.mails);\n        for i in row:\n\t\tif i[\'mails\'] == None:\n\t\t\treturn str(mails);\n                for j in i[\'mails\']:\n\t\t    if j.delt == 1:\n                   \ttemp = {}\n                   \ttemp["send_id"] = j.sender_email\n                   \ttemp["sub"] = j.subject\n                   \ttemp["msg"] = j.mail_message\n                   \ttemp["sent_date"] = j.sent_date\n                   \ttemp["sent_time"] = j.sent_time\n                   \ttemp["tag"] = j.tag\n\t\t   \ttemp["id"] = j.id\n                   \tmails[ct] = temp;\n\t\t   \tct += 1;\n        return json.dumps(mails)\n\ndef attachmentview():\n\n\trow = db(db.un).select();\n\n\n        form = SQLFORM(db.attachments, formstyle="divs", submit_button="Attach", upload=URL(\'download\'), fields=[\'attachment\']);\n        if request.vars.attachment is not None and request.vars.attachment != "":\n                form.vars.uniqueId = row[0].mail_number\n                form.vars.Name = request.vars.attachment.filename\n        if form.accepts(request, formname=None):\n                 pass\n        return dict(form=form)\n\t\t\n\nresponse._vars=response._caller(deletedrafts)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__hash__'
+p12
+S"<method-wrapper '__hash__' of exceptions.TypeError object>"
+p13
+sS'__setattr__'
+p14
+S"<method-wrapper '__setattr__' of exceptions.TypeError object>"
+p15
+sS'__reduce_ex__'
+p16
+S'<built-in method __reduce_ex__ of exceptions.TypeError object>'
+p17
+sS'__getslice__'
+p18
+S"<method-wrapper '__getslice__' of exceptions.TypeError object>"
+p19
+sS'__getitem__'
+p20
+S"<method-wrapper '__getitem__' of exceptions.TypeError object>"
+p21
+sS'__setstate__'
+p22
+S'<built-in method __setstate__ of exceptions.TypeError object>'
+p23
+sS'args'
+p24
+S"('eval() arg 1 must be a string or code object',)"
+p25
+sS'__reduce__'
+p26
+S'<built-in method __reduce__ of exceptions.TypeError object>'
+p27
+sS'__str__'
+p28
+S"<method-wrapper '__str__' of exceptions.TypeError object>"
+p29
+sS'__format__'
+p30
+S'<built-in method __format__ of exceptions.TypeError object>'
+p31
+sS'__getattribute__'
+p32
+S"<method-wrapper '__getattribute__' of exceptions.TypeError object>"
+p33
+sS'__class__'
+p34
+S"<type 'exceptions.TypeError'>"
+p35
+sS'__unicode__'
+p36
+S'<built-in method __unicode__ of exceptions.TypeError object>'
+p37
+sS'__delattr__'
+p38
+S"<method-wrapper '__delattr__' of exceptions.TypeError object>"
+p39
+sS'__subclasshook__'
+p40
+S'<built-in method __subclasshook__ of type object>'
+p41
+sS'__repr__'
+p42
+S"<method-wrapper '__repr__' of exceptions.TypeError object>"
+p43
+sS'__dict__'
+p44
+S'{}'
+p45
+sS'__sizeof__'
+p46
+S'<built-in method __sizeof__ of exceptions.TypeError object>'
+p47
+sS'__doc__'
+p48
+S"'Inappropriate argument type.'"
+p49
+sS'__init__'
+p50
+S"<method-wrapper '__init__' of exceptions.TypeError object>"
+p51
+sS'__new__'
+p52
+S'<built-in method __new__ of type object>'
+p53
+ssS'evalue'
+p54
+S'eval() arg 1 must be a string or code object'
+p55
+sS'request'
+p56
+cgluon.html
+XML_unpickle
+p57
+(S's\x98V\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">ajax</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">application</td><td style="vertical-align:top;">:</td><td><div>ITWSII_StudentsMail</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">args</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cid</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">client</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">controller</td><td style="vertical-align:top;">:</td><td><div>main</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_itwsii_studentsmail</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-302b8b38-8c3f-4c17-9bb7-5ef87d2ca3d3<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">env</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div>415</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div>application/json;charset=UTF-8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_ENCODING</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_LANGUAGE</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.5</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CACHE_CONTROL</td><td style="vertical-align:top;">:</td><td><div>no-cache</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONNECTION</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div>415</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div>application/json;charset=UTF-8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_COOKIE</td><td style="vertical-align:top;">:</td><td><div>session_id_itwsii_studentsmail=127.0.0.1-302b8b38-8c3f-4c17-9bb7-5ef87d2ca3d3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_HOST</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1:8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_PRAGMA</td><td style="vertical-align:top;">:</td><td><div>no-cache</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_REFERER</td><td style="vertical-align:top;">:</td><td><div>http://127.0.0.1:8000/ITWSII_StudentsMail/main/mails</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_USER_AGENT</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_INFO</td><td style="vertical-align:top;">:</td><td><div>/ITWSII_StudentsMail/main/deletedrafts</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">QUERY_STRING</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_ADDR</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_PORT</td><td style="vertical-align:top;">:</td><td><div>45893</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_METHOD</td><td style="vertical-align:top;">:</td><td><div>POST</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SCRIPT_NAME</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_NAME</td><td style="vertical-align:top;">:</td><td><div>Beast</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PORT</td><td style="vertical-align:top;">:</td><td><div>8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PROTOCOL</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SOFTWARE</td><td style="vertical-align:top;">:</td><td><div>Rocket 1.2.6</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/&#x27;, &#x27;/home/hitesh96db/Documents/web2py/applications/admin/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/home/hitesh96db/Documents/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_args</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_options</td><td style="vertical-align:top;">:</td><td><div>&lt;Values at 0x1eb1878: {&#x27;verbose&#x27;: False, &#x27;ip&#x27;: &#x27;127.0.0.1&#x27;, &#x27;debuglevel&#x27;: 30, &#x27;with_scheduler&#x27;: False, &#x27;ips&#x27;: [&#x27;127.0.1.1&#x27;], &#x27;shutdown_timeout&#x27;: 5, &#x27;taskbar&#x27;: False, &#x27;with_coverage&#x27;: False, &#x27;port&#x27;: 8000, &#x27;maxthreads&#x27;: None, &#x27;softcron&#x27;: False, &#x27;server_name&#x27;: &#x27;Beast&#x27;, &#x27;bpython&#x27;: False, &#x27;nogui&#x27;: False, &#x27;pid_filename&#x27;: &#x27;httpserver.pid&#x27;, &#x27;extcron&#x27;: False, &#x27;runcron&#x27;: False, &#x27;run_system_tests&#x27;: False, &#x27;test&#x27;: None, &#x27;folder&#x27;: &#x27;/home/hitesh96db/Documents/web2py&#x27;, &#x27;config&#x27;: &#x27;&#x27;, &#x27;minthreads&#x27;: None, &#x27;shell&#x27;: None, &#x27;run&#x27;: &#x27;&#x27;, &#x27;log_filename&#x27;: &#x27;httpserver.log&#x27;, &#x27;profiler_dir&#x27;: None, &#x27;args&#x27;: [&#x27;&#x27;], &#x27;socket_timeout&#x27;: 5, &#x27;ssl_ca_certificate&#x27;: None, &#x27;scheduler&#x27;: None, &#x27;interfaces&#x27;: None, &#x27;ssl_private_key&#x27;: &#x27;&#x27;, &#x27;scheduler_groups&#x27;: None, &#x27;password&#x27;: &#x27;&lt;ask&gt;&#x27;, &#x27;request_queue_size&#x27;: 5, &#x27;ssl_certificate&#x27;: &#x27;&#x27;, &#x27;cronjob&#x27;: False, &#x27;numthreads&#x27;: None, &#x27;quiet&#x27;: False, &#x27;import_models&#x27;: False, &#x27;timeout&#x27;: 10, &#x27;plain&#x27;: False, &#x27;nobanner&#x27;: False}&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_length</td><td style="vertical-align:top;">:</td><td><div>415</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_type</td><td style="vertical-align:top;">:</td><td><div>application/json;charset=UTF-8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/home/hitesh96db/Documents/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_encoding</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_language</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.5</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cache_control</td><td style="vertical-align:top;">:</td><td><div>no-cache</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_connection</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_content_length</td><td style="vertical-align:top;">:</td><td><div>415</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_content_type</td><td style="vertical-align:top;">:</td><td><div>application/json;charset=UTF-8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cookie</td><td style="vertical-align:top;">:</td><td><div>session_id_itwsii_studentsmail=127.0.0.1-302b8b38-8c3f-4c17-9bb7-5ef87d2ca3d3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_host</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1:8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_pragma</td><td style="vertical-align:top;">:</td><td><div>no-cache</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_referer</td><td style="vertical-align:top;">:</td><td><div>http://127.0.0.1:8000/ITWSII_StudentsMail/main/mails</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_user_agent</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>Beast</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>127.0.1.1</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_info</td><td style="vertical-align:top;">:</td><td><div>/ITWSII_StudentsMail/main/deletedrafts</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">query_string</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_addr</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_port</td><td style="vertical-align:top;">:</td><td><div>45893</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_method</td><td style="vertical-align:top;">:</td><td><div>POST</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_uri</td><td style="vertical-align:top;">:</td><td><div>/ITWSII_StudentsMail/main/deletedrafts</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">script_name</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_name</td><td style="vertical-align:top;">:</td><td><div>Beast</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_port</td><td style="vertical-align:top;">:</td><td><div>8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_protocol</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_software</td><td style="vertical-align:top;">:</td><td><div>Rocket 1.2.6</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_path</td><td style="vertical-align:top;">:</td><td><div>/home/hitesh96db/Documents/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.5-stable+timestamp.2014.03.16.02.35.39</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;&lt;stderr&gt;&#x27;, mode &#x27;w&#x27; at 0x7f3504e10270&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;class wsgiref.util.FileWrapper at 0x1e330b8&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.input</td><td style="vertical-align:top;">:</td><td><div>&lt;socket._fileobject object at 0x7f34e00a5950&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multiprocess</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multithread</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;&lt;stderr&gt;&#x27;, mode &#x27;w&#x27; at 0x7f3504e10270&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;class wsgiref.util.FileWrapper at 0x1e330b8&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_input</td><td style="vertical-align:top;">:</td><td><div>&lt;socket._fileobject object at 0x7f34e00a5950&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multiprocess</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multithread</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">extension</td><td style="vertical-align:top;">:</td><td><div>html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">folder</td><td style="vertical-align:top;">:</td><td><div>/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">function</td><td style="vertical-align:top;">:</td><td><div>deletedrafts</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">global_settings</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/&#x27;, &#x27;/home/hitesh96db/Documents/web2py/applications/admin/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/home/hitesh96db/Documents/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_args</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_options</td><td style="vertical-align:top;">:</td><td><div>&lt;Values at 0x1eb1878: {&#x27;verbose&#x27;: False, &#x27;ip&#x27;: &#x27;127.0.0.1&#x27;, &#x27;debuglevel&#x27;: 30, &#x27;with_scheduler&#x27;: False, &#x27;ips&#x27;: [&#x27;127.0.1.1&#x27;], &#x27;shutdown_timeout&#x27;: 5, &#x27;taskbar&#x27;: False, &#x27;with_coverage&#x27;: False, &#x27;port&#x27;: 8000, &#x27;maxthreads&#x27;: None, &#x27;softcron&#x27;: False, &#x27;server_name&#x27;: &#x27;Beast&#x27;, &#x27;bpython&#x27;: False, &#x27;nogui&#x27;: False, &#x27;pid_filename&#x27;: &#x27;httpserver.pid&#x27;, &#x27;extcron&#x27;: False, &#x27;runcron&#x27;: False, &#x27;run_system_tests&#x27;: False, &#x27;test&#x27;: None, &#x27;folder&#x27;: &#x27;/home/hitesh96db/Documents/web2py&#x27;, &#x27;config&#x27;: &#x27;&#x27;, &#x27;minthreads&#x27;: None, &#x27;shell&#x27;: None, &#x27;run&#x27;: &#x27;&#x27;, &#x27;log_filename&#x27;: &#x27;httpserver.log&#x27;, &#x27;profiler_dir&#x27;: None, &#x27;args&#x27;: [&#x27;&#x27;], &#x27;socket_timeout&#x27;: 5, &#x27;ssl_ca_certificate&#x27;: None, &#x27;scheduler&#x27;: None, &#x27;interfaces&#x27;: None, &#x27;ssl_private_key&#x27;: &#x27;&#x27;, &#x27;scheduler_groups&#x27;: None, &#x27;password&#x27;: &#x27;&lt;ask&gt;&#x27;, &#x27;request_queue_size&#x27;: 5, &#x27;ssl_certificate&#x27;: &#x27;&#x27;, &#x27;cronjob&#x27;: False, &#x27;numthreads&#x27;: None, &#x27;quiet&#x27;: False, &#x27;import_models&#x27;: False, &#x27;timeout&#x27;: 10, &#x27;plain&#x27;: False, &#x27;nobanner&#x27;: False}&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/home/hitesh96db/Documents/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>Beast</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>127.0.1.1</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.5-stable+timestamp.2014.03.16.02.35.39</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_https</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_local</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_restful</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">now</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2014, 4, 15, 18, 50, 6, 413281)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">raw_args</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">raw_extension</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">url</td><td style="vertical-align:top;">:</td><td><div>/ITWSII_StudentsMail/main/deletedrafts</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">utcnow</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2014, 4, 15, 13, 20, 6, 413335)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uuid</td><td style="vertical-align:top;">:</td><td><div>ITWSII_StudentsMail/127.0.0.1.2014-04-15.18-50-06.c640d4e6-1e6c-45de-b104-86a955e99e7a</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi</td><td style="vertical-align:top;">:</td><td><div>&lt;gluon.main.LazyWSGI object at 0x7f34d42e4710&gt;</div></td></tr></table></div>'
+tRp58
+sS'frames'
+p59
+(lp60
+(dp61
+S'file'
+p62
+S'/home/hitesh96db/Documents/web2py/gluon/restricted.py'
+p63
+sS'dump'
+p64
+(dp65
+S'environment'
+p66
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, 'CENTER': <class 'gluon.html.CENTER'>, ...}"
+p67
+sS'ccode'
+p68
+S'<code object <module> at 0x7f34e00b47b0, file "/...ITWSII_StudentsMail/controllers/main.py", line 1>'
+p69
+ssS'lnum'
+p70
+I220
+sS'lines'
+p71
+(dp72
+I224
+S'        # do not encapsulate (obfuscate) the original RestrictedError'
+p73
+sI215
+S'    try:'
+p74
+sI216
+S'        if isinstance(code, types.CodeType):'
+p75
+sI217
+S'            ccode = code'
+p76
+sI218
+S'        else:'
+p77
+sI219
+S'            ccode = compile2(code, layer)'
+p78
+sI220
+S'        exec ccode in environment'
+p79
+sI221
+S'    except HTTP:'
+p80
+sI222
+S'        raise'
+p81
+sI223
+S'    except RestrictedError:'
+p82
+ssS'call'
+p83
+S"(code='def loginvalidate():\\n\\timport json\\n\\n        stude...\\t\\n\\nresponse._vars=response._caller(deletedrafts)\\n', environment={'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, 'CENTER': <class 'gluon.html.CENTER'>, ...}, layer='/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/controllers/main.py')"
+p84
+sS'func'
+p85
+S'restricted'
+p86
+sa(dp87
+g62
+S'/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/controllers/main.py'
+p88
+sg64
+(dp89
+sg70
+I360
+sg71
+(dp90
+I352
+S'        if request.vars.attachment is not None and request.vars.attachment != "":'
+p91
+sI353
+S'                form.vars.uniqueId = row[0].mail_number'
+p92
+sI354
+S'                form.vars.Name = request.vars.attachment.filename'
+p93
+sI355
+S'        if form.accepts(request, formname=None):'
+p94
+sI356
+S'                 pass'
+p95
+sI357
+S'        return dict(form=form)'
+p96
+sI358
+S''
+sI349
+S''
+sI350
+S''
+sI351
+S'        form = SQLFORM(db.attachments, formstyle="divs", submit_button="Attach", upload=URL(\'download\'), fields=[\'attachment\']);'
+p97
+ssg83
+S'()'
+p98
+sg85
+S'<module>'
+p99
+sa(dp100
+g62
+S'/home/hitesh96db/Documents/web2py/gluon/globals.py'
+p101
+sg64
+(dp102
+S'self'
+p103
+S'undefined'
+p104
+sS'f'
+S'<function deletedrafts>'
+p105
+ssg70
+I385
+sg71
+(dp106
+I384
+S'        self._vars = None'
+p107
+sI385
+S'        self._caller = lambda f: f()'
+p108
+sI386
+S'        self._view_environment = None'
+p109
+sI387
+S'        self._custom_commit = None'
+p110
+sI388
+S'        self._custom_rollback = None'
+p111
+sI389
+S''
+sI380
+S'        self.menu = []             # used by the default view layout'
+p112
+sI381
+S'        self.files = []            # used by web2py_ajax.html'
+p113
+sI382
+S'        self.generic_patterns = []  # patterns to allow generic views'
+p114
+sI383
+S"        self.delimiters = ('{{', '}}')"
+p115
+ssg83
+S'(f=<function deletedrafts>)'
+p116
+sg85
+S'<lambda>'
+p117
+sa(dp118
+g62
+S'/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/controllers/main.py'
+p119
+sg64
+(dp120
+S'i'
+S"u'1'"
+p121
+sS'whole'
+p122
+S"{u'0': {u'id': 111, u'made_date': u'15-04-2014', u'mail_message': u'yEAH BRO', u'receivers': u' hitesh.sharma', u'sender_email': u'hitesh.sharma', u'sender_name': u'Hitesh Sharma', u'subject': u'DRAFT MESS 323', u'tag': u'Academics'}, u'1': {u'id': 112, u'made_date': u'15-04-2014', u'mail_message': u'yEAH BRO', u'receivers': u' hitesh.sharma goutam.nair', u'sender_email': u'hitesh.sharma', u'sender_name': u'Hitesh Sharma', u'subject': u'DRAFT MESS 323', u'tag': u'Academics'}}"
+p123
+sS'k'
+g45
+sS'builtineval'
+p124
+S'<built-in function eval>'
+p125
+ssg70
+I255
+sg71
+(dp126
+I256
+S''
+sI257
+S'\t\tdb((db.draftmail.sender_name == k[\'sender_name\'] )&(db.draftmail.receivers == k["receivers"])&(db.draftmail.sender_email == k[\'sender_email\'])&(db.draftmail.subject == k[\'subject\'] ) &( db.draftmail.mail_message == k[\'mail_message\'])).delete()'
+p127
+sI258
+S''
+sI259
+S'        return "Deleted from Drafts!"'
+p128
+sI250
+S'\twhole = gluon.contrib.simplejson.loads(request.body.read())'
+p129
+sI251
+S''
+sI252
+S'\tfor i in whole:'
+p130
+sI253
+S''
+sI254
+S'\t\tk = {}'
+p131
+sI255
+S'\t\tk = eval(whole[i])'
+p132
+ssg83
+S'()'
+p133
+sg85
+S'deletedrafts'
+p134
+sasS'pyver'
+p135
+S'Python 2.7.3: /usr/bin/python (prefix: /usr)'
+p136
+sS'session'
+p137
+g57
+(S's/\x01\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">email</td><td style="vertical-align:top;">:</td><td><div>hitesh.sharma</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">name</td><td style="vertical-align:top;">:</td><td><div>Hitesh Sharma</div></td></tr></table></div>'
+tRp138
+sS'etype'
+p139
+S"<type 'exceptions.TypeError'>"
+p140
+sS'date'
+p141
+S'Tue Apr 15 18:50:06 2014'
+p142
+sS'response'
+p143
+g57
+(S's4\x17\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">body</td><td style="vertical-align:top;">:</td><td><div>&lt;cStringIO.StringO object at 0x7f34c47abbc8&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_itwsii_studentsmail</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-302b8b38-8c3f-4c17-9bb7-5ef87d2ca3d3<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div>/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">delimiters</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>{{</div></td></tr><tr><td><div>}}</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">files</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generic_patterns</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>*</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">headers</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">X-Powered-By</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">meta</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">models_to_run</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>^\\w+\\.py$</div></td></tr><tr><td><div>^main/\\w+\\.py$</div></td></tr><tr><td><div>^main/deletedrafts/\\w+\\.py$</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">postprocessing</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_client</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_compression_level</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_expires</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_key</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_data_name</td><td style="vertical-align:top;">:</td><td><div>session_data_itwsii_studentsmail</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_file</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/sessions/127.0.0.1-302b8b38-8c3f-4c17-9bb7-5ef87d2ca3d3&#x27;, mode &#x27;rb+&#x27; at 0x7f34ec203ae0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_filename</td><td style="vertical-align:top;">:</td><td><div>/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/sessions/127.0.0.1-302b8b38-8c3f-4c17-9bb7-5ef87d2ca3d3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_hash</td><td style="vertical-align:top;">:</td><td><div>4a78207c7aa663b91bd14b7a1220a503</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-302b8b38-8c3f-4c17-9bb7-5ef87d2ca3d3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_name</td><td style="vertical-align:top;">:</td><td><div>session_id_itwsii_studentsmail</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_locked</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_masterapp</td><td style="vertical-align:top;">:</td><td><div>ITWSII_StudentsMail</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_new</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_storage_type</td><td style="vertical-align:top;">:</td><td><div>file</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">status</td><td style="vertical-align:top;">:</td><td><div>200</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">view</td><td style="vertical-align:top;">:</td><td><div>main/deletedrafts.html</div></td></tr></table></div>'
+tRp144
+sS'locals'
+p145
+(dp146
+S'i'
+S"u'1'"
+p147
+sS'whole'
+p148
+S"{u'0': {u'id': 111, u'made_date': u'15-04-2014', u'mail_message': u'yEAH BRO', u'receivers': u' hitesh.sharma', u'sender_email': u'hitesh.sharma', u'sender_name': u'Hitesh Sharma', u'subject': u'DRAFT MESS 323', u'tag': u'Academics'}, u'1': {u'id': 112, u'made_date': u'15-04-2014', u'mail_message': u'yEAH BRO', u'receivers': u' hitesh.sharma goutam.nair', u'sender_email': u'hitesh.sharma', u'sender_name': u'Hitesh Sharma', u'subject': u'DRAFT MESS 323', u'tag': u'Academics'}}"
+p149
+sS'k'
+g45
+sS'gluon'
+p150
+S"<module 'gluon' from '/home/hitesh96db/Documents/web2py/gluon/__init__.pyc'>"
+p151
+sS'time'
+p152
+S"<module 'time' (built-in)>"
+p153
+sssS'traceback'
+p154
+S'Traceback (most recent call last):\n  File "/home/hitesh96db/Documents/web2py/gluon/restricted.py", line 220, in restricted\n    exec ccode in environment\n  File "/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/controllers/main.py", line 360, in <module>\n  File "/home/hitesh96db/Documents/web2py/gluon/globals.py", line 385, in <lambda>\n    self._caller = lambda f: f()\n  File "/home/hitesh96db/Documents/web2py/applications/ITWSII_StudentsMail/controllers/main.py", line 255, in deletedrafts\n    k = eval(whole[i])\nTypeError: eval() arg 1 must be a string or code object\n'
+p155
+s.

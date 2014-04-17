@@ -1,0 +1,62 @@
+<html>
+<head>
+<style>
+      fieldset{
+                        display:block;
+                        border:0px;
+                }
+                .w2p_fw{
+                        color : black;
+                        position : absolute;
+                        top : 2% !important;
+                        left : 2% !important;
+                }
+                #attachments_attachment__label{
+                        visibility:hidden !important;
+                }
+                #submit_record__row{
+                	left: 18%;
+    position: absolute;
+    top: 23%;
+		}
+	#overtxt
+	{
+		 background-color: #F0F0F0;
+    left: 56%;
+    position: relative;
+    top: -54px;
+	}
+	input
+	{
+		left: 25%;
+    position: relative;
+    top: 153%;
+	}
+</style>
+</head>
+<body style="overflow:hidden;" onload="getfilename()">
+	{{=form}}
+	<div id="bigdiv">
+	</div>
+</body>
+<script>
+	function getfilename()
+	{
+		if ( typeof localStorage.filename == "undefined" )
+				localStorage.filename = "Select File";
+
+		bigdiv = document.getElementById("bigdiv");
+		div = document.createElement("DIV");
+                p = document.createElement("P");
+		p.id = "overtxt";
+                txt = document.createTextNode(localStorage.filename);
+                p.appendChild(txt);
+                div.appendChild(p);
+		bigdiv.appendChild(div);
+	}
+	
+	document.getElementById("submit_record__row").onclick = function(){
+			localStorage.filename = document.getElementById("attachments_attachment").value;	
+	}
+</script>
+</html>

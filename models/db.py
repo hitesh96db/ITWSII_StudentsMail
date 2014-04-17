@@ -94,16 +94,20 @@ use_janrain(auth, filename='private/janrain.key')
 #db.define_table('records', Field('name', 'string'), Field('rollno', 'string'));
 ####################
 
-db.define_table('sentmail', Field('receivers', 'string'), Field('sender_email','string', requires=[IS_NOT_EMPTY()]),Field('sender_name','string'),Field('subject', 'string', default='No subject'), Field('mail_message', 'text', default=''), Field('tag', 'string'), Field('sent_date', 'string'),Field('sent_time','string'))
+db.define_table('un', Field('mail_number', 'integer'))
 
-db.define_table('draftmail', Field('receivers', 'json', requires=[IS_JSON()]), Field('sender_email','string', requires=[IS_NOT_EMPTY()]),Field('sender_name','string'),Field('subject', 'string', default='No subject'), Field('mail_message', 'text', default=''), Field('tag', 'string'), Field('made_date', 'string'))
+db.define_table('sentmail', Field('receivers', 'string'), Field('sender_email','string', requires=[IS_NOT_EMPTY()]),Field('sender_name','string'),Field('subject', 'string', default='No subject'), Field('mail_message', 'text', default=''), Field('tag', 'string'), Field('sent_date', 'string'),Field('sent_time','string'), Field('attachment', 'list:reference attachments'), Field('unique_field', 'integer', default=0))
 
-db.define_table('mail', Field('rec_email', 'string', requires=[IS_NOT_EMPTY()]), Field('sender_email','string', requires=[IS_NOT_EMPTY()]),Field('sender_name','string'),Field('subject', 'string', default='No subject'), Field('mail_message', 'text', default=''), Field('tag', 'string'), Field('sent_time','string'), Field('sent_date', 'string'),Field('red','integer',default=0),Field('important','integer',default=0),Field('trash','integer',default=0))
+db.define_table('draftmail', Field('receivers', 'string'), Field('sender_email','string', requires=[IS_NOT_EMPTY()]),Field('sender_name','string'),Field('subject', 'string', default='No subject'), Field('mail_message', 'text', default=''), Field('tag', 'string'), Field('made_date', 'string'), Field('attachment', 'list:reference attachments'))
+
+db.define_table('mail', Field('rec_email', 'string', requires=[IS_NOT_EMPTY()]), Field('sender_email','string', requires=[IS_NOT_EMPTY()]),Field('sender_name','string'),Field('subject', 'string', default='No subject'), Field('mail_message', 'text', default=''), Field('tag', 'string', default=""), Field('sent_time','string'), Field('sent_date', 'string'),Field('red','integer',default=0),Field('important','integer',default=0), Field('attachment', 'list:reference attachments'), Field('delt', 'integer', default=0), Field('unique_field','integer', default=0))
 
 db.define_table('student', Field('email_id','string'), Field('name','string'), Field('mails','list:reference mail'));
 
 db.define_table('attachments',
-		Field('attachment', 'upload')
+		Field('attachment', 'upload'),
+        	Field('uniqueId', 'integer'),
+		Field('Name', 'string')
 	       )
 
 #db.define_table('tag',Field('name'),format='%(name)s');
